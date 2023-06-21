@@ -1,21 +1,20 @@
 \input{header}
-\input{pa/vars}
+\input{ma/vars}
 \input{commands}
 
 \begin{document}
 \pagestyle{sta}
 \pagenumbering{Roman}
 \input{titlepage}
-\input{sperrvermerk} % optional
 \input{meta}
 \clearpage
 \pagenumbering{arabic}
 \let\Section\section
 \renewcommand\section{\clearpage\Section}
-\input{pa/intro}
-\input{pa/content}
-\input{pa/fin}
+\input{ma/intro}
+\input{ma/content}
+\input{ma/fin}
 \blankpage
-\input{pa/appendix}
+\input{ma/appendix}
 \input{postmeta}
 \end{document}
