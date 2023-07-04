@@ -1,31 +1,71 @@
 \section{Einleitung}
 
 % Robotik und KI wird immer populärer
+In der jüngeren Vergangenheit haben Roboter und Automationen im industriellen und privaten Gebrauch immer stärker an Relevanz gewonnen.
+\todo{Formulierung}
+So soll laut \emph{Statista} die Anzahl der weltweit verwendeten Roboter \num{2027} im Vergleich zu diesem Jahr (\num{2023}) um fast \num{20}\% auf \num{4,9} Millionen Einheiten steigen.
+Im Vergleich zu \num{2016} sind das sogar über \num{80}\%.\footcite{statista_robotics_market}
 % durch effizientere Software, kleinere Hardware, mehr rechenpower, kleinere Akkus
+% - Kostengünstig und leistungsfähige Sensoren
+% - Fortschritte in KI, zulezt Sprachgebrauch
+% - Miniaturisierung und kostensenkung der Komponenten in Mechanik und Elektronik
+% - Breitentauglichkeit der Programmierung
+Gründe hierfür sind unter anderen besonders die Entwicklung und Verfügbarkeit immer kostengünstigerer und leistungsfähigerer Sensoren,
+die jüngere Entwicklungen im Bereich der \gls{ki}, die Miniaturisierung der benötigten Bauteile und letztlich auch
+die anbahnende Breitentauglichkeit der Programmierung durch Sprachen wie \emph{Python}.
+\todo{Nachweise}
 
 % Viele neue Formen und dadurch Anwendungsgebiete kristalisieren sich
 % Viele der Formen werden noch nicht in voller effizienz genutzt
 
-% Eine in letzter Zeit sehr bekannt gewordene Form ist die des Vierbeinigen Roboters
+Durch die weite Verbreitung der Roboter und das erhöhte Interesse der Wirtschaft entstehen vermehrt neue Formen von Robotern.
+Zu diesen gehören Iterationen der bekannten Formen, wie einarmige Industrieroboter, humanoide Roboter - auch Androide genannt - oder
+Tierwesen nachempfundene Formen - zoomorphe Roboter, wie beispielsweise sechsbeinige Roboter.
+Die hohe Entwicklungsrate und der rasante Fortschritt auf diesem Gebiet führt einerseits zu sehr fähigen Geräten,
+deren Einsatzgebiete aber auf der anderen seite oftmals nicht oder kaum erforscht sind.
+% Eine in letzter Zeit sehr bekannt gewordene Form ist die des vierbeinigen Roboters
 % Die Arbeit beschäfftigt sich mit einem verbraucherorientierten Roboter und den möglichen einsatzfeldern
+Unter anderem durch die Erfolge des Unternehmens \emph{Boston Dynamics} und besonders deren Roboter \emph{Spot} ist die zoomorphe Form
+des Hundes in der breiten Masse der Anwender bekannt geworden.
+Die folgende Arbeit setzt sich mit dem Umgang und der Weiterentwicklung solcher vierbeinigen Roboter auseinander.
 
-\subsection{Hintergrund und Kontext}
-
+\subsection{Hintergrund und Kontext}\label{subsec:hintergrund-und-kontext}
 % Im Rahmen des Ausbaus der Forschung in Robotik und KI hat FH Hof Quadruped Roboter gekauft
 % Diese sind vergleichsweise günstig in Anschaffung und sehr flexibel einsetzbar
 % Da Verbraucherorientiert muss erarbeitet werden, wie sie genutzt werden können
 % Was die grenzen sind, wo die einsatzgebiete liegen
 
-\subsection{Begriffsdefinitio? nötig}
-% Aktuell redundant zur 2.1
+Im Zuge des Ausbaus der Robotik in der Lehre und Forschung der \emph{\gls{haw}} hat
+die Fakultät Informatik der Hochschule zwei Roboter des Models \emph{Go1 Edu} der Marke \emph{Unitree Robotics} beschafft.
+Im Vergleich zu einigen Alternativprodukten dieser und anderer Firmen ist der \gls{go1} sehr kostengünstig in der Anschaffung und besonders flexibel einsetzbar.
+Die offenen Schnittstellen des \gls{go1} machen ihn ebenfalls für Forschungsinstitute besonders interessant.
+Der genaue Funktionsumfang und die potenziellen Einsatzgebiete des Roboters werden im späteren Verlauf der Arbeit genauer erläutert.
+Das folgende Kapitel grenzt den Umfang der Arbeit genauer ein.
 
 \subsection{Zielsetzung und Methodik}
-
 % Ziel:
-% Die Arbeit beschäfftigt sich weniger mit Robotik und KI an sich
+% Die Arbeit beschäftigt sich weniger mit Robotik und KI an sich
 % Mehr mit integration des Roboters in ein Hochschul-Umfeld
 % IT- Infrastruktur, Rechenleistung outsourcen
 % Software Robust halten
+
+Trotz des Themas \emph{\mytitle} beschäftigt sich diese Arbeit weniger mit dem Thema \emph{Robotik} und
+dem eng gekoppeltem Themenbereich der \gls{ki}.
+Stattdessen liegt der Fokus auf der Integration und Funktionserweiterung des Roboters innerhalb eines
+bestehenden IT-Ökosystems und der Umgebung, in dem dieses eingerichtet ist.
+Das Umfeld ist in diesem Fall exemplarisch das der \gls{haw}.
+Konkret besteht das Ökosystem der Hochschule aus folgenden Teilbereichen:
+
+\begin{itemize}
+    \item Studierende, Mitarbeiter und Besucher des Campuses
+    \item Flächen und Gebäude
+    \item IT-Infrastruktur inklusive des Rechenzentrums
+    \item Lehr- und Forschungsinhalte
+\end{itemize}
+
+Ziel dieser Arbeit ist es, die Einsatzbereiche des \gls{go1} so zu testen, dass sie dem Ökosystem der \gls{haw} möglichst viel Nutzen bereiten.
+\paragraph{Bewertungskriterien}
+\todo{Wie wird Nutzen bewertet?}
 
 % Methodik
 % Einige Grundlagen klären:
@@ -40,9 +80,37 @@
 % Erläuterung der Einsatzgebiete
 % Verbindung aller Elemente (Netzwerk)
 
-% Was wird nicht geklärt?
+Das Ziel soll Schrittweise erreicht werden.
+Anfangs werden einige Grundlagen erläutert und definiert.
+So wird genauer auf Begriffe wie \emph{Robotik} und \emph{\gls{ki}}eingegangen, bevor diese im Laufe der Arbeit
+weiter vorausgesetzt werden.
+Zudem wird in diesem Schritt auch eingegrenzt, welche Teilbereiche dieser Fachgebiete relevant für den Verlauf der Arbeit sind.
 
-\subsection{Struktur der Arbeit} % Eingrenzung Arbeit
+Im zweiten Schritt wird der in dieser Arbeit referenzierte \gls{go1} genauer betrachtet.
+Die einzelnen Bauteile werden aufgegliedert und ihre Funktion beschrieben.
+Abschließend zu diesem Schritt soll noch die Zusammenarbeit der Komponenten erläutert werden.
+Nachdem der \emph{Ist}-Stand des Roboters erklärt wurde, wird die im Lieferumfang ab Werk enthaltene Funktion gezeigt und dokumentiert.
+Zur Inbetriebnahme des \gls{go1} benötigt es vorerst kein Wissen über die internen Steuerkomponenten.
 
+Diese werden im nächsten Schritt genauer betrachtet.
+Die Systemarchitektur und die Funktionen der einzelnen Hardware-Bauteile sollen genau dokumentiert werden.
+Zudem wird hierbei auch die Kommunikation des Gesamtsystems in sich, als auch mit externen Komponenten wie Fernbedienungen
+und Endgeräten dokumentiert.
+\todo{In Gleiderung noch kommunikation einfügen oder in Protokollen abgedeckt?}
+Hierzu werden auch die Limitierungen des Roboters im Werkszustand aufgelistet.
+
+Als Nächstes wird darauf eingegangen, welche Schritte am Roboter getätigt werden können, um ihn sinnvoll
+in das \gls{haw} Ökosystem zu integrieren.
+Die einzelnen Möglichkeiten werden dann genauer aufgeschlüsselt und erläutert sowie bewertet.
+Des Weiteren sollen dann die finalen Limitierungen des Roboters und mögliche zusätzliche Erweiterungen gezeigt werden.
+Abschließend wird bewertet, inwiefern die Eingliederung eines \gls{go1} Roboters sinnvoll ist und welches Potenzial dieses Vorgehen birgt.
+
+\subsection{Eingrenzung der Arbeit} % Eingrenzung Arbeit
 % Was wird nicht gemacht?
+% Robotik low level
+% KI im eigentlichen Sinne
+Diese Arbeit ist im Allgemeinen auf die Integration in ein Ökosystem und die Funktionserweiterung des \gls{go1} in diesem Zug limitiert.
+Das umfasst, dass Erweiterungen der Funktion im Bereich der Robotik und \gls{ki} auf der Hardware des Roboters selbst nur inkludiert sind, wenn
+diese zweckdienlich und zwingend notwendig für eine Erweiterung im Sinne der oben genannten Integration ist.
+\todo{Was wird nicht gemacht?}
 
