@@ -1,0 +1,81 @@
+# unitree@nx:~$ ifconfig -a
+
+dummy0: flags=130<BROADCAST,NOARP>  mtu 1500
+        ether e2:bd:4f:8d:ed:ea  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.123.15  netmask 255.255.255.0  broadcast 192.168.123.255
+        inet6 fe80::4ab0:2dff:fe5f:d018  prefixlen 64  scopeid 0x20<link>
+        ether 48:b0:2d:5f:d0:18  txqueuelen 1000  (Ethernet)
+        RX packets 5783  bytes 287468 (287.4 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 924  bytes 71374 (71.3 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 37
+
+eth0:0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.11.110  netmask 255.255.255.0  broadcast 192.168.11.255
+        ether 48:b0:2d:5f:d0:18  txqueuelen 1000  (Ethernet)
+        device interrupt 37
+
+eth0:1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.102  netmask 255.255.255.0  broadcast 192.168.1.255
+        ether 48:b0:2d:5f:d0:18  txqueuelen 1000  (Ethernet)
+        device interrupt 37
+
+l4tbr0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether ee:26:14:1e:f3:e1  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=4169<UP,LOOPBACK,RUNNING,MULTICAST>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 167  bytes 11400 (11.4 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 167  bytes 11400 (11.4 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+rndis0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether ee:26:14:1e:f3:e1  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+usb0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether ee:26:14:1e:f3:e3  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+# unitree@nx:~$ ip link show
+
+1: lo: <LOOPBACK,MULTICAST,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: dummy0: <BROADCAST,NOARP> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether e2:bd:4f:8d:ed:ea brd ff:ff:ff:ff:ff:ff
+3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 48:b0:2d:5f:d0:18 brd ff:ff:ff:ff:ff:ff
+4: l4tbr0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether ee:26:14:1e:f3:e1 brd ff:ff:ff:ff:ff:ff
+5: rndis0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc pfifo_fast master l4tbr0 state DOWN mode DEFAULT group default qlen 1000
+    link/ether ee:26:14:1e:f3:e1 brd ff:ff:ff:ff:ff:ff
+6: usb0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc pfifo_fast master l4tbr0 state DOWN mode DEFAULT group default qlen 1000
+    link/ether ee:26:14:1e:f3:e3 brd ff:ff:ff:ff:ff:ff
+
+# unitree@nx:~$ ip route
+
+169.254.0.0/16 dev eth0 scope link metric 1000
+192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.102
+192.168.11.0/24 dev eth0 proto kernel scope link src 192.168.11.110
+192.168.123.0/24 dev eth0 proto kernel scope link src 192.168.123.15
+224.0.0.0/4 dev lo scope link

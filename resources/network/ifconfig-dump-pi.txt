@@ -1,0 +1,64 @@
+# pi@raspberrypi:~$ ifconfig -a
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.123.161  netmask 255.255.255.0  broadcast 192.168.123.255
+        inet6 fe80::380a:83f6:de38:6472  prefixlen 64  scopeid 0x20<link>
+        ether e4:5f:01:cd:25:37  txqueuelen 1000  (Ethernet)
+        RX packets 3195380  bytes 2603747092 (2.4 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 130631  bytes 20087183 (19.1 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=4169<UP,LOOPBACK,RUNNING,MULTICAST>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 4331398  bytes 768707380 (733.0 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4331398  bytes 768707380 (733.0 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlan0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether e4:5f:01:cd:25:39  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlan1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.12.1  netmask 255.255.255.0  broadcast 192.168.12.255
+        inet6 fe80::e5bd:aa2e:50bd:fe90  prefixlen 64  scopeid 0x20<link>
+        ether 60:fb:00:4d:79:02  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 2113 overruns 0  carrier 0  collisions 0
+
+wlan2: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 62:fb:00:4d:79:02  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wwan0: flags=4240<POINTOPOINT,NOARP,MULTICAST>  mtu 1500
+        unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 1000  (UNSPEC)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 34  bytes 4717 (4.6 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+# pi@raspberrypi:~$ ip link show
+
+1: lo: <LOOPBACK,MULTICAST,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+    link/ether e4:5f:01:cd:25:37 brd ff:ff:ff:ff:ff:ff
+3: wlan0: <BROADCAST,MULTICAST> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
+    link/ether e4:5f:01:cd:25:39 brd ff:ff:ff:ff:ff:ff
+4: wwan0: <POINTOPOINT,MULTICAST,NOARP> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
+    link/none
+5: wlan1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+    link/ether 60:fb:00:4d:79:02 brd ff:ff:ff:ff:ff:ff
+6: wlan2: <BROADCAST,MULTICAST> mtu 1500 qdisc mq state DOWN mode DORMANT group default qlen 1000
+    link/ether 62:fb:00:4d:79:02 brd ff:ff:ff:ff:ff:ff

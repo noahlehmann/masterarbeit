@@ -1,0 +1,9 @@
+# unitree@nx:~$ lsusb
+
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 006: ID 0d8c:0012 C-Media Electronics, Inc.
+Bus 001 Device 005: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP210x UART Bridge / myAVR mySmartUSB light
+Bus 001 Device 004: ID 1bcf:2cd1 Sunplus Innovation Technology Inc.
+Bus 001 Device 003: ID 1bcf:2cd1 Sunplus Innovation Technology Inc.
+Bus 001 Device 002: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub

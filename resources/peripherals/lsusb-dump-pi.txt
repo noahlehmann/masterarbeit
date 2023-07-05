@@ -1,0 +1,6 @@
+# pi@raspberrypi:~$ lsusb
+
+Bus 001 Device 004: ID 0bda:c812 Realtek Semiconductor Corp.
+Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem
+Bus 001 Device 002: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
