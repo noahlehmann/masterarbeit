@@ -1,48 +1,31 @@
 \section{Roboterarchitektur und Systemkomponenten}
 
-\subsection{Interner Aufbau}
-Im Folgenden soll die interne Architektur des \gls{go1} im Detail dargestellt werden.
-Hierfür werden einige Perspektiven des Roboters gezeigt, um die nach Einsatzzweck klassifizierten Bauteilgruppen zu erläutern und darzustellen.
+Folgendes Kapitel beschreibt den physischen Aufbau des \gls{go1} und die Konfiguration dessen im Werkszustand.
+Um die Komplexität des Systems besser verstehen zu können, wird der Aufbau in mehreren Schritten erklärt.
+Zuerst soll der äußere Aufbau dargestellt werden, danach der Aufbau der internen Systemelemente und der Sensorik und zuletzt
+soll die Inbetriebnahme und vereinfachte Nutzung des Roboters dokumentiert werden.
 
-\subsubsection{Überblick}
 
-\begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/allgemein}}
-    \caption{Überblick über den \gls{go1}}\label{fig:allgemeine_architektur}
-\end{figure}
-
-\subsubsection{Mechanische Komponenten}
-
-\begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/mechanische_komponenten}}
-    \caption{Mechanische Komponenten des \gls{go1}}\label{fig:mechanische_komponenten}
-\end{figure}
-
-\subsubsection{Hardware und Sensorik}
-
-\begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/laufaparat}}
-    \caption{Sensorik und Daten des Laufaparats}\label{fig:laufaparat}
-\end{figure}
-
-\begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/kameras_sensorik}}
-    \caption{Darrstellung der verbauten Kamera und Sensorik}\label{fig:kameras_sensorik}
-\end{figure}
-
-\begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/hardware}}
-    \caption{Vogelperspektive mit Hardware}\label{fig:hardware}
-\end{figure}
+\input{ma/chapters/3/aufbau_intern}
 
 \subsection{Inbetriebnahme}
 
 \subsection{Hardware Architektur}
+
 \subsubsection{Überblick}
+
 \subsubsection{Kernelemente}
-\subsubsection{Spezialisierte Hardware}
-\subsubsection{Netzwerk}
+
+% \subsubsection{Netzwerk}
 \input{ma/chapters/3/netzwerk}
+
+\subsubsection{Spezialisierte Hardware}
+\paragraph{Raspberry Pi}
+\label{par:raspi}
+
+\subsubsection{Anwendungen}
+\label{subsubsec:app_and_web}
+
 
 \subsection{Limitierungen}
 \subsubsection{Rechenleistung}

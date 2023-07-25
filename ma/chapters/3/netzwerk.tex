@@ -1,3 +1,5 @@
+\subsubsection{Netzwerk}
+
 Aufgrund der vielen Komponenten, Funktionen und den möglichen Erweiterungen des \gls{go1} ist eine robuste interne Kommunikation nötig.
 Die interne Kommunikationsstruktur des Roboters baut großenteils auf Netzwerkstandards wie \emph{Ethernet} und \emph{Wi-Fi} auf,
 setzt besonders in der Konnektivität mit externen Komponenten jedoch zusätzlich auf weitere Standards wi \emph{Bluetooth} und \emph{\gls{wwan}}.
@@ -7,14 +9,20 @@ auf ihre Stärken und Schwächen.
 Zudem soll die Methodik der Analyse des Netzwerks und mögliche Problemfeststellungen und -behebungen festgehalten werden.
 
 \subsubsection{Überblick}
+\label{subsubsec:netzwerk_ueberblick}
 
-Abbildung \ref{fig:netzwerk_ueberblick} gilt als Referenz für die folgenden Ausführungen.
+Abbildung~\ref{fig:netzwerk_ueberblick} gilt als Referenz für die folgenden Ausführungen.
 Zentrale Einheit der Kommunikation sind der verbaute Ethernet Switch \todo{was für switch} und
 der intern verbaute \emph{Raspberry Pi}.
-Wie auf Abbildung \ref{fig:netzwerk_ueberblick} zu erkennen ist, sind alle fünf manipulierbaren Platinen -
+Wie auf Abbildung~\ref{fig:netzwerk_ueberblick} zu erkennen ist, sind alle fünf manipulierbaren Platinen -
 der Raspberry Pi, die \gls{mcu}, die beiden Nvidia Jetson Nanos mit \num{4}GB \gls{ram} und der Nano im Kopf des Hundes -
 per \emph{Ethernet} mit dem Switch verbunden.
 Auch der extern zugängliche Ethernet-Port auf dem Rücken des Roboters ist mit dem Switch verbunden.
+
+\begin{figure}[h]
+    \frame{\includegraphics[width=\linewidth]{img/netzwerk/netzwerk_ueberblick}}
+    \caption{Überblick über Netzwerkkonfiguration}\label{fig:netzwerk_ueberblick}
+\end{figure}\todo{Überblick Quelle aus Anleitung}
 
 Alle geswitchten Komponenten des Netzwerks sind im \texttt{192.168.123.0/24}-Netzwerk registriert.
 \todo{was ist gateway? nötig?}
@@ -29,9 +37,18 @@ Dabei ist die Verteilung der \gls{ip}-Adressen folgendermaßen vorkonfiguriert:
         \item Unterseite: \texttt{192.168.123.15}
     \end{enumerate}
 \end{itemize}
+Dem Endgerät, das am externen Ethernet-Port an der Oberseite des Roboters angesteckt werden kann,
+muss eine statische \gls{ip}-Adresse im Bereich \texttt{192.168.123.0/24} vergeben werden, die nicht bereits von einem der oben genannten
+Geräten verwendet wird.
 
+Der Raspberry Pi hat zusätzlich zu seiner physischen Verbindung zum Switch und der \texttt{192.168.123.161}-\gls{ip}-Addresse
+noch ein \gls{wwan} Modul verbaut, mit welchem er das Netz \texttt{192.168.12.0/24} publiziert.
+Dieses Netz wird ab Werk für die Verbindung der App mit dem System benötigt.
+Dazu mehr in Kapitel \ref{subsubsec:app_and_web}.
+Des Weiteren kann dieses Netz genutzt werden, um eine kabellose Verbindung mit dem Gesamtsystem
+des Roboters herzustellen.
+Hierzu mehr in Kapitel \ref{par:raspi}.
 
-\begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/netzwerk/netzwerk_ueberblick}}
-    \caption{Überblick über Netzwerkkonfiguration}\label{fig:netzwerk_ueberblick}
-\end{figure}\todo{Überblick Quelle aus Anleitung}
+\todo{MCU und Bluetooth? Wie?}
+\todo{Welche Art Netzwerk, switched, routed, hub?}
+
