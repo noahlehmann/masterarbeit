@@ -12,7 +12,6 @@
 *.lol
 *.lot
 *.out
-*.pdf
 *.run.xml
 *.swp
 *.toc
@@ -22,3 +21,6 @@
 code/
 
 out/
+
+*.pdf
+!Masterarbeit.pdf
