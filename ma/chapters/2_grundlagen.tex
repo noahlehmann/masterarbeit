@@ -151,6 +151,7 @@ Im Gegensatz zum \emph{Big Dog} ist der \gls{mit} \emph{Cheetah} voll elektrisch
 \footcite{ieee_spectrum_cheetah}
 Viele Erkenntnisse aus dem \gls{mit} \emph{Cheetah} Projekt werden heute noch in neuen Projekten verwendet.
 So auch bei der Umsetzung des \gls{go1}, worauf in dieser Arbeit aber weniger eingegangen wird.
+\todo{Akademische forschung als fokus}
 
 % Spot
 Die aktuell vermutlich bekannteste Umsetzung eines Quadruped Roboters ist der von \emph{Boston Dynamics} entwickelte
@@ -175,28 +176,113 @@ der gewonnenen Erkenntnisse und der entwickelten Roboter in realen Szenarien.
 Hierbei sind die Möglichkeiten kaum limitiert und hängen stets von der Form und Reife der Roboterimplementierungen ab.
 Im Folgenden werden einige aktuelle Ansätze zur Integration und Nutzung von Quadruped Robotern in realen Szenarien vorgestellt.
 
-%content
-% Agricultur
-
-% Servicerobot
-
-% Gefahrensituationen (Gasleck, Katastrophengebiet, unsichere Umgebung)
-
-
-
-
-Die oben genannten Einsatzmöglichkeiten von Quadruped Robotern sind lediglich eine Auswahl der offensichtlicheren
-Möglichkeiten und sollen lediglich einen Überblick schaffen.
+Die unten genannten Einsatzmöglichkeiten von Quadruped Robotern sind lediglich eine Auswahl des offensichtlichen
+Potenzials und sollen lediglich einen Überblick schaffen.
 Eine vollständige Auflistung der Integrationsansätze ist hier nicht angestrebt.
 
+% Monitoring
+\myparagraph{Kontrolle und Überwachung}
+% Construction Monitoring Paper ##
+Quadruped Roboter sind aufgrund ihrer Fähigkeit, sich in unstrukturierten Umgebungen fortzubewegen, gut dafür geeignet,
+in gefährlicheren Gebieten die Kontrollfunktion des Menschen zu übernehmen.
+Zudem kann ein weit genug entwickelter Roboter autonom Aufgaben übernehmen und diese in regelmäßigen Intervallen durchführen,
+was einen großen Vorteil dem Menschen gegenüber darstellt.
+Eine mögliche Einsatzmöglichkeit von Quadruped Robotern ist laut des Artikels \citetitle{construction_quadruped} das Überwachen und
+Prüfen des Fortschritts auf Baustellen.
+Die Autoren bezeichnen die manuelle Kontrolle einer Baustelle durch einen menschlichen Inspektor als zeitlich inneffizient,
+unstrukturiert und unzuverlässig.
+Sie bemängeln zudem, dass die menschlichen Kontrollen aufgrund kleinster Abweichungen in der Systematik kaum wiederholbar sind
+und somit schlecht einzuordnen sind.
+Ihr Ansatz, die zu kontrollierenden Umgebung zu virtualisieren und dann anhand automatisierter Abläufe und Scans durch
+Quadruped Roboter mit den zu erzielenden Ergebnissen abzugleichen birgt zwar einige Hürden, verspricht jedoch
+ein konsistentes Ergebnis über den zeitlichen Verlauf der Baustelle hinweg.
+Zudem heben die Autoren die zeitliche Ersparnis und somit die Effizienz des Ansatzes hervor, da selbst bei einer nur teilweise
+automatisierten Umsetzung ein verteiltes Monitoring möglich ist, bei dem sich nur der Roboter mit Sensorik und Kameras vor Ort befinden muss.
+\footcite{construction_quadruped}
+
+Im Bereich der Integration eines solchen Quadruped Roboters im Hochschulumfeld lässt sich dieser Ansatz beispielsweise
+in der automatisierten Modellierung des Campus übersetzen.
+Ein vorheriges Erstellen eines exakten Modells ist bei diesem Ansatz nicht nötig, man macht sich hier lediglich die 
+Möglichkeit der Modellierung durch Sensorik wie beispielsweise Ultraschall, \gls{lidar} und Kameras zu nutzen.
 
 
+\myparagraph{Sicherheit}
+% Public Safety Paper Boston Dynamics ##
+Da die Umgebung in urbanen Umgebungen zu großen Teilen unstrukturiert ist, is der Einsatz dedizierter Roboter für den
+Betrieb auf Straßen oder in der Luft oft erheblich eingeschränkt.
+Neben der flexibleren Manövrierbarkeit von Quadruped Robotern ist die Erweiterbarkeit
+dieser ein weiterer Vorteil gegenüber einfacheren Robotern auf Basis von Rädern oder Dronen.
+So ermöglicht die Erweiterung eines serienmäßigen \emph{Spot} Roboters durch einen Arm mit Greifer laut der Studie
+\citetitle{boston_dynamics_safety} die Gefahrenminimierung für Menschen in Einsatzzwecken wie der Kontrolle verdächtiger Objekte und dem
+möglichen Entfernen dieser aus einer Gefahrenzone, dem Aufspüren potenziell gefährlicher Substanzen in der Umgebung (Strahlung, Leckagen, Flüssigkeiten)
+oder der vorzeitigen Prüfung einer Umgebung, um den Einsatzkräften in Notfallsituationen einen besseren Überblick zu verschaffen,
+ohne sich selbst in Gefahr zu bringen.
+\emph{Boston Dynamics} heben in ihrer Studie besonders die hohe Modularität von Quadruped Robotern hervor, welche sie
+flexibel einsatzbar macht.
+\footcite{boston_dynamics_safety}
+
+Im Umfang dieser Arbeit wäre im Sinne der Sicherheit eine Nutzung des Roboters bei Brandbildung zur Suche nach Verletzten denkbar.
+Auch ein Ablaufen der potenziell gefährlichen Labore und der Prüfung nach Leckagen ist denkbar.
+Zu Schließzeiten könnten Quadruped Roboter wie der \gls{go1} ebenso genutzt werden, um den Campus nach nicht autorisierten
+Besuchern abzusuchen.
+
+\myparagraph{Automatisierung und Effizienz}
+Wie in Kapitel \ref{subsec:robotik} erläutert, bringt die Herkunft des Wortes \emph{Roboter} eine der Kernziele der Robotik zum Vorschein.
+Die Automatisierung und Entlastung des Menschen bei einfachen oder wenig begehrenswerten Aufgaben liegt hier im Fokus.
+So können Roboter einfache und repetitive Aufgaben übernehmen und teilweise mit höherer Präzision und Ausdauer übernehmen,
+als der ersetzte Mensch dies hätte tun können.
+übersetzt man diese Erkenntnis auf Quadruped Roboter, so ergeben sich in unstrukturierten Umgebungen, wie besonders der Landwirtschaft,
+neue Automatisierungsmöglichkeiten.
+Die Arbeit \citetitle{quadruped_vineyard} beschreibt beispielsweise die Nutzung eines Quadruped Roboters, um im unebenen Umfeld
+von Weingärten Weinreben automatisch zu kontrollieren und mithilfe einer Erweiterung auch zu kürzen, sodass die Pflanze
+keine unnötigen Ressourcen verschwendet.
+Gleiches lässt sich auch auf andere Gebieter der Landwirtschaft übersetzen.
+So könnten Quadruped Roboter Kontrollgänge von Jägern und Förstern teilweise ersetzen oder die Frequenz dieser erhöhen.
+
+Auch hier lässt sich die Brücke zur Integration in ein Hochschulökosystem schlagen.
+Ein automatisierter Roboter könnte auf mehreren Ebenen eines Hochschulgebäudes beispielsweise die Schließzeiten kontrollieren und durchsetzen.
+Ein Ablaufen und Kontrollieren der Schlösser und gegebenenfalls ein Abschließen dieser ist mit wenig Erweiterungsaufwand möglich.
+
+\myparagraph{Service}
+%Big Dog
+Auch im Bereich der allgemeinen Unterstützung des Menschen ist der Quadruped Roboter besonders in unstrukturierten Umgebungen
+hilfreich.
+Der bereits in Kapitel \ref{subsubsec:quadruped-roboter} beschriebene \emph{Big Dog} wurde beispielsweise entwickelt, um
+in Kriegsgebieten und Kampfeinsätzen schweres Gepäck befördern zu können.
+Dies entlastet den menschlichen Soldaten ungemein und ermöglicht ihm, andere Aufgaben zu übernehmen.\footcite{bigdog}
+Dieser Ansatz des Lastentragens ist auch im außermilitärischen Bereich denkbar.
+Ein weiterer Ansatz ist der der Navigationshilfe.
+Durch die flexible Fortbewegung über unebene Untergründe kann ein solcher Quadruped Roboter einem Menschen bei der Navigation
+zu einem Ziel helfen.
+
+Dieses Szenario ist auch im Hochschulumfeld denkbar.
+So könnte der Roboter neue Gäste empfangen und auf Anfrage über den Campus hinweg Navigationshinweise zu gesuchten Orten liefern und die Gäste auch begleiten.
 
 \subsubsection{Unitree Go1 Ressourcen}
+
+Im Folgenden werden einige für die Arbeit am \gls{go1} hilfreiche Ressourcen aufgelistet und bewertet.
+Diese sind ausschließlich nicht nur akademischer Art und müssen dementsprechend mit besonderer Vorsicht betrachtet werden.
+Dennoch sind diese Ressourcen besonders hilfreich und können eine gute Grundlage und Ergänzung zu den Ergebnissen im Verlauf der Arbeit bieten.
+
+\myparagraph{Offizielle Dokumentation}
+Die Webseite \citeurl{unitree_tutorials}\footcite{unitree_tutorials} bietet einen grundlegenden Überblick über den Aufbau
+des \gls{go1} und die Funktionen, die im Lieferumfang des Roboters mit enthalten sind.
+
+\myparagraph{MIT Cheetah Dokumentation}
+
+
+\myparagraph{Innoffizielle Repositories}
+
+
+\myparagraph{Inoffizielle Foren}
 
 
 \subsection{Herausforderungen}
 \label{subsec:herausforderungen}
+% Akkulaufzeit komplexe Fortbewegung
+% schlechte Dokumentation
+% zu einfache Umsetzung
+% veraltete Ressourcen und Bibliotheken
 
 
 %\input{ma/chapters/grundlagen/begriffe}
