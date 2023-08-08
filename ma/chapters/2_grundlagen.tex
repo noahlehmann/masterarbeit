@@ -124,8 +124,73 @@ Diese werden nicht zwingend akademischen Ursprungs sein und sollen dem Leser der
 Ressourcen zum Modell \gls{go1} bieten.
 
 \subsubsection{Quadruped Roboter}
+\label{subsubsec:quadruped-roboter}
+% Big Dog
+Die erste Umsetzung eines Quadruped Roboters, die öffentliche Aufmerksamkeit erlangte, ist der sogenannte \emph{Big Dog}
+der Firma \emph{Boston Dynamics} aus Boston, \gls{usa}.
+Dieser wurde \num{2008} aus militärischem Interesse an einer geländegängigen Alternative zu gängigen Militärfahrzeugen entwickelt und
+deshalb auch vom amerikanischen \gls{darpa} finanziert. \emph{Big Dog} wurde mit hydraulischen Extremitäten entwickelt, welche ihm ermöglichen sollten,
+schweres Gepäck im Militäreinsatz tragen zu können.
+Die Flexibilität der vier Beine und die Möglichkeit dieser, sich relativ schnell durch schweres Gelände bewegen zu können,
+gaben \emph{Big Dog} einen möglichen Vorteil gegenüber gängigen Fortbewegungsmitteln auf Basis von Ketten oder Rädern.
+Weitere Entwicklungen am \emph{Big Dog} wurden später vom \gls{rcta} des \gls{us} Army Research Laboratory finanziert.
+\footcite{bigdog}\footcite{darpa_bigdog}
+
+% MIT Cheetah
+\num{2009} hat das \emph{Biometric Robotics Lab} des \gls{mit} das Projekt namens \emph{Cheetah} - auf Deutsch \emph{Gepard} -
+bekannt gegeben.
+Das Projektziel war es, einen Quadruped Roboter zu entwickeln, der in den Bereichen Tempo und Energieeffizienz der echten
+Tierwelt Konkurrenz macht.
+Auch dieses Projekt wurde vom \gls{darpa} finanziert\footcite{bi_mit_cheetah_funding}\footcite{darpa_m3}.
+Im Gegenzug zum \emph{Big Dog} wurde der \emph{Cheetah} aber nie kommerziell oder militärisch beworben.
+Stattdessen liegt der Fokus des Roboters im Bereich der Forschung.
+Bereits \num{2012} veröffentlichte das \emph{Biometric Robotics Lab} die ersten Videos des Roboters im Lauf.
+Seit der Projektankündigung wurden mehrere Iterationen des Roboters entwickelt.
+Die aktuelle Iteration des Roboters ist in ihrer Bauart optimiert und somit kostentechnisch effizient im Einkauf und in der Reparatur.
+Im Gegensatz zum \emph{Big Dog} ist der \gls{mit} \emph{Cheetah} voll elektrisch, was das Ziel der einfachen Entwicklung hat.
+\footcite{ieee_spectrum_cheetah}
+Viele Erkenntnisse aus dem \gls{mit} \emph{Cheetah} Projekt werden heute noch in neuen Projekten verwendet.
+So auch bei der Umsetzung des \gls{go1}, worauf in dieser Arbeit aber weniger eingegangen wird.
+
+% Spot
+Die aktuell vermutlich bekannteste Umsetzung eines Quadruped Roboters ist der von \emph{Boston Dynamics} entwickelte
+\emph{Spot}, welcher in seiner ersten Form bereits \num{2015} öffentlich beworben wurde.
+Anders als seine Vorgänger Roboter bei \emph{Boston Dynamics} war er der erste Roboter der Firma, der zu \num{100}\%
+elektrisch betrieben wurde.
+Das lässt ihn sehr ähnlich zum \emph{Cheetah} des \gls{mit} wirken, jedoch hatte die Plattform \emph{Spot} von Anfang an den
+Fokus auf einen kommerziellen oder auch militärischen Einsatz.
+Besonders nennenswert an dem Roboter ist die Kompaktheit seinen Vorgängern gegenüber.
+Die aktuelle Version des \emph{Spot} ist bereits kommerziell verfügbar und wurde initial für etwa \num{75000} \gls{us}-Dollar\footcite{spot_price}
+zum Kauf beworben.
+\footcite{boston_dynamics_legacy}
+
+Die Veranschaulichung \citetitle{quadruped_timeline} gibt einen Überblick über die Zeitschiene der einflussreichsten
+Implementierungen von Quadruped Robotern in der jüngeren Vergangenheit\footcite{quadruped_timeline}.
+\todo{Bilder der Roboter}
 
 \subsubsection{Integration von Robotern}
+
+Im Bereich der Robotik liegt neben dem Fokus des Testens der Möglichkeiten immer die Suche nach einer sinnvollen Nutzung
+der gewonnenen Erkenntnisse und der entwickelten Roboter in realen Szenarien.
+Hierbei sind die Möglichkeiten kaum limitiert und hängen stets von der Form und Reife der Roboterimplementierungen ab.
+Im Folgenden werden einige aktuelle Ansätze zur Integration und Nutzung von Quadruped Robotern in realen Szenarien vorgestellt.
+
+%content
+% Agricultur
+
+% Servicerobot
+
+% Gefahrensituationen (Gasleck, Katastrophengebiet, unsichere Umgebung)
+
+
+
+
+Die oben genannten Einsatzmöglichkeiten von Quadruped Robotern sind lediglich eine Auswahl der offensichtlicheren
+Möglichkeiten und sollen lediglich einen Überblick schaffen.
+Eine vollständige Auflistung der Integrationsansätze ist hier nicht angestrebt.
+
+
+
 
 \subsubsection{Unitree Go1 Ressourcen}
 
