@@ -259,6 +259,7 @@ Dieses Szenario ist auch im Hochschulumfeld denkbar.
 So könnte der Roboter neue Gäste empfangen und auf Anfrage über den Campus hinweg Navigationshinweise zu gesuchten Orten liefern und die Gäste auch begleiten.
 
 \subsubsection{Unitree Go1 Ressourcen}
+\label{subsubsec:ressourcen}
 
 Im Folgenden werden einige für die Arbeit am \gls{go1} hilfreiche Ressourcen aufgelistet und bewertet.
 Diese sind ausschließlich nicht nur akademischer Art und müssen dementsprechend mit besonderer Vorsicht betrachtet werden.
@@ -267,25 +268,192 @@ Dennoch sind diese Ressourcen besonders hilfreich und können eine gute Grundlag
 \myparagraph{Offizielle Dokumentation}
 Die Webseite \citeurl{unitree_tutorials}\footcite{unitree_tutorials} bietet einen grundlegenden Überblick über den Aufbau
 des \gls{go1} und die Funktionen, die im Lieferumfang des Roboters mit enthalten sind.
+Sie enthält alle nötigen Informationen, die die Entwickler des Roboters gesammelt und veröffentlicht haben.
+Die Seite bietet einen guten Einstieg, um die Anweisungen direkt am Roboter anzuwenden, ohne sie weiter nachvollziehen zu können.
+
+Auf der Unterseite \texttt{/operation.html} sind auch alle offiziellen Anleitungen dokumentiert, welche als \gls{pdf} heruntergeladen
+werden können.
+Des weiteren enthält die Webseite einige einfache Konfigurationsanleitungen für die Software-Erweiterungen, welche ab
+Werk installiert und freigeschaltet sind.
+
+Neben der allgemeinen Dokumentation des Roboters sind auch einige \emph{GitHub}-Repositories und Dokumentationen zu einzelnen
+Funktionen des \gls{go1} bereitgestellt.
+Die wichtigsten sind:
+
+\begin{itemize}
+    \item \textbf{Unitree-Legged-SDK}\\
+    \url{https://github.com/unitreerobotics/unitree\_legged\_sdk}\\
+    \textrightarrow{} Eine Bibliothek, um die Steuerung des Roboters zu beeinflussen
+    \item \textbf{Unitree-Camera-SDK}\\
+    \url{https://github.com/unitreerobotics/UnitreecameraSDK}\\
+    \textrightarrow{} Eine Bibliothek, um die Kameras des Roboters zu nutzen
+    \item \textbf{Unitree-Actuator-SDK}\\
+    \url{https://github.com/unitreerobotics/unitree\_actuator\_sdk}\\
+    \textrightarrow{} Eine Bibliothek, die die verbauten Motoren einzeln steuert
+    \item \textbf{Unitree-ROS2-to-Real}\\
+    \url{https://github.com/unitreerobotics/unitree\_ros2\_to\_real}\\
+    \textrightarrow{} Eine Bibliothek, welche das veraltete \gls{ros} (1) auf den Robotern ersetzen kann
+\end{itemize}
+
+Anzumerken ist, dass die offizielle Dokumentation auf der Webseite und den GitHub-Repositories zwar einen guten Einstieg
+in die direkte Nutzung des Roboters liefern, jedoch meist unverständlich geschrieben, unvollständig und teils nicht übersetzt,
+sondern in der Originalsprache \emph{Chinesisch} veröffentlicht wurden.
+Deshalb wird in dieser Arbeit dazu geraten, die später gelisteten alternativen Wissensquellen ebenfalls zu nutzen, wenn auch mit kritischem Blick,
+da vieles nicht offiziell bestätigt oder geprüft wurde.
 
 \myparagraph{MIT Cheetah Dokumentation}
 
+Der mechanische Aufbau und die allgemeine Erscheinung des \gls{go1} sind der des \gls{mit} \emph{Cheetah \num{3}} ähnlich
+und in Teilen sogar identisch.
+\todo{Bilder als Vergleich}
+Es ist also anzunehmen, dass \emph{Unitree Robotics} Teile der Ergebnisse der Forschung am \gls{mit} \emph{Cheetah \num{3}}
+für die Entwicklung des \gls{go1} wiederverwertet haben.
+Wenn auch kurz nach Veröffentlichung unklar, wird die Lizenz der \gls{mit}-Software, die im \gls{go1} verwendet wird, 
+mittlerweile anerkannt und referenziert.
+Aus diesem Grund ist es ratsam, die hervorragend dokumentierten Erkenntnisse über den \gls{mit} Cheetah \num{3} zur Hand zu
+nehmen, wenn man genaueres über den Aufbau und die Funktion des \gls{go1} wissen will.
+Ein Einstieg gewährt hier der Artikel \citetitle{mit_cheetah_3}, welcher parallel zur Veröffentlichung des Cheetah \num{3}
+erschien.
+
+Seit der Veröffentlichung des Cheetah \num{3} sind seitens des \gls{mit} weitere Forschungsartikel über diesen veröffentlicht wurden.
+Hier hilft ein Blick auf die Webseite des Instituts \emph{\gls{mit} Biometric Robotics Lab} - \url{https://biomimetics.mit.edu/publications},
+an welchem der Cheetah \num{3} und seine Vorgänger entwickelt wurden.
+Für einen technischeren Überblick über die Hard- und Software-Steuerungen des \gls{mit} Cheetah 3 und somit auch des \gls{go1}
+ist das \emph{GitHub}-Repository des Biometrics Robotic Lab hilfreich\footnote{\url{https://github.com/mit-biomimetics/Cheetah-Software}}.
+
+Im Gegensatz zur offiziellen Dokumentation der Firma \emph{Unitree Robotics} sind die Erkenntnisse aus der \gls{mit}
+Dokumentation fundiert und nachvollziehbar.
+Leider beziehen sich die Überschneidungen der beiden Roboter nur auf allgemeine Konzept und Teile der konkreten Umsetzung des
+\gls{go1}, die genaue Funktionalität ist bei beiden Robotern sehr unterschiedlich.
 
 \myparagraph{Innoffizielle Repositories}
+
+Durch die niedrige finanzielle Hürde beim Erwerb eines \gls{go1} hat sich nach Veröffentlichung des Roboters schnell eine
+vergleichsweise große und aktive Community gebildet, welche sich in der Arbeit mit dem \gls{go1} unterstützt und untereinander
+austauscht.
+Innerhalb der Community haben sich einige wenige Teilhaber durch das Anlegen gut dokumentierter Repositories mit Anwendungsbeispielen
+und Implementierungen neuer Funktionen hervorgetan.
+Da die realen Namen dieser Nutzer aus den Foren und Repositories nicht hervorgehen, werden ihre Referenzen hier gewürdigt
+und eingeordnet.
+
+\begin{itemize}
+    \item \textbf{\url{https://github.com/MAVProxyUser/YushuTechUnitreeGo1}}\\
+    Ein sehr detailreiches Repository, welches eine Nutzer-fokussierte Herangehensweise an die Dokumentation des Roboters
+    pflegt.
+    Der Autor beschreibt den Aufbau nicht nur in einfachen Worten, sondern gibt auch einfache Anweisungen zu Konfiguration
+    und Nutzung einzelner Funktionen.
+    Besonders zum Einstieg eine gute Anleitung, um der erweiterten Nutzung näherzukommen.
+    \item \textbf{\url{https://github.com/maggusscheppi/Go1}}\\
+    Ein weniger detailliertes Repository, welches jedoch gute Ansätze zur Lösung für gängige Probleme aufweist und zudem
+    pragmatische Implementierungen neuer Funktionen enthält.
+    Empfehlenswert im Bereich Batteriemanagement und Monitoring\footnote{Siehe Kapitel \ref{sec:funktionserweiterungen-und-integration}}.
+\end{itemize}
 
 
 \myparagraph{Inoffizielle Foren}
 
+Wie bereits erwähnt, ist die Nutzerbasis und die Community um das Thema \gls{go1} nach Veröffentlichung und Verkaufsstart
+des Roboters stark gewachsen.
+Neue Nutzer des \gls{go1} sollten sich demnach nicht scheuen, nach Foren und ähnlichen Ressourcen zu suchen, um sich bei
+Problemen an erfahrenere Besitzer des Roboters zu wenden.
+Das wohl präsenteste und auch aktivste Forum ist der \emph{Slack}-Kanal
+\emph{The Dog Pound animal control for Stray robot dogs}\footnote{\url{https://join.slack.com/t/robotdogs/shared_invite/zt-1fvixx89u-7T79~VxmDYdFSIoTnSagFQ}}.
+Der Beitritt neuer Nutzer ist erwünscht, die aktive Beteiligung ebenfalls.
+Der Link in der Fußnote kann genutzt werden, um dem Kanal beizutreten, eine Nutzung der Ressource ohne Beitritt ist leider
+nicht möglich.
 
 \subsection{Herausforderungen}
 \label{subsec:herausforderungen}
-% Akkulaufzeit komplexe Fortbewegung
-% schlechte Dokumentation
-% zu einfache Umsetzung
-% veraltete Ressourcen und Bibliotheken
+
+Abschließend zu den Grundlagen über die Robotik und dem Stand der Forschung zum Thema Integration, Quadruped Robotik und dem \gls{go1}
+sollen einige Herausforderungen geschildert werden, die bei der Arbeit mit dem Roboter zu beachten sind und die im Laufe
+der Arbeit teilweise gemeistert werden sollen.
 
 
-%\input{ma/chapters/grundlagen/begriffe}
-%\input{ma/chapters/grundlagen/herausforderungen}
-%\input{ma/chapters/grundlagen/forschung_stand}
+\myparagraph{Dokumentation}
+
+Wie aus dem vorigen Kapitel \ref{subsubsec:ressourcen} entnommen werden kann, ist die offizielle Dokumentation der Firma
+\emph{Unitree Robotics} unzureichend, weshalb auch ein Blick auf verwandte und inoffizielle Ressourcen zu empfehlen ist.
+Nicht nur die allgemeine Nutzung des Roboters in seinem Lieferzustand, sondern auch die mitgelieferten und erweiternden
+Bibliotheken sind kaum oder unzureichend beschrieben.
+Viele Bibliotheken zur Erweiterung der Grundfunktion sind so beispielsweise kaum kommentiert oder dokumentiert.
+Diese Herausforderung im Umgang mit dem \gls{go1} soll im Laufe der Arbeit für alle Grundfunktionalitäten und für die Erweiterungen
+in Kapitel \ref{sec:funktionserweiterungen-und-integration} beseitigt werden.
+Ziel der Arbeit ist es unter anderem, die Nutzung und Arbeit am \gls{go1} so zu dokumentieren, dass er im Hochschulumfeld
+zukünftig effizienter genutzt werden kann - als eigenständiger Teil des Ökosystems, aber auch als Erweiterung der Lehre.
+\todo{Ziel in Einleitung aufnehmen}
+
+
+\myparagraph{Veraltete Ressourcen und Bibliotheken}
+
+Der \num{2021} veröffentlichte \gls{go1} ist in den vergangenen Jahren, inklusive der nur zu schätzenden Entwicklungszeit 
+des Roboters durch die Firma \emph{Unitree Robotics}, in seinem Softwarestand teilweise gravierend veraltet.
+Der Softwareanteil des Roboters wird in Kapitel \ref{subsec:hardware-architektur} in Verbindung mit den verbauten
+Hardwarekomponenten genauer betrachtet, weshalb hier nur zwei Probleme exemplarisch dargestellt werden.
+
+\begin{enumerate}
+    \item \textbf{Betriebssysteme}\\
+    Auf den internen Rechnern des \gls{go1} ist ausschließlich Debianbasierte Software installiert, deren Stand mittlerweile
+    veraltet und kaum noch gepflegt ist.
+    Teile der installierten Bibliotheken sind dadurch außer Wartung genommen oder länger nicht aktualisiert worden.
+    Das ist besonders in der Betrachtung der Sicherheit des Roboters relevant und kann zu unerwarteten Problemen führen.
+    Eine Aktualisierung ist aufgrund der komplexen Konfigurationen und der vielzahl an nachinstallierten Bibliotheken nicht trivial.
+    \item \textbf{Robotik Software}
+    Ähnlich zur Problematik der Betriebssysteme ist die Software zur Steuerung des Roboters - \gls{ros} - in der ersten
+    Version installiert.
+    Diese ist seit längerer Zeit durch den Nachfolger \gls{ros} \num{2} abgelöst und mit moderner Software und dritten
+    Bibliotheken und Erweiterungen kaum noch kompatibel.
+    Das schränkt die Nutzung des Roboters stark ein und hatte sogar zur Folge, dass nur für dieses Problem eine Adapter-Bibliothek
+    vom Hersteller selbst entwickelt wurde\footnote{Siehe Kapitel \ref{subsubsec:ressourcen}}.
+\end{enumerate}
+
+Ähnliche Probleme lassen sich in vielen Bestandteilen des Roboters wiederfinden und erschweren somit die Arbeit am
+Gerät.
+Diese Arbeit wird sich nur entfernt mit der Aktualisierung des Bestandes beschäftigen.
+Stattdessen wird in den Erweiterungen - wo relevant - in Kapitel \ref{sec:funktionserweiterungen-und-integration} der Umgang mit der veralteten Software beschrieben.
+
+
+\myparagraph{Unzureichende Qualität der Bestandsfunktionen}
+
+Parallel zur mangelnden Qualität der Dokumentation steht die unzureichende Qualität der Bestandsfunktionen.
+Gemeint sind hiermit alle Funktionen, die ab Werk zur Auslieferung des \gls{go1} verfügbar und funktionstüchtig waren.
+Darunter fallen Funktionen wie das Fortbewegen, die Kamerabildübertragung, die Sensorik und die Autonomie in der Verarbeitung
+und Reaktion auf gesammelte Daten.
+Einzeln betrachtet erfüllen alle Funktionen die Minimalanforderungen, kombiniert man jedoch einige Funktionen, so lässt
+die Qualität der Ergebnisse jeder einzelnen Funktion stark nach.
+Gründe hierfür sind oftmals die unausgewogene Zuteilung der Ressourcen bei parallel laufenden Prozessen, welche sowohl zu
+hoher Auslastung der Recheneinheiten als auch zur grundlegend hohen Auslastung aller Bausteine im Gesamten führt.
+Besonders im Bereich der Kombinationen aus Fortbewegung und Rechenleistung für Auswertungen der Videodaten und Sensorik
+kommt es häufig zu sogenanntem \todo{definition ergänzen}\emph{Throttling} der Recheneinheiten aufgrund von Überhitzung der Bauteile durch die thermischen
+Emissionen der mechanischen Bauteile.
+Jedoch auch die mangelnde Qualität der verbauten Teile des \gls{go1} lässt die teils durchaus ausreichend gute Implementierung der
+Funktionen auf Softwareseite an ihre Grenzen kommen.
+
+Teile dieser Arbeit beschäftigen sich mit der effizienten Auslagerung mancher Funktionen, um die Ressourcen des Roboters
+sinnvoll einzusetzen und in möglichen Teilbereichen zu schonen.
+Die verbauten Teile des Roboters sowie die eingesetzte Software wird - wo relevant für die aufgezeigten Erweiterungen und
+Funktionen des \gls{go1} auf ihre Effizienz und Einsatzfähigkeit bewertet.
+
+
+\myparagraph{Energetische und mechanische Komplexität}
+
+Die Nutzung der biologisch inspirierten vier Beine des Roboters mit hoher Flexibilität in der Rotation und des Bewegungsradius
+eines jeden Gelenkes bietet hinsichtlich der Vielseitigkeit der Fortbewegung und Reaktionsmöglichkeit auf schwer zu
+überwindendes Terrain einen großen Vorteil gegenüber einfacherer Lösungen in der Robotik, wie Rädern oder Ketten.
+Die präzise Steuerung der Motoren im gegenseitigen Zusammenspiel hingegen birgt mit ihrer Komplexität einen enormen Nachteil
+gegenüber anderer Fortbewegungsmöglichkeiten.
+Nicht nur ist der Bewegungsablauf deutlich aufwändiger zu implementieren, sondern sind die Motoren in ihrer Vielzahl auch
+um einiges Energieineffizienter, als einfachere Bewegungsabläufe, wie die Rotation in einer Achse auf Rädern.
+Änderungen der Standardabläufe der Fortbewegung sind somit schwerer zu implementieren.
+Auch die Ausdauer des verbauten Batteriesystems leidet unter dem hohen Energieaufwand der Motoren und Recheneinheiten des Roboters.
+Ausdauernde oder vollkommen autonome Prozesse sind somit nur bedingt möglich, auch aufgrund der Notwendigkeit eines
+manuellen Batteriewechsels nach vollständiger Entladung.
+
+Aufgrund des fehlenden oder mindestens mangelnden Schutzes des Roboters bei niedriger Ladung der eingesetzten Batterie
+beschäftigt sich diese Arbeit im Sinne dieser Herausforderung mit der Absicherung und Resilienz besonders des Batteriesystems
+gegenüber\footnote{Siehe Kapitel \ref{sec:funktionserweiterungen-und-integration}}.
+Im Sinne der sinnvollen Integration des \gls{go1} in ein Hochschulökosystem werden die oben genannten Herausforderungen
+kritisch betrachtet und, wenn im Laufe der Arbeit sinnvoll, auch bewertet.
+Im folgenden Kapitel wird der Kern der Arbeit, der \gls{go1} präzise analysiert und beschrieben, sodass für den
+weiteren Verlauf der Arbeit die Kenntnis des Roboters ausreichend ist, um den Schilderungen der Erweiterungen zu folgen.
 
