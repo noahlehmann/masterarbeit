@@ -1,12 +1,13 @@
 \subsection{Aufbau}
 \label{subsec:aufbau}
 
-Im Folgenden soll die interne Architektur des \gls{go1} im Detail dargestellt werden.
+Im Folgenden soll die Architektur des \gls{go1} im Detail dargestellt werden.
 Hierfür werden einige Perspektiven des Roboters gezeigt, um die nach Einsatzzweck klassifizierten Bauteilgruppen zu erläutern und darzustellen.
 
 \subsubsection{Überblick}
 
 Die zoomorphe Form des \gls{go1} ist - wie bereits mehrfach angedeutet - an die eines Hundes angelehnt.
+\todo{KAum verwendete referenz}
 So ergeben sich die Bezeichnungen der äußerlich erkennbaren Bauteile von selbst.
 Abbildung~\ref{fig:allgemeine_architektur} zeigt die äußerlichen Merkmale im Überblick.
 
@@ -75,20 +76,20 @@ eingeteilt werden:
 \end{enumerate}
 Die Motoren sind ebenfalls mit Sensorik bestückt, welche den aktuellen Zustand des Bauteils erkennen und
 an die \gls{mcu} schicken können.
-Diese Funktionalität wird im Kapitel~\ref{subsubsec:hardware_sensorik} näher beschrieben.
+Diese Funktionalität wird im Kapitel~\ref{subsubsec:sensorik} näher beschrieben.
 
-\subsubsection{Hardware und Sensorik}
-\label{subsubsec:hardware_sensorik}
+\subsubsection{Sensorik}
+\label{subsubsec:sensorik}
 
 Als wichtige Bausteine zur intelligenten Nutzung des \gls{go1} sind an vielen Stellen im Roboter
 einige Sensoren oder intelligente Hardware verbaut.
 Neben der dedizierten Sensorik zur Erkennung des Umfeldes ist ebenfalls einfachere Sensorik
-in einigen Bauteilen wie den mechanischen Bauteilen des Laufapparats verbaut.
+in einigen Bauteilen wie den mechanischen Bauteilen des Laufapparats integriert.
 Abbildung~\ref{fig:laufapparat} zeigt die hierfür verbauten Sensoren und intelligenten Hardwarebausteine.
 
 \begin{figure}[h]
     \frame{\includegraphics[width=\linewidth]{img/architektur/laufaparat}}
-    \caption{Sensorik und Daten des Laufaparats}\label{fig:laufapparat}
+    \caption{Sensorik des Laufaparats}\label{fig:laufapparat}
 \end{figure}
 
 Ähnlich der mechanischen Eigenschaften der zwölf Servomotoren des Typs \emph{GO-M8010-6} - zwei pro Bein des Roboters \numref{1}
@@ -96,11 +97,54 @@ und je ein Motor im Körper des Roboters \numref{2} - sind die sensorischen Funk
 In Abbildung~\ref{fig:netzwerk_ueberblick} in Kapitel~\ref{par:netzwerk_ueberblick} ist erkennbar, dass die
 zwölf Motoren des \gls{go1} über eine \emph{RS-485} Schnittstelle mit der \gls{mcu} verbunden sind.
 Diese wertet die Informationen aus und steuert die einzelnen Motoren über dieselbe Schnittstelle an.
+Bei Rotationsbewegungen messen die Motoren, welche Kraft für die Ausführung benötigt wird und was die Differenz zur
+erwarteten Kraft ist.
+So können die Motoren allein bereits eine ausreichende Datenmenge zur Steuerung des Bewegungsapparats liefern.
+
+Als Ergänzung zur intelligenten Messung der Motoren sind in den Enden aller vier Beine \numref{3} Drucksensoren verbaut, welche
+die erzeugte Kraft auf die Unterseite der Beine messen und an die \gls{mcu} senden.
+Die Kombination der Rotationsdaten und -kräfte sowie der gemessenen Kräfte an den Enden der Beine ermöglichen es dem
+\gls{go1}, die Motoren zum Ausgleich der Bewegungen anzusteuern und somit eine möglichst effiziente Fortbewegung zu
+ermöglichen.
+
+Neben der integrierten Sensorik zur steuerung des Laufapparats sind im \gls{go1} Kameras, Ultraschallsensoren und
+Audiotechnik verbaut worden.
+Abbildung \ref{fig:kameras_sensorik} zeigt hier die Verteilung der Kameras und Ultraschallsenoren.
 
 \begin{figure}[h]
     \frame{\includegraphics[width=\linewidth]{img/architektur/kameras_sensorik}}
     \caption{Darrstellung der verbauten Kamera und Sensorik}\label{fig:kameras_sensorik}
 \end{figure}
+
+Insgesamt sind im \gls{go1} fünf Stereokamerasysteme verbaut, die durch ihre doppelte Bauart ebenso zur Tiefenerkennung
+fähig sind.
+Die Kameras sind folgendermaßen verteilt:
+
+\begin{itemize}
+    \item \numref{1} Kopfeinheit nach vorne gerichtet
+    \item \numref{3} Kopfeinheit nach unten gerichtet
+    \item \numref{4} Rumpf links und rechts
+    \item \numref{6} Rumpf nach unten gerichtet
+\end{itemize}
+
+Die Kameras am Kopf des \gls{go1} \numref{1} und \numref{3} werden durch den Jetson Nano im Kopf gesteuert, die beiden
+nach außen gerichteten Kameras \numref{4} von einem weiteren Nano und die Kamera am Rumpf nach unten gerichtet \numref{6}
+vom letzten der drei verbauten Nanos.
+Mehr zur Steuerung und den Funktionen der Kameras und Recheneinheiten in Kapitel \ref{subsec:hardware-architektur} und
+\ref{subsubsec:video-streaming}.
+Unter drei der fünf Kamerasysteme sind Ultraschallsensoren verbaut.
+Diese sind am Kopf nach vorne gerichtet \numref{2} und am Körper zu den Seiten gerichtet \numref{5} verbaut.
+Laut der Dokumentation der Ultraschallsensoren ist softwareseitig ein weiteres Ultraschallmodul am Rumpf nach hinten
+gerichtet \numref{7} vorgesehen, welches aber hardwareseitig nie realisiert wurde\footcite{go1_ultraschall_anleitung}.
+\todo[inline]{Prüfen, ob die seitlichen Ultraschall gekabelt und ansprechbar sind}
+Die Ultraschalleinheit im Kopf des Roboters wird vom Jetson Nano im Kopf des Roboters gesteuert während die beiden seitlichen
+Sensoren mit dem Raspberry Pi im Rumpf des \gls{go1} verbunden sind.
+
+
+\todo[inline]{Audio}
+
+
+\subsubsection{Recheneinheiten und Schnittstellen}
 
 \begin{figure}[h]
     \frame{\includegraphics[width=\linewidth]{img/architektur/hardware}}
