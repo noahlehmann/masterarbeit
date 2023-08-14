@@ -1,13 +1,264 @@
 \subsection{Hardware Architektur}
 \label{subsec:hardware-architektur}
 
+Im folgenden Kapitel wird der Aufbau des intern verbauten Hardware-Systems und die Funktion der einzelnen Bauteile
+dessen dargestellt.
+Hierfür wird vorerst ein kurzer Überblick über die Komponenten und ihren Zusammenhang geschaffen, was sich in Teilen
+mit der Ausführung im vorigen Kapitel \ref{subsubsec:recheneinheiten} überschneidet.
+Mit dem geschaffenen Überblick werden die Einzelteile des System genauer betrachtet und dokumentiert.
+Dies soll über die einfache Dokumentation des Herstellers deutlich hinaus gehen.
+Abschließend wird die interne Kommunikation der Bauteile in sich und mit externen Komponenten beschrieben.
+
 \subsubsection{Überblick}
+\label{subsubsec:ueberblick_hardware}
+
+Als Einstieg in den Überblick soll veranschaulichend Abbildung \ref{fig:hardware_ueberblick} dienen.
+Sie zeigt die einzelnen Komponenten und ihre Verbindungen untereinander und zu den erweiterten Systemen wie dem \gls{bms}
+oder der Sensorik.
+
+\begin{figure}[h]
+    \frame{\includegraphics[width=\linewidth]{img/hardware_architektur/ueberblick}}
+    \caption{Überblick über die interne Architektur des Go1}\label{fig:hardware_ueberblick}
+\end{figure}
+
+Als Grundlage für sowohl die interne Hardware als auch die mechanischen Komponenten dienen die \gls{mcu} und das \gls{bms}.
+Beide werden vom Hersteller nicht für den Zugriff freigeschaltet und können indirekt verwendet werden.
+So können beispielsweise die Daten der Motoren und deren Steuerung aktuell nur über Bibliotheken gelesen und manipuliert werden.
+Auch die Daten des \gls{bms} sind nur lesend verfügbar.
+Zentral zu allen Komponenten steht ein Switch, welcher diese über ein Netzwerk verbindet.
+Direkt daran angeschlossen sind alle drei \emph{Nvidia Jetson Nanos}, der \emph{Raspberry Pi}, die \emph{\gls{mcu}} und
+der nach außen verfügbar gemachte \emph{RJ-45 Port}.
+Der Raspberry Pi kann als zentraler Baustein für alle Entwickler am \gls{go1} bezeichnet werden.
+Bis auf dedizierte Auswertungen oder Zugriffe auf die Kameramodule werden die meisten Prozesse zumindest auf dem Pi verwaltet.
+Die Nanos hingegen verarbeiten die ihnen zugeordneten Kameramodule, mit der Ausnahme des Nanos im Kopf des Roboters,
+der zudem auch die Sensordaten des nach vorne gerichteten Ultraschallsensors abgreift und verfügbar macht.
+Folgende Übersicht zeigt die Verteilung der zugreifbaren Recheneinheiten zu den zu verwaltenden Bausteinen.
+\newline
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l|l|l|l}
+        \textbf{Raspberry Pi} & \textbf{Nano 1 (Kopf)} & \textbf{Nano 2} & \textbf{Nano 3} \\ \hline
+        &                        &                 &                 \\
+        Wifi Modul            & \gls{led}-Steuerung    & Videoauswertung & Videoauswertung \\
+        Webhosting            & Audio-Ausgabe          & links + rechts  & Rumpf unten     \\
+        App-Verbindung        & Ultraschall frontal    &                 &                 \\
+        Monitoring            & Videoauswertung        &                 &                 \\
+        Bibliotheken          & Kopf vorne/unten       &                 &                 \\
+        Ultraschall seitlich  &                        &                 &                 \\
+        &                        &                 &
+    \end{tabular}
+    \label{tab:ueberblick_hardware_funktionen}
+\end{table}
+\todo{welcher Nano wo was wann, links rechts?}
+
+Das nächste Kapitel geht auf Grundlage des Überblicks genauer auf die einzelnen Bausteine der internen Hardware des \gls{go1}
+ein.
 
 \subsubsection{Kernelemente}
 
-% \subsubsection{Netzwerk}
+Als Kernelemente des \gls{go1} werden der verbaute \emph{Raspberry Pi} und die drei verbauten \emph{Nvidia Jetson Nanos}
+bezeichnet.
+Grundsätzlich ist die \gls{mcu} ebenfalls als Kernelement zu bezeichnen, sie ist jedoch nicht für den Zugriff durch den
+Entwickler freigeschaltet und wird deshalb nicht weiter betrachtet.
+Zur genaueren Inspektion der Komponenten kann ein externer Rechner per \emph{Ethernet} an den in Kapitel \ref{subsubsec:recheneinheiten}
+\emph{RJ-45}-Port angeschlossen werden.
+Diesem Rechner muss dann eine statische \gls{ip}-Adresse im Netz \texttt{192.168.123.0/24} vergeben werden.
+Da die \gls{ip}-Adresse noch nicht vergeben sein darf, wurde zur Analyse im Rahmen dieser Arbeit die Adresse \texttt{192.168.123.51}
+verwendet.
+
+\myparagraph{Raspberry Pi}
+\label{par:raspi}
+
+Laut Hersteller-Dokumentation ist im Roboter ein \emph{Raspberry Pi \num{4}} verbaut.
+Anhand der Dokumentation erkennt man lediglich die \gls{ip}-Adresse des Pi - \texttt{192.168.123.161}, jedoch keine Informationen
+zu den Eigenschaften dessen.
+Zur Prüfung der Eigenschaften des Pis kann sich mit dem Roboter per Ethernet verbunden werden.
+Über den Standard-Nutzer kann sich laut Dokumentation per \gls{ssh} auf den Roboter verbunden werden.
+
+\begin{lstlisting}[language=sh, label=lst:pi-ssh]
+# user: pi, password: 123, root-password:123
+ssh pi@192.168.123.161
+\end{lstlisting}
+
+Als Erstes soll das genaue Modell des Raspberry Pi erkannt werden:
+
+\begin{lstlisting}[language=sh, label=lst:pi-model]
+pi@raspberrypi:~ $ grep Model /proc/cpuinfo
+Model		: Raspberry Pi Compute Module 4 Rev 1.0
+\end{lstlisting}
+
+Die Prüfung der verbauten Variante des Compute Model 4 lässt dich durch folgendes Kommando durchführen:
+
+\begin{lstlisting}[language=sh, label=lst:pi-ram]
+pi@raspberrypi:~ $ grep MemTotal /proc/meminfo
+MemTotal:        1894664 kB
+\end{lstlisting}
+
+Eine kurze Prüfung der Herstellerwebsite zeigt uns, dass ein \texttt{Broadcom BCM2711 quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz}
+in der Variation mit \num{2} \gls{gb} Arbeitsspeicher verbaut ist.
+Die Boot-Partition und der initiale Festplattenspeicher werden bei diversen Kleinplatinenrechner oftmals über eine \gls{sd}-Karte
+realisiert.
+Um das auf dem Raspberry Pi zu prüfen kann die Belegung des Dateisystems ausgegeben werden.
+Die temporären Dateisysteme werden hierbei ausgeschlossen.
+
+\begin{lstlisting}[language=sh, label=lst:pi-sd]
+pi@raspberrypi:~ $ df -HTx tmpfs -x devtmpfs
+Filesystem     Type  Size  Used Avail Use% Mounted on
+/dev/root      ext4   32G   18G   13G  59% /
+/dev/mmcblk0p1 vfat  265M   69M  196M  26% /boot
+\end{lstlisting}
+
+Zu erkennen ist, dass tatsächlich eine \gls{sd}-Karte als Boot-Partition unter \texttt{/dev/mmcblk0p1} eingebunden wurde.
+Zudem lässt sich die Gesamtgröße des Dateisystems ablesen - \num{32} \gls{gb}.
+Zur Prüfung des verbauten Betriebssystems und des Linux Kernels kann folgendes Kommando verwendet werden:
+
+\begin{lstlisting}[language=sh, label=lst:pi-os]
+pi@raspberrypi:~ $ grep PRETTY_NAME /etc/os-release
+PRETTY_NAME="Debian GNU/Linux 10 (buster)"
+pi@raspberrypi:~ $ uname -r
+5.4.81-rt45-v8+
+\end{lstlisting}
+
+Zusammenfassend lassen sich die Kerndaten des Pis wie in Tabelle \ref{tab:data-raspi} dargestellt:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|r|l|}
+        \hline
+        Modell   & Raspberry Pi Compute Module 4 Rev 1.0\\ \hline
+        SoC      & Broadcom BCM2711 quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz\\ \hline
+        RAM      & \num{1894664} kB (\num{1,8} \gls{gb}) Arbeitsspeicher\\ \hline
+        Speicher & \num{32} \gls{gb} Festplattenspeicher über eine \gls{sd}-Karte\\ \hline
+        OS       & Debian 10 (Buster)\\ \hline
+        Kernel   & Linux Kernel 5.4.81-rt45-v8+ \\ \hline
+    \end{tabular}\caption{Kenndaten des Raspberry Pi}\label{tab:data-raspi}
+\end{table}
+
+\todo[inline]{Angeschlossene Hardware}
+\todo[inline]{Beschreibung des Home Ordners}
+
+\myparagraph{Nvidia Jetson Nano Kopf}
+\label{par:nano-kopf}
+
+Folgt man der Dokumentation der Hersteller erreicht man die Recheneinheit im Kopf des Roboters unter der \gls{ip} Adresse \texttt{192.168.123.13}.
+Verbinden lässt sich der Rechner über den Nutzer \texttt{unitree} und dem Passwort \texttt{123}.
+
+\begin{lstlisting}[language=sh, label=lst:nanos-ssh]
+# user: unitree, password: 123, root disabled
+ssh unitree@192.168.123.<nano-ip(13|14|15)>
+\end{lstlisting}
+
+Laut Hersteller ist auf allen drei Nvidia Chips das Betriebssystem Ubuntu installiert, welches auf Debian basiert, aber einige nützliche
+Funktionen über die Basis von Debian hinaus mitbringt.
+So auch den Befehl \texttt{lshw}, über den sich eine Zusammenfassung der auf dem System verwendeten Hardware ausgeben lässt.
+
+\begin{lstlisting}[language=sh, label=lst:nanos-hardware-kopf, columns=fixed]
+unitree@unitree-desktop:~$ sudo lshw -short
+[...] Class       Description
+[...] =======================
+[...] system      NVIDIA Jetson Nano Developer Kit
+[...] memory      3962MiB System memory
+[...] bridge      NVIDIA Corporation
+[...] multimedia  USB2.0 Camera RGB
+[...] multimedia  USB2.0 Camera RGB
+[...] generic     CP2102N USB to UART Bridge Controller
+[...] multimedia  USB Audio Device
+\end{lstlisting}
+
+Erkennbar ist über die gekürzte Ausgabe, dass im Kopf des \gls{go1} ein \emph{NVIDIA Jetson Nano} mit \num{4} \gls{gb}
+Arbeitsspeicher verbaut ist.
+Zudem sind per \gls{usb} vier externe Geräte angeschlossen, ein Lautsprecher im Rücken des Kopfes, ein Bridge-Controller
+zur Steuerung der beiden \gls{led}-Bänder und zwei Kameras.
+Die nach vorne gerichtete Kamera ist unter \texttt{/dev/video1} gemountet, die im Kopf nach unten gerichtete Kamera unter
+\texttt{/dev/video0}.
+Unter den Mountpoints der Kameras können diese ausgelesen und als Quelle verwendet werden.
+Ein Blick auf die Dateisysteme zeigt im Gegensatz zum selben Befehl auf dem Raspberry Pi lediglich die \texttt{root}-Partition,
+ein weiteres Inspizieren zeigt dann jedoch ebenfalls die \texttt{boot}-Partition auf der \gls{sd}-Karte.
+Die Prozessorvariante in \texttt{/proc/cpuinfo} gibt \texttt{ARMv8 Processor rev 1 (v8l)} aus.
+
+\begin{lstlisting}[language=sh, label=lst:nanos-kopf-fs, columns=fixed]
+unitree@unitree-desktop:~$ df -Hx tmpfs -x devtmpfs
+Filesystem      Size  Used Avail Use% Mount
+/dev/mmcblk0p1   15G   12G  2.5G  83% /
+
+unitree@unitree-desktop:~$ sudo lsblk
+NAME         FSTYPE   SIZE MOUNTPOINT
+mmcblk0              14.7G
+-> mmcblk0p1  ext4     14G /
+mmcblk0boot0            4M
+mmcblk0boot1            4M
+\end{lstlisting}
+
+Die genaue Version des Betriebssystems lässt sich analog zum Vorgehen im Raspberry Pi ermitteln:
+
+\begin{lstlisting}[language=sh, label=lst:nanos-kopf-os]
+unitree@unitree-desktop:~$ grep PRETTY_NAME /etc/os-release
+PRETTY_NAME="Ubuntu 18.04.5 LTS"
+unitree@unitree-desktop:~$ uname -r
+4.9.201-tegra
+\end{lstlisting}
+
+Zusammenfassend lassen sich die Kerndaten des Nvidia Jetson Nanos im Kopf des Roboters wie in Tabelle \ref{tab:data-head-nano} dargestellt:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|r|l|}
+        \hline
+        Modell    & NVIDIA Jetson Nano Developer Kit\\ \hline
+        Prozessor & ARMv8 Processor rev 1 (v8l)\\ \hline
+        RAM       & \num{3962} MiB (\num{4} \gls{gb}) Arbeitsspeicher\\ \hline
+        Speicher  & \num{16} \gls{gb} Festplattenspeicher über eine \gls{sd}-Karte\\ \hline
+        OS        & Ubuntu 18.04.5 LTS\\ \hline
+        Kernel    & 4.9.201-tegra \\ \hline
+    \end{tabular}\caption{Kenndaten des Nvidia Jetson Nano im Kopf des Roboters}\label{tab:data-head-nano}
+\end{table}
+
+\todo[inline]{Beschreibung des Home Ordners}
+
+\myparagraph{Nvidia Jetson Nano Rumpf}
+\label{par:nano-rumpf}
+
+Der Nano im Rumpf des Roboters is dem Nano im Kopf des Roboters gegenüber bis auf die angeschlossenen Geräte identisch.
+Die Ausgaben für das Betriebssystem in \texttt{/etc/os-release}, der Kernel-Version aus \texttt{uname -r} und der Informationen
+zur \gls{sd}-Karte aus \texttt{df -Hx tmpfs -xdevtmpfs} stimmen bei beiden Geräten überein.
+Die Unterschiede in der verbundenen Hardware geht aus folgender Ausgabe hervor:
+
+\begin{lstlisting}[language=sh, label=lst:nanos-hardware-rumpf, columns=fixed]
+unitree@unitree-desktop:~$ sudo lshw -short
+[...] Class       Description
+[...] =======================
+[...] system      NVIDIA Jetson Nano Developer Kit
+[...] memory      3964MiB System memory
+[...] bridge      NVIDIA Corporation
+[...] multimedia  USB2.0 Camera RGB
+[...] multimedia  USB2.0 Camera RGB
+\end{lstlisting}
+
+Ähnlich zum Nano im Kopf des \gls{go1} sind zwei Kameras verbaut, eine Kamera links im Rumpf von hinten betrachtet unter dem Mounting-Point
+\texttt{/dev/video1} und eine Kamera rechts im Rumpf unter \texttt{/dev/video0}.
+Als Übersicht zu den Kerndaten des Nanos im Rumpf des Roboters kann die Übersicht \ref{tab:data-head-nano} verwendet werden.
+
+\todo[inline]{Inhalte Ordner}
+
+\myparagraph{Nvidia Jetson Xavier NX}
+\label{par:nx}
+
+Die mit Abstand
+
+\begin{lstlisting}[language=sh, label=lst:nanos-hardware-rumpf-nx, columns=fixed]
+unitree@nx:~$ sudo lshw -short
+[sudo] password for unitree:
+[...] Class       Description
+[...] =======================
+[...] system      NVIDIA Jetson Xavier NX Developer Kit
+[...] memory      7773MiB System memory
+[...] bridge      NVIDIA Corporation
+[...] multimedia  USB2.0 Camera RGB
+\end{lstlisting}
+
+
 \input{ma/chapters/architektur/netzwerk}
 
-\subsubsection{Spezialisierte Hardware}
-\paragraph{Raspberry Pi}
-\label{par:raspi}
+
+

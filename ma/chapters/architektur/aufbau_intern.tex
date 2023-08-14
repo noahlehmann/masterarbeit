@@ -12,7 +12,7 @@ So ergeben sich die Bezeichnungen der äußerlich erkennbaren Bauteile von selbs
 Abbildung~\ref{fig:allgemeine_architektur} zeigt die äußerlichen Merkmale im Überblick.
 
 \begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/allgemein}}
+    \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/allgemein}}
     \caption[Überblick über den Go1]{Überblick über den \gls{go1}}\label{fig:allgemeine_architektur}
 \end{figure}
 
@@ -54,7 +54,7 @@ An den Hüftgelenken befestigt sind die einzigen weiteren beweglichen Bauteile d
 die pro Bein jeweils zwei weiteren Motoren für die Neigung der Beine \numref{2} und der Kniegelenke \numref{3}.
 \todo{Validieren ob starre und Seizug Verbindung genutzt werden}
 \begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/mechanische_komponenten}}
+    \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/mechanische_komponenten}}
     \caption[Mechanische Komponenten des Go1]{Mechanische Komponenten des \gls{go1}}\label{fig:mechanische_komponenten}
 \end{figure}
 Zum Strecken des Kniegelenks wird eine am äußeren Motor angebrachter Seilzug \numref{4} verwendet,
@@ -88,7 +88,7 @@ in einigen Bauteilen wie den mechanischen Bauteilen des Laufapparats integriert.
 Abbildung~\ref{fig:laufapparat} zeigt die hierfür verbauten Sensoren und intelligenten Hardwarebausteine.
 
 \begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/laufaparat}}
+    \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/laufaparat}}
     \caption{Sensorik des Laufaparats}\label{fig:laufapparat}
 \end{figure}
 
@@ -112,7 +112,7 @@ Audiotechnik verbaut worden.
 Abbildung \ref{fig:kameras_sensorik} zeigt hier die Verteilung der Kameras und Ultraschallsenoren.
 
 \begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/kameras_sensorik}}
+    \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/kameras_sensorik}}
     \caption{Darrstellung der verbauten Kamera und Sensorik}\label{fig:kameras_sensorik}
 \end{figure}
 
@@ -142,6 +142,7 @@ Sensoren mit dem Raspberry Pi im Rumpf des \gls{go1} verbunden sind.
 
 
 \subsubsection{Recheneinheiten und Schnittstellen}
+\label{subsubsec:recheneinheiten}
 
 Die \emph{Edu} Version des \gls{go1} ist mit einiger integrierter Rechenleistung versehen worden.
 Innerhalb des Rumpfes und des Kopfes sind diverse Kleinplatinenrechner verbaut worden, um beispielsweise die Daten der oben beschriebenen
@@ -149,7 +150,7 @@ Sensoren zu verwerten, den Bewegungsapparat manuell zu manipulieren und dem Robo
 Abbildung \ref{fig:intern} zeigt die interne Zusammensetzung des \gls{go1}.
 
 \begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/rechenkomponenten}}
+    \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/rechenkomponenten}}
     \caption{Blick auf die internen Komponenten}\label{fig:intern}
 \end{figure}
 
@@ -165,7 +166,7 @@ zwischen den im Rumpf verbauten Komponenten und dem Kopf des Roboters.
 Abbildung \ref{fig:kopf} zeigt die restlichen im Kopf verbauten Komponenten des Hundes.
 
 \begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/kopf}}
+    \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/kopf}}
     \caption{Ansicht des Kopfes von hinten}\label{fig:kopf}
 \end{figure}
 
@@ -188,7 +189,7 @@ Direkt oberhalb dieser Verbindung sind zwei \gls{usb} \emph{Typ C} Ports \numref
 Erweiterungen, wie beispielsweise \gls{gps}-Module können über eine serielle Schnittstelle \numref{4} angeschlossen werden.
 
 \begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/architektur/vogelperspektive}}
+    \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/vogelperspektive}}
     \caption{Vogelperspektive mit Hardware}\label{fig:vogelperspektive}
 \end{figure}
 
@@ -198,7 +199,8 @@ Als Alternative zum kabellosen Netzwerk kann für eine Verbindung mit dem Intern
 Steckplatz für \emph{4G/ \gls{lte}}-Karten \numref{6} verwendet werden.
 Dieser ist direkt mit dem verbauten Raspberry Pi verbunden\footnote{Siehe Kapitel \ref{subsubsec:gsm}}.
 
-Die restlichen Verbindungen auf der Rückseite des Rumpfes sind drei Paare mit je einem \gls{hdmi} und einem \gls{usb}-A Port.
+Die restlichen Verbindungen auf der Rückseite des Rumpfes sind drei Paare mit je einem \gls{hdmi} und einem \gls{usb}-A Port
+Für die direkte Verbindung zu den Kleinplatinenrechnern durch Entwickler.
 Die Verteilung ist wie folgt:
 
 \begin{itemize}
