@@ -1,8 +1,9 @@
 \section{Analyse des Roboters}
 \label{sec:analyse-des-roboters}
+
 Dieses und die folgenden Kapitel beschäftigen sich lediglich mit der Infrastruktur rund um den Roboter
 und der Hardware und den Funktionen, die bereits im Roboter verbaut sind oder ergänzt werden können.
-Die Funktionen rund um \gls{ml}, erweiterte Robotik, \todo{abk} LIDAR werden nicht behandelt.
+Die Funktionen rund um \gls{ml}, erweiterte Robotik, \gls{lidar} werden nicht behandelt.
 Dieses Kapitel beschäftigt sich mit dem Ansatz der Analyse des Roboters.
 Es wird gezeigt, wie die bestehenden Funktionen getestet und genutzt werden können, wie erkannt wird,
 welche Funktionen bereits aktiviert sind und welche Teile der Soft- oder Hardware nicht aktiviert sind.
@@ -13,9 +14,19 @@ Die Dokumentation hierzu ist in Kapitel~\ref{sec:funktionserweiterungen-und-inte
 Betroffene Funktionen werden hier im Kapitel explizit hervorgehoben.
 
 
+Als Grundlage für die in diesem Kapitel vorausgesetzten Informationen wird das Kapitel \ref{sec:roboterarchitektur-und-systemkomponenten}
+referenziert.
+Dieses sollte vor dem Weiterlesen betrachtet werden, falls noch kein umfangreiches Grundwissen über den Aufbau des \gls{go1}
+vorhanden ist.
+Ebenfalls zu beachten ist, dass es sich bei dem analysierten Roboter in den folgenden Kapiteln \ref{sec:analyse-des-roboters}
+und \ref{sec:funktionserweiterungen-und-integration} um die Version \emph{GO1 Edu} handelt, welche deutlich umfangreichere
+Ausstattung und Softwaremöglichkeiten mitliefert, als die weniger ausgestatteten Versionen des \gls{go1}
+
+
 \input{ma/chapters/analyse/inbetriebnahme}
 \input{ma/chapters/analyse/vorgehensweise}
 \input{ma/chapters/analyse/funktionen}
+\input{ma/chapters/analyse/autostart}
 \input{ma/chapters/analyse/fernsteuerung}
 \input{ma/chapters/analyse/lokales_netzwerk}
 \input{ma/chapters/analyse/monitoring}
