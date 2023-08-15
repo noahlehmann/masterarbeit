@@ -15,8 +15,8 @@ Zudem soll die Methodik der Analyse des Netzwerks und mögliche Problemfeststell
 Abbildung~\ref{fig:netzwerk_ueberblick} gilt als Referenz für die folgenden Ausführungen.
 Zentrale Einheit der Kommunikation sind der verbaute Ethernet Switch \todo{was für switch} und
 der intern verbaute \emph{Raspberry Pi}.
-Wie auf Abbildung~\ref{fig:netzwerk_ueberblick} zu erkennen ist, sind alle fünf manipulierbaren Platinen -
-der Raspberry Pi, die \gls{mcu}, die beiden Nvidia Jetson Nanos mit \num{4}GB \gls{ram} und der Nano im Kopf des Hundes -
+Wie auf Abbildung~\ref{fig:netzwerk_ueberblick} zu erkennen ist, sind alle fünf Recheneinheiten -
+der Raspberry Pi, die \gls{mcu}, die beiden NVIDIA Jetson Nanos und der Jetson Xavier NX -
 per \emph{Ethernet} mit dem Switch verbunden.
 Auch der extern zugängliche Ethernet-Port auf dem Rücken des Roboters ist mit dem Switch verbunden.
 
@@ -31,12 +31,12 @@ Dabei ist die Verteilung der \gls{ip}-Adressen folgendermaßen vorkonfiguriert:
 \begin{itemize}
     \item \textbf{\gls{mcu}:} \texttt{192.168.123.10}
     \item \textbf{Raspberry Pi:} \texttt{192.168.123.10}
-    \item \textbf{Nvidia Jetson Nanos:}
+    \item \textbf{NVIDIA Jetson Nanos:}
     \begin{enumerate}
         \item Kopf: \texttt{192.168.123.13}
         \item Seiten: \texttt{192.168.123.14}
-        \item Unterseite: \texttt{192.168.123.15}
     \end{enumerate}
+    \item \textbf{NVIDIA Jetson Xavier NX:} \texttt{192.168.123.15}
 \end{itemize}
 Dem Endgerät, das am externen Ethernet-Port an der Oberseite des Roboters angesteckt werden kann,
 muss eine statische \gls{ip}-Adresse im Bereich \texttt{192.168.123.0/24} vergeben werden, die nicht bereits von einem der oben genannten

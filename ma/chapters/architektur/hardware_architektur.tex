@@ -5,7 +5,7 @@ Im folgenden Kapitel wird der Aufbau des intern verbauten Hardware-Systems und d
 dessen dargestellt.
 Hierfür wird vorerst ein kurzer Überblick über die Komponenten und ihren Zusammenhang geschaffen, was sich in Teilen
 mit der Ausführung im vorigen Kapitel \ref{subsubsec:recheneinheiten} überschneidet.
-Mit dem geschaffenen Überblick werden die Einzelteile des System genauer betrachtet und dokumentiert.
+Mit dem geschaffenen Überblick werden die Einzelteile des Systems genauer betrachtet und dokumentiert.
 Dies soll über die einfache Dokumentation des Herstellers deutlich hinaus gehen.
 Abschließend wird die interne Kommunikation der Bauteile in sich und mit externen Komponenten beschrieben.
 
@@ -26,23 +26,25 @@ Beide werden vom Hersteller nicht für den Zugriff freigeschaltet und können in
 So können beispielsweise die Daten der Motoren und deren Steuerung aktuell nur über Bibliotheken gelesen und manipuliert werden.
 Auch die Daten des \gls{bms} sind nur lesend verfügbar.
 Zentral zu allen Komponenten steht ein Switch, welcher diese über ein Netzwerk verbindet.
-Direkt daran angeschlossen sind alle drei \emph{Nvidia Jetson Nanos}, der \emph{Raspberry Pi}, die \emph{\gls{mcu}} und
-der nach außen verfügbar gemachte \emph{RJ-45 Port}.
+Direkt daran angeschlossen sind alle drei \emph{NVIDIA Jetson} Einheiten - zwei Nanos und ein Xavier NX, der \emph{Raspberry Pi}, 
+die \emph{\gls{mcu}} und der nach außen verfügbar gemachte \emph{RJ-45 Port}.
 Der Raspberry Pi kann als zentraler Baustein für alle Entwickler am \gls{go1} bezeichnet werden.
 Bis auf dedizierte Auswertungen oder Zugriffe auf die Kameramodule werden die meisten Prozesse zumindest auf dem Pi verwaltet.
-Die Nanos hingegen verarbeiten die ihnen zugeordneten Kameramodule, mit der Ausnahme des Nanos im Kopf des Roboters,
+Die NVIDIA Einheiten hingegen verarbeiten die ihnen zugeordneten Kameramodule, mit der Ausnahme des Nanos im Kopf des Roboters,
 der zudem auch die Sensordaten des nach vorne gerichteten Ultraschallsensors abgreift und verfügbar macht.
+Der NVIDIA Jetson Xavier NX ist zudem die rechen-stärkste Einheit mit Blick auf Prozessor und Grafikeinheiten und kann
+deshalb im \gls{ml} Bereich und in der Videoauswertung verwendet werden.
 Folgende Übersicht zeigt die Verteilung der zugreifbaren Recheneinheiten zu den zu verwaltenden Bausteinen.
 \newline
 
 \begin{table}[h]
     \centering
     \begin{tabular}{l|l|l|l}
-        \textbf{Raspberry Pi} & \textbf{Nano 1 (Kopf)} & \textbf{Nano 2} & \textbf{Nano 3} \\ \hline
+        \textbf{Raspberry Pi} & \textbf{Nano 1 (Kopf)} & \textbf{Nano 2 (Rumpf)} & \textbf{Xavier NX} \\ \hline
         &                        &                 &                 \\
         Wifi Modul            & \gls{led}-Steuerung    & Videoauswertung & Videoauswertung \\
         Webhosting            & Audio-Ausgabe          & links + rechts  & Rumpf unten     \\
-        App-Verbindung        & Ultraschall frontal    &                 &                 \\
+        App-Verbindung        & Ultraschall frontal    &                 & \gls{ml} Prozesse \\
         Monitoring            & Videoauswertung        &                 &                 \\
         Bibliotheken          & Kopf vorne/unten       &                 &                 \\
         Ultraschall seitlich  &                        &                 &                 \\
@@ -50,15 +52,14 @@ Folgende Übersicht zeigt die Verteilung der zugreifbaren Recheneinheiten zu den
     \end{tabular}
     \label{tab:ueberblick_hardware_funktionen}
 \end{table}
-\todo{welcher Nano wo was wann, links rechts?}
 
 Das nächste Kapitel geht auf Grundlage des Überblicks genauer auf die einzelnen Bausteine der internen Hardware des \gls{go1}
 ein.
 
 \subsubsection{Kernelemente}
 
-Als Kernelemente des \gls{go1} werden der verbaute \emph{Raspberry Pi} und die drei verbauten \emph{Nvidia Jetson Nanos}
-bezeichnet.
+Als Kernelemente des \gls{go1} werden der verbaute \emph{Raspberry Pi}, die zwei verbauten \emph{NVIDIA Jetson Nanos} und
+der \emph{NVIDIA Jetson Xavier NX} bezeichnet.
 Grundsätzlich ist die \gls{mcu} ebenfalls als Kernelement zu bezeichnen, sie ist jedoch nicht für den Zugriff durch den
 Entwickler freigeschaltet und wird deshalb nicht weiter betrachtet.
 Zur genaueren Inspektion der Komponenten kann ein externer Rechner per \emph{Ethernet} an den in Kapitel \ref{subsubsec:recheneinheiten}
@@ -120,7 +121,7 @@ pi@raspberrypi:~ $ uname -r
 5.4.81-rt45-v8+
 \end{lstlisting}
 
-Zusammenfassend lassen sich die Kerndaten des Pis wie in Tabelle \ref{tab:data-raspi} dargestellt:
+Zusammenfassend lassen sich die Kerndaten des Pis wie in Tabelle \ref{tab:data-raspi} dargestellt.
 
 \begin{table}[h]
     \centering
@@ -135,10 +136,34 @@ Zusammenfassend lassen sich die Kerndaten des Pis wie in Tabelle \ref{tab:data-r
     \end{tabular}\caption{Kenndaten des Raspberry Pi}\label{tab:data-raspi}
 \end{table}
 
-\todo[inline]{Angeschlossene Hardware}
-\todo[inline]{Beschreibung des Home Ordners}
+Wirft man einen Blick auf die zusätzlich zu den im Raspberry Pi integrierten angeschlossenen Komponenten, so erkennt
+man die Funktion des Pi als Schnittstelle zwischen Entwickler und Roboter gut.
+Angeschlossene Geräte lassen sich großenteils über die Ausgabe der per \gls{usb} verbundenen Geräte mit dem Befehl
+\texttt{lsusb} prüfen.
 
-\myparagraph{Nvidia Jetson Nano Kopf}
+\begin{lstlisting}[language=sh, label=lst:pi-usb]
+pi@raspberrypi:~ $ lsusb
+Bus 001 Device 004: ID 0bda:c812 Realtek Semiconductor Corp.
+Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem
+[...]
+\end{lstlisting}
+
+Nennenswert sind in der Ausgabe besonders der \emph{Realtek} \gls{usb}-WiFi Adapter und das \emph{Quectel}-Modem zum
+Einstecken der 4G/ \gls{lte} Karte.
+Die genaue Funktion der \gls{usb} Geräte lässt sich oftmals durch eine Suche der Geräteidentifikation links neben dem
+vollen Namen des Gerätes auf der Herstellerwebsite prüfen.
+
+Ein Blick auf die Dokumentation der Ultraschallsensoren lässt hier erkennen, dass die beiden Sensoren links und rechts
+am Rumpf des Roboters über den Serial-Port \texttt{ttyAMA0} verbunden sind.
+
+\begin{lstlisting}[language=sh, label=lst:pi-ultrasonic]
+pi@raspberrypi:~ $ dmesg | grep ttyAMA0
+[    1.251673] fe201000.serial: ttyAMA0 at MMIO 0xfe201000 (irq = 14, base_baud = 0) is a PL011 rev2
+\end{lstlisting}
+
+% --------------------------------------------------------------
+% KOPF
+\myparagraph{NVIDIA Jetson Nano Kopf}
 \label{par:nano-kopf}
 
 Folgt man der Dokumentation der Hersteller erreicht man die Recheneinheit im Kopf des Roboters unter der \gls{ip} Adresse \texttt{192.168.123.13}.
@@ -149,7 +174,7 @@ Verbinden lässt sich der Rechner über den Nutzer \texttt{unitree} und dem Pass
 ssh unitree@192.168.123.<nano-ip(13|14|15)>
 \end{lstlisting}
 
-Laut Hersteller ist auf allen drei Nvidia Chips das Betriebssystem Ubuntu installiert, welches auf Debian basiert, aber einige nützliche
+Laut Hersteller ist auf allen drei NVIDIA Chips das Betriebssystem Ubuntu installiert, welches auf Debian basiert, aber einige nützliche
 Funktionen über die Basis von Debian hinaus mitbringt.
 So auch den Befehl \texttt{lshw}, über den sich eine Zusammenfassung der auf dem System verwendeten Hardware ausgeben lässt.
 
@@ -172,10 +197,17 @@ Zudem sind per \gls{usb} vier externe Geräte angeschlossen, ein Lautsprecher im
 zur Steuerung der beiden \gls{led}-Bänder und zwei Kameras.
 Die nach vorne gerichtete Kamera ist unter \texttt{/dev/video1} gemountet, die im Kopf nach unten gerichtete Kamera unter
 \texttt{/dev/video0}.
+Die Dokumentation der Ultraschallsensoren zeigt ebenfalls, dass sich am Serial-Port \texttt{ttyTHS1} der Ultraschall-Sensor
+am Kopf des Roboters befindet.
+
+\begin{lstlisting}[language=sh, label=lst:nano-head-ulrtassonic]
+unitree@unitree-desktop:~$ dmesg| grep ttyTHS1
+[    1.099918] 70006040.serial: ttyTHS1 at MMIO 0x70006040 (irq = 64, base_baud = 0) is a TEGRA_UART
+\end{lstlisting}
+
 Unter den Mountpoints der Kameras können diese ausgelesen und als Quelle verwendet werden.
 Ein Blick auf die Dateisysteme zeigt im Gegensatz zum selben Befehl auf dem Raspberry Pi lediglich die \texttt{root}-Partition,
 ein weiteres Inspizieren zeigt dann jedoch ebenfalls die \texttt{boot}-Partition auf der \gls{sd}-Karte.
-Die Prozessorvariante in \texttt{/proc/cpuinfo} gibt \texttt{ARMv8 Processor rev 1 (v8l)} aus.
 
 \begin{lstlisting}[language=sh, label=lst:nanos-kopf-fs, columns=fixed]
 unitree@unitree-desktop:~$ df -Hx tmpfs -x devtmpfs
@@ -190,6 +222,11 @@ mmcblk0boot0            4M
 mmcblk0boot1            4M
 \end{lstlisting}
 
+Die Prozessorvariante in \texttt{/proc/cpuinfo} gibt \texttt{ARMv8 Processor rev 1 (v8l)} aus.
+Ein Blick auf die Herstellerwebsite zeigt, dass mit der Prozessorbezeichnung ein \texttt{Quad-Core ARM Cortex-A57 MPCore} Prozessor verbaut ist\footcite{nvidia_website_vergleich}.
+Da die NVIDIA Jetson Reihe auf den Einsatz in der Robotik und im \gls{ml} Bereich optimiert sind, sind neben der \gls{cpu}
+starke Grafikeinheiten verbaut.
+Laut Hersteller ist eine \texttt{NVIDIA Maxwell-GPU} mit 128 Cores verbaut.
 Die genaue Version des Betriebssystems lässt sich analog zum Vorgehen im Raspberry Pi ermitteln:
 
 \begin{lstlisting}[language=sh, label=lst:nanos-kopf-os]
@@ -199,27 +236,29 @@ unitree@unitree-desktop:~$ uname -r
 4.9.201-tegra
 \end{lstlisting}
 
-Zusammenfassend lassen sich die Kerndaten des Nvidia Jetson Nanos im Kopf des Roboters wie in Tabelle \ref{tab:data-head-nano} dargestellt:
+Zusammenfassend lassen sich die Kerndaten des NVIDIA Jetson Nanos im Kopf des Roboters wie in Tabelle \ref{tab:data-head-nano} dargestellt:
 
 \begin{table}[h]
     \centering
     \begin{tabular}{|r|l|}
         \hline
         Modell    & NVIDIA Jetson Nano Developer Kit\\ \hline
-        Prozessor & ARMv8 Processor rev 1 (v8l)\\ \hline
+        GPU       & NVIDIA Maxwell-GPU mit 128 Cores\\ \hline
+        Prozessor & Quad-Core ARM Cortex-A57 MPCore\\ \hline
         RAM       & \num{3962} MiB (\num{4} \gls{gb}) Arbeitsspeicher\\ \hline
         Speicher  & \num{16} \gls{gb} Festplattenspeicher über eine \gls{sd}-Karte\\ \hline
         OS        & Ubuntu 18.04.5 LTS\\ \hline
         Kernel    & 4.9.201-tegra \\ \hline
-    \end{tabular}\caption{Kenndaten des Nvidia Jetson Nano im Kopf des Roboters}\label{tab:data-head-nano}
+    \end{tabular}\caption{Kenndaten des NVIDIA Jetson Nano im Kopf des Roboters}\label{tab:data-head-nano}
 \end{table}
 
 \todo[inline]{Beschreibung des Home Ordners}
 
-\myparagraph{Nvidia Jetson Nano Rumpf}
+\myparagraph{NVIDIA Jetson Nano Rumpf}
 \label{par:nano-rumpf}
 
-Der Nano im Rumpf des Roboters is dem Nano im Kopf des Roboters gegenüber bis auf die angeschlossenen Geräte identisch.
+Der Nano im Rumpf des Roboters is dem Nano im Kopf des Roboters gegenüber bis auf die angeschlossenen Geräte und seiner
+\gls{ip}-Adresse \texttt{192.168.123.14} identisch.
 Die Ausgaben für das Betriebssystem in \texttt{/etc/os-release}, der Kernel-Version aus \texttt{uname -r} und der Informationen
 zur \gls{sd}-Karte aus \texttt{df -Hx tmpfs -xdevtmpfs} stimmen bei beiden Geräten überein.
 Die Unterschiede in der verbundenen Hardware geht aus folgender Ausgabe hervor:
@@ -241,10 +280,24 @@ Als Übersicht zu den Kerndaten des Nanos im Rumpf des Roboters kann die Übersi
 
 \todo[inline]{Inhalte Ordner}
 
-\myparagraph{Nvidia Jetson Xavier NX}
+\myparagraph{NVIDIA Jetson Xavier NX}
 \label{par:nx}
 
-Die mit Abstand
+Die zentrale Recheneinheit mit der höchsten Leistung ist der im Rumpf verbaute \emph{NVIDIA Jetson Xavier NX} mit der internen
+\gls{ip}-Adresse \texttt{192.168.123.15}.
+Auf dem NX ist - wie auf beiden Nanos - das Betriebssystem Ubuntu installiert.
+Auch die Kernel-Version ist identisch zu den beiden Nanos.
+
+\begin{lstlisting}[language=sh, label=lst:nx-os]
+unitree@nx:~$ grep PRETTY_NAME /etc/os-release
+PRETTY_NAME="Ubuntu 18.04.5 LTS"
+unitree@nx:~$ uname -r
+4.9.201-tegra
+\end{lstlisting}
+
+Im Wesentlichen unterscheidet der NX sich in seiner Plattform, der Prozessoreinheit und dem verbauten Arbeitsspeicher
+von den beiden Nanos.
+Folgende Übersicht gibt die Hardwareübersicht aus:
 
 \begin{lstlisting}[language=sh, label=lst:nanos-hardware-rumpf-nx, columns=fixed]
 unitree@nx:~$ sudo lshw -short
@@ -257,8 +310,46 @@ unitree@nx:~$ sudo lshw -short
 [...] multimedia  USB2.0 Camera RGB
 \end{lstlisting}
 
+Laut Hersteller ist im NX ein \texttt{6-Core NVIDIA Carmel ARM v8.2 64-bit-CPU} verbaut\footcite{nvidia_website_vergleich}.
+Benchmarks und Vergleiche zu den Recheneinheiten werden in Kapitel \ref{subsec:limitierungen} gezeigt, es kann jedoch
+festgehalten werden, dass der NX deutlich fähiger ist, als die beiden Nanos in Kopf und Rumpf.
+Zusätzlich zum besseren Prozessor sind im NX \num{8} \gls{gb} Arbeitsspeicher verbaut.
+Die angeschlossene Kamera ist die im Rumpf nach unten gerichtete Kamera.
+Ein Blick auf die Festplattenkapazitäten des NX stellt auch klar, warum Unitree diese Einheit als Kernstück der Rechenleistung des
+\gls{go1} bewirbt.
+
+\begin{lstlisting}[language=sh, label=lst:nx-fs,columns=fixed]
+unitree@nx:~$ df -Hx tmpfs -x devtmpfs
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p1  118G   22G   90G  20% /
+/dev/mmcblk0p1   15G   84M   14G   1% /media/unitree/cd8bfc0a-0f39-4efa-b376-116833b08f45
+\end{lstlisting}
+
+Die deutlich höhere Speicherkapazität durch das Anschließen einer \gls{ssd} zusätzlich zur für den Bootvorgang verwendeten
+\gls{sd} Karte ermöglicht dem NX das Auswerten größerer Datenmengen als auf den beiden Nanos mit nur \num{16} \gls{gb}
+Speicherkapazität auf deren \gls{sd}-Karten.
+Wie auf den Nanos ist auch auf dem NX die Grafikeinheit deutlich wichtiger als die Recheneinheit.
+Laut Hersteller ist eine \texttt{NVIDIA Volta-GPU} mit 384 Cores und 48 Tensor Cores verbaut.
+Auch hier ist der NX deutlich besser ausgestattet als die beiden Nanos.
+Tabelle \ref{tab:data-nx} fasst die Eigenschaften des NVIDIA Jetson Xavier NX kurz zusammen.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|r|l|}
+        \hline
+        Modell    & NVIDIA Jetson Xavier NX\\ \hline
+        GPU       & NVIDIA Volta-GPU mit 384 Cores und 48 Tensor Cores \\ \hline
+        Prozessor & 6-Core NVIDIA Carmel ARM v8.2 64-bit-CPU\\ \hline
+        RAM       & \num{7773} MiB (\num{8} \gls{gb}) Arbeitsspeicher\\ \hline
+        Speicher  & \num{16} \gls{gb} Festplattenspeicher über eine \gls{sd}-Karte\\
+                  & \num{120} \gls{gb} \gls{ssd} Speicher \\ \hline
+        OS        & Ubuntu 18.04.5 LTS\\ \hline
+        Kernel    & 4.9.201-tegra \\ \hline
+    \end{tabular}\caption{Kenndaten des NVIDIA Jetson Xavier NX}\label{tab:data-nx}
+\end{table}
+
 
 \input{ma/chapters/architektur/netzwerk}
-
+\todo[inline]{Routing für Rechnungen auf NX?}
 
 
