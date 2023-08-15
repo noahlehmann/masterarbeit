@@ -152,8 +152,10 @@ Nennenswert sind in der Ausgabe besonders der \emph{Realtek} \gls{usb}-WiFi Adap
 Einstecken der 4G/ \gls{lte} Karte.
 Die genaue Funktion der \gls{usb} Geräte lässt sich oftmals durch eine Suche der Geräteidentifikation links neben dem
 vollen Namen des Gerätes auf der Herstellerwebsite prüfen.
+Beide Geräte erlauben es dem Pi, sich neben der auf der Platine verbauten Schnittstellen mit dem Internet oder einem lokalen
+Netzwerk zu verbinden.
 
-Ein Blick auf die Dokumentation der Ultraschallsensoren lässt hier erkennen, dass die beiden Sensoren links und rechts
+Ein Blick auf die offizielle Dokumentation der Ultraschallsensoren lässt hier erkennen, dass die beiden Sensoren links und rechts
 am Rumpf des Roboters über den Serial-Port \texttt{ttyAMA0} verbunden sind.
 
 \begin{lstlisting}[language=sh, label=lst:pi-ultrasonic]
@@ -252,7 +254,6 @@ Zusammenfassend lassen sich die Kerndaten des NVIDIA Jetson Nanos im Kopf des Ro
     \end{tabular}\caption{Kenndaten des NVIDIA Jetson Nano im Kopf des Roboters}\label{tab:data-head-nano}
 \end{table}
 
-\todo[inline]{Beschreibung des Home Ordners}
 
 \myparagraph{NVIDIA Jetson Nano Rumpf}
 \label{par:nano-rumpf}
@@ -278,8 +279,8 @@ unitree@unitree-desktop:~$ sudo lshw -short
 \texttt{/dev/video1} und eine Kamera rechts im Rumpf unter \texttt{/dev/video0}.
 Als Übersicht zu den Kerndaten des Nanos im Rumpf des Roboters kann die Übersicht \ref{tab:data-head-nano} verwendet werden.
 
-\todo[inline]{Inhalte Ordner}
-
+% ------------------------------------------------
+% Xavier NX
 \myparagraph{NVIDIA Jetson Xavier NX}
 \label{par:nx}
 
@@ -350,6 +351,5 @@ Tabelle \ref{tab:data-nx} fasst die Eigenschaften des NVIDIA Jetson Xavier NX ku
 
 
 \input{ma/chapters/architektur/netzwerk}
-\todo[inline]{Routing für Rechnungen auf NX?}
 
 
