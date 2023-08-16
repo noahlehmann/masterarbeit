@@ -21,3 +21,23 @@
 \newcommand\isFootcite{%
     \ifx\footcite\nextToken\textsuperscript{,}\fi}
 
+% mdframed
+\newmdenv[linecolor=black,backgroundcolor=gray!20,frametitle=Voraussetzungen,align=center,font=\normalsize]{requirements}
+
+%lstlistings
+\lstdefinestyle{myStyle}{
+    belowcaptionskip=1\baselineskip,
+    frame=none,
+    numbers=none,
+    basicstyle=\footnotesize\ttfamily,
+    %keywordstyle=\bfseries\color{green!40!black},
+    %commentstyle=\itshape\color{purple!40!black},
+    %identifierstyle=\color{blue},
+    frame=single,
+    framerule=0.3pt,
+    rulecolor=\color{black},
+    backgroundcolor=\color{gray!20},
+    breaklines=true,
+    postbreak=\mbox{$\hookrightarrow$\space},
+}
+\lstset{style=myStyle}

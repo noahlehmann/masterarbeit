@@ -4,7 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage[all]{nowidow}
-\usepackage[final]{listings} % todo styling
+\usepackage[final]{listings} % todo language highlighting
 \usepackage{ltablex}
 \usepackage{caption}
 \usepackage[title]{appendix}
@@ -39,6 +39,7 @@
   urlcolor=black
 ]{hyperref}
 \usepackage{glossaries-extra} % load after hyperref
+\usepackage{mdframed}
 
 \input{abbrev}
 
@@ -52,14 +53,6 @@
 }
 
 \bibliography{src.bib}
-
-\lstset{
-  basicstyle=\ttfamily,
-  columns=fullflexible,
-  frame=single,
-  breaklines=true,
-  postbreak=\mbox{$\hookrightarrow$\space},
-}
 
 \renewcommand{\baselinestretch}{1.3}
 
