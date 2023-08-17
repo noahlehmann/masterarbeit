@@ -1,2 +1,87 @@
 \subsubsection{Software Autostart}
 \label{subsubsec:software-autostart}
+
+Unitree Robotics hat bei der Implementierung der Startsequenzen ihrer Softwarekomponenten eine einfache, für den Nutzer
+zugängliche Autostart Funktion der Betriebssysteme des Raspberry Pis und der NVIDIA Jetsons verwendet.
+Auf den Ubuntu Systemen wird das Paket \texttt{gnome\allowbreak -start\-up-\allowbreak app\-li\-cations} verwendet.
+Die Installation des Paketes kann durch den Befehl \texttt{apt list --installed | grep gnome-\allowbreak start\-up-\allowbreak app\-li\-cations}
+geprüft werden.
+Anzumerken ist, dass die Funktionalität von der Desktop-Umgebung \emph{Gnome} bereitgestellt wird, nicht vom Betriebssystem
+der Recheneinheiten.
+Die auf \gls{lxde} basierende Desktop-Umgebung \gls{pixel}, die auf dem Raspberry Pi installiert ist, liefert eine andere
+Möglichkeit der Autostart-Konfiguration.
+Dennoch ist die Einrichtung identisch zur Bibliothek \texttt{gnome-\allowbreak start\-up-\allowbreak app\-li\-cations}, welche aber nicht auf dem System
+installiert ist.
+Eine offizielle Dokumentation für die Autostart-Funktion des Pis ist deshalb nicht verfügbar, es ist lediglich ersichtlich,
+dass die Funktion dem auf dem Open-Source-Projekt \emph{FreeDesktop} beschriebenen Standard \emph{Autostart Of Applications During Startup}
+entspricht\footcite{freedesktop_autostart}.
+Die Funktion wird in diesem Kapitel exemplarisch am Raspberry Pi gezeigt.
+
+\myparagraph{Implementierung}
+
+Zu Prüfung der Implementierung muss sich vorerst auf den Raspberry Pi verbunden werden.
+Hier Prüfen wir zunächst, welcher Benutzer auf dem System nach einem Boot automatisch eingeloggt wird, damit die
+Desktop-Umgebung die passenden Programme startet.
+Erwartet wird hier der Benutzer \emph{pi}, was bei der Prüfung bestätigt wird.
+
+\begin{lstlisting}
+pi@raspberrypi:~ $ cat /etc/lightdm/lightdm.conf  | grep autologin-user | grep -v \#
+autologin-user=pi
+\end{lstlisting}
+
+\noindent Der im FreeDesktop Standard definierte Ordner \texttt{/home/pi/.config/autostart/} enthält lediglich eine Datei des Typs
+\texttt{.desktop}.
+Dateien mit dieser Endung werden von der Desktop-Umgebung verwendet, um Programme zu starten und in der Oberfläche
+gegebenenfalls weitere Informationen wie Bilder und Beschreibungen anzuzeigen.
+
+\begin{lstlisting}[language=sh]
+pi@raspberrypi:~ $ ls /home/pi/.config/autostart/
+unitree.desktop
+pi@raspberrypi:~ $ cat /home/pi/.config/autostart/unitree.desktop
+[Desktop Entry]
+Name=unitree
+Comment=unitree autostart
+Exec=bash /home/pi/UnitreeUpgrade/start.sh
+Terminal=false
+Type=Application
+Categories=System;Utility;Archiving;
+StartupNotify=false
+NoDisplay=true
+\end{lstlisting}
+
+\noindent Der Wert des Feldes \texttt{Exec} wird nach dem Boot-Vorgang und dem Einloggen des Benutzers \emph{pi} als
+Kommandozeilenbefehl interpretiert und ausgeführt.
+Ein Blick auf die Zeilen \num{6} und \num{7} des ausgeführten Skripts verweise lediglich auf ein weiteres Skript.
+
+\lstinputlisting[language=Bash,firstline=6,lastline=7,numbers=left,xleftmargin=2em,framexleftmargin=1.5em,firstnumber=6]{listing/start.sh}
+
+\noindent Das Skript \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/\allowbreak update.sh}
+legt eine neue Log-Datei an und initiiert dann den Autostart Prozess.
+
+\begin{lstlisting}[language=Bash,numbers=left,xleftmargin=2.5em,framexleftmargin=2em,firstnumber=13]
+for dir in `cat .startlist.sh`
+do
+  if [[ $dir = \#* ]] ; then
+    echo $dir': skipped' >>/home/unitree/Unitree/autostart/.startlog
+  else
+    cd $dir
+    echo $dir':'`sed -n '1p' version.txt` >> ${scriptPath}.detailedVersion
+    ./$dir.sh
+    sleep 3
+  fi
+  cd $scriptPath
+done
+\end{lstlisting}
+
+\noindent Der Inhalt der Datei \texttt{.startlist.sh} ist eine durch Zeilenumbrüche getrennte Liste aller Ordner, welche
+zum Autostart nach ausführbaren Skripten durchsucht werden.
+In Zeile \num{13} wird über alle diese Ordner iteriert.
+Zeile \num{15} prüft, ob der aktuelle Ordner in der Liste auskommentiert wurde und überspringt diesen gegebenenfalls.
+In Zeile \num{18} wird andernfalls in den Ordner navigiert und in Zeile \num{20} jenes Skript in dem Ordner ausgeführt,
+das denselben Namen wie der Ordner selbst inklusive der Dateiendung \texttt{.sh} hat.
+
+Zur Erweiterung der Autostart-Funktion oder dem Hinzufügen eigener Prozesse nach Systemstart muss somit lediglich ein
+Ordner im Pfad \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/} angelegt werden, in dem eine
+ausführbare Datei mit dem Namen des Ordners inklusive der Dateiendung \texttt{.sh} liegt.
+Weitere Informationen zu dieser Vorgehensweise und ein Beispiel der Erweiterung werden in Kapitel \ref{subsubsec:bms-monitor}
+gezeigt.
