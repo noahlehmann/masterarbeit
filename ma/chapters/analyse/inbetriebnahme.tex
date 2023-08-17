@@ -136,9 +136,53 @@ build  log  triggerSport.disabled.sh  version.txt
 \noindent Beim Neustart des Roboters wird nun nicht automatisch in den Sportmodus geschaltet und die Motoren bewegen sich nicht.
 Weiteres zur \emph{Autostart}-Funktion des \gls{go1} in Kapitel \ref{subsubsec:software-autostart}.
 
-Zuletzt kann das Netzteil inklusive des Adapters nun in den XT-30 Port auf dem Rücken des Roboters gesteckt werden.
+Zuletzt kann das Netzteil inklusive des Adapters in den XT-30 Port auf dem Rücken des Roboters gesteckt werden.
 Ein erfolgreicher Start des Roboters kann über das akustische Wahrnehmen der Lüfter geprüft werden.
 Zum Ausschalten muss der Stecker lediglich entfernt und der Roboter somit vom Strom getrennt werden.
 Hierfür muss nur sichergestellt sein, dass alle manuellen Operationen auf den Recheneinheiten vollendet sind, damit diese
 nicht korrumpiert werden.
 
+\subsubsection{Anwendungen}
+\label{subsubsec:anwendungen}
+
+Nach Inbetriebnahme des \gls{go1} stehen dem Nutzer zwei grafische Anwendungen zur Verfügung, mit denen er Funktionen
+des Roboters wie Monitoring, Steuerung und Simulationen ausführen kann.
+Dieses Kapitel soll kurz die erste Einrichtung beziehungsweise Öffnen der Anwendungen dokumentieren.
+
+\myparagraph{Webinterface}
+
+Der Raspberry Pi des \gls{go1} startet zum Systemstart automatisch einen Webserver mit einer Webseite, die diverse Funktionen
+zugänglich macht.
+Für das Aufrufen der Webseite muss man sich im selben Netzwerk wie der \gls{go1} befinden.
+Weitere Informationen hierzu sind in den Kapiteln \ref{subsubsec:lokales-netzwerk} und \ref{subsubsec:netzwerk} beschrieben.
+Auf dem \gls{http}-Port \num{80} des Pis\footnote{Erreichbar auf \texttt{192.168.123.161} oder \texttt{192.168.12.1} im eigenen WLAN-Hotspot (Siehe \ref{subsubsec:lokales-netzwerk})}
+ist nun die Seite aufrufbar.
+In Browsern reicht hierfür lediglich die Eingabe der \gls{ip} Adresse, der Port muss nicht definiert sein.
+Abbildung \ref{fig:website} zeigt eine Bildschirmaufnahme des Webinterfaces.
+
+\begin{figure}[h]
+    \frame{\includegraphics[width=\linewidth]{img/analyse/website}}
+    \caption{Screenshot des Webinterfaces}\label{fig:website}
+\end{figure}
+
+\myparagraph{Mobile App}
+
+Unitree Robotics hat als Ergänzung zum Webinterface ebenfalls eine mobile Anwendung für die Plattformen \emph{iOS} und
+\emph{Android} veröffentlicht.
+Diese kann fertig gebaut von der Entwicklerwebseite heruntergeladen werden und muss auf den jeweiligen Plattformen als
+fertige App aus unbekannter Quelle installiert werden\footcite{unitree_app_download}.
+Hierfür sind in der Regel die Entwickleroptionen zu aktivieren.
+Da die Installationsprozesse für die Plattformen und Endgeräte unterschiedlich sein können, wird in dieser Arbeit nicht
+darauf eingegangen.
+\footnote{Weitere Informationen zur Installation von Beta-Apps für iOS auf \url{https://testflight.apple.com/join/KraKgqam}
+und für Android auf \url{https://www.heise.de/tipps-tricks/Externe-Apps-APK-Dateien-bei-Android-installieren-so-klappt-s-3714330.html}}
+Abbildung \ref{fig:android} zeigt zwei Bildschirmaufnahmen der mobilen Anwendung.
+
+\begin{figure}[h]
+    \frame{\includegraphics[width=\linewidth]{img/analyse/android}}
+    \caption{Screenshot der mobilen Anwendung}\label{fig:android}
+\end{figure}
+
+\noindent Für die Verbindung zum Roboter muss sich lediglich mit dem Netzwerk des Roboters verbunden werden.
+Die \gls{ip} Adresse des Roboters muss dann noch in den Einstellungen hinterlegt werden.
+Danach können die Informationen vom \gls{go1} über die Anwendung eingesehen werden.
