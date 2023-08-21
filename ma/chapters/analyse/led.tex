@@ -30,10 +30,46 @@ Ein Test auf dem Raspberry Pi mit der \gls{ip} \texttt{192.168.123.161} zeigt di
 dargestellt.
 
 \begin{figure}[h]
-    \frame{\includegraphics[width=\linewidth]{img/analyse/mqtt-explorer}}
+    \frame{\includegraphics[width=\linewidth]{img/analyse/mqtt-explorer-no-facelight}}
     \caption{Ausgabe eines MQTT Explorers in Verbindung mit dem Raspberry Pi als Broker}\label{fig:mqtt-explorer}
 \end{figure}
 
-\noindent Auffällig ist hier das Topic \texttt{face\_light/\allowbreak color}, welches in reg
-% todo auf schorsch connecten, rocky ist bereits geändert, format herleiten, doku suchen
+In den angezeigten Topics sind aktuell noch keine Informationen zu den \glspl{led} zu erkennen.
+Dies kann daran liegen, dass das zu dem Topic noch keine Nachrichten versendet wurden, was eine plausible Schlussfolgerung
+ist, da die Kopflichter des \gls{go1} standardmäßig ausgeschalten sind.
+Ändert man dies nun durch die in der mobilen Anwendung gegebenen Funktion unter dem Menüpunkt \texttt{Preferences}, so
+sieht man auch das Topic \texttt{face\_light/color} im MQTT-Explorer, wie in Abbildung \ref{fig:app-mqtt-facelight} dargestellt.
 
+\begin{figure}[h]
+    \frame{\includegraphics[width=\linewidth]{img/analyse/app-mqtt-facelight}}
+    \caption{MQTT Explorer mit Topic \texttt{face\_light/color} (links) und App-Funktion (rechts)}\label{fig:app-mqtt-facelight}
+\end{figure}
+
+Die Message Payload kann beispielsweise über das Commandline-Tool \emph{Mosquitto-Client} ausgegeben werden.
+Hierfür muss folgender Befehl genutzt werden, um die binäre Payload lesbar auszugeben.
+Der genutzte Rechner muss sich hierfür im Netzwerk des \gls{go1} befinden.
+
+\begin{lstlisting}[language=Bash]
+mosquitto_sub -h 192.168.123.161 -t face_light/color -F %x
+ff0000
+00ff00
+0000ff
+\end{lstlisting}
+
+\noindent Die drei Werte in den letzten der Zeilen der Ausgabe sind formatierte Message-Payloads des Topics \texttt{face\_light/color}
+und wurden ausgegeben, als in der mobilen Anwendung die drei Farben \emph{Rot}, \emph{Grün} und \emph{Blau} in eben dieser
+Reihenfolge eingestellt wurden.
+Somit ist herleitbar, dass die \glspl{led} des Roboters über den \emph{RGB}-Farbraum konfigurierbar sind.
+Die Mischung aus Rot, Grün und Blau kann hier pro Farbe mit einem Wert von \num{0} - \num{255} eingestellt werden.
+
+Über den Befehl \texttt{mosquitto\_pub} kann nun auch die Farbe des Roboters geändert werden.
+Hierfür muss nur das Versenden der Message-Payload in binärer Form beachtet werden.
+Folgender Befehl stellt das Kopflicht des \gls{go1} auf Rot um.
+
+\begin{lstlisting}[language=Bash]
+echo -ne "\xFF\x00\x00" | mosquitto_pub -h 192.168.123.161 -t face_light/color -s
+\end{lstlisting}
+
+\noindent Es ist ebenfalls denkbar die \glspl{led} des Roboters direkt über die \texttt{CP210x UART Bridge} zu steuern, die in Kapitel
+\ref{par:nano-kopf} erwähnt wurde.
+Dies wurde im Rahmen dieser Arbeit jedoch nicht umgesetzt und kann in Zukunft noch dokumentiert werden.
