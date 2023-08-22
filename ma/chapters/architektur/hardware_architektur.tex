@@ -259,7 +259,7 @@ Zusammenfassend lassen sich die Kerndaten des NVIDIA Jetson Nanos im Kopf des Ro
 \label{par:nano-rumpf}
 
 Der Nano im Rumpf des Roboters is dem Nano im Kopf des Roboters gegenüber bis auf die angeschlossenen Geräte und seiner
-\gls{ip}-Adresse \texttt{192.168.123.14} identisch.
+\gls{ip}-Adresse \texttt{192\allowbreak .168\allowbreak .123\allowbreak .14} identisch.
 Die Ausgaben für das Betriebssystem in \texttt{/etc/os-release}, der Kernel-Version aus \texttt{uname -r} und der Informationen
 zur \gls{sd}-Karte aus \texttt{df -Hx tmpfs -xdevtmpfs} stimmen bei beiden Geräten überein.
 Die Unterschiede in der verbundenen Hardware geht aus folgender Ausgabe hervor:
@@ -311,7 +311,7 @@ unitree@nx:~$ sudo lshw -short
 [...] multimedia  USB2.0 Camera RGB
 \end{lstlisting}
 
-Laut Hersteller ist im NX ein \texttt{6-Core NVIDIA Carmel ARM v8.2 64-bit-CPU} verbaut\footcite{nvidia_website_vergleich}.
+Laut Hersteller ist im NX ein \texttt{6-Core NVIDIA Carmel ARM v8.2 64-\allowbreak bit-\allowbreak CPU} verbaut\footcite{nvidia_website_vergleich}.
 Benchmarks und Vergleiche zu den Recheneinheiten werden in Kapitel \ref{subsec:limitierungen} gezeigt, es kann jedoch
 festgehalten werden, dass der NX deutlich fähiger ist, als die beiden Nanos in Kopf und Rumpf.
 Zusätzlich zum besseren Prozessor sind im NX \num{8} \gls{gb} Arbeitsspeicher verbaut.

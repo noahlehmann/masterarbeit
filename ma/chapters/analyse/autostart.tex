@@ -29,7 +29,7 @@ pi@raspberrypi:~ $ cat /etc/lightdm/lightdm.conf  | grep autologin-user | grep -
 autologin-user=pi
 \end{lstlisting}
 
-\noindent Der im FreeDesktop Standard definierte Ordner \texttt{/home/pi/.config/autostart/} enthält lediglich eine Datei des Typs
+\noindent Der im FreeDesktop Standard definierte Ordner \texttt{/home/\allowbreak pi/\allowbreak .config/\allowbreak autostart/} enthält lediglich eine Datei des Typs
 \texttt{.desktop}.
 Dateien mit dieser Endung werden von der Desktop-Umgebung verwendet, um Programme zu starten und in der Oberfläche
 gegebenenfalls weitere Informationen wie Bilder und Beschreibungen anzuzeigen.
@@ -81,7 +81,7 @@ In Zeile \num{18} wird andernfalls in den Ordner navigiert und in Zeile \num{20}
 das denselben Namen wie der Ordner selbst inklusive der Dateiendung \texttt{.sh} hat.
 
 Zur Erweiterung der Autostart-Funktion oder dem Hinzufügen eigener Prozesse nach Systemstart muss somit lediglich ein
-Ordner im Pfad \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/} angelegt werden, in dem eine
+Ordner im Pfad \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak auto\-start/} angelegt werden, in dem eine
 ausführbare Datei mit dem Namen des Ordners inklusive der Dateiendung \texttt{.sh} liegt.
 Weitere Informationen zu dieser Vorgehensweise und ein Beispiel der Erweiterung werden in Kapitel \ref{subsubsec:bms-monitor}
 gezeigt.

@@ -36,15 +36,15 @@ Folgender Befehl inklusive Erläuterung zu den Optionen kann genutzt werden, um 
 über \gls{rtsp} auf einen Streaming-Server zu starten.
 
 \begin{lstlisting}[language=Bash]
-ffmpeg -nostdin \                    # Keine Interaktion (Hintergrundprozess)
-    -f video4linux2 \                # Input Format
-    -i /dev/video1 \                 # Input-URL
-    -vcodec libx264 \                # Video Kodierung (h264)
-    -preset:v ultrafast \            #
-    -tune zerolatency \              #
-    -framerate 5 \                   # Framerate
-    -f rtsp \                        # Output Format
-    rtsp://192.168.123.52:8554/head  # Output File/URL
+ffmpeg -nostdin \                  # Keine Interaktion
+    -f video4linux2 \              # Input Format
+    -i /dev/video1 \               # Input-URL
+    -vcodec libx264 \              # Video Kodierung (h264)
+    -preset:v ultrafast \          # Kodierungsgeschwindigkeit
+    -tune zerolatency \            # Keine H264 B-Frames
+    -framerate 5 \                 # Framerate
+    -f rtsp \                      # Output Format
+    rtsp://<ip:8554|port>/<stream> # Output File/URL
 \end{lstlisting}
 
 Weitere Details zur Ausführung und dem Streaming über einen Server werden in Kapitel \ref{sec:funktionserweiterungen-und-integration}
