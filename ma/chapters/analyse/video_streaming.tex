@@ -49,3 +49,17 @@ ffmpeg -nostdin \                  # Keine Interaktion
 
 Weitere Details zur Ausführung und dem Streaming über einen Server werden in Kapitel \ref{sec:funktionserweiterungen-und-integration}
 behandelt.
+Das Kamerabild ist beim Streaming über \texttt{ffmpeg} in keiner Form verarbeitet und sieht wie in Abbildung \ref{fig:kamera-bild}
+dargestellt aus.
+
+\begin{figure}[h]
+    \frame{\includegraphics[width=\linewidth]{img/analyse/kamera-bild}}
+    \caption{Kamerabild des GO1}\label{fig:kamera-bild}
+\end{figure}
+
+Eine Verarbeitung und Verbindung der beiden \emph{Fischaugen} der Kamerabilder ist im Roboter bereits mit der Bibliothek \emph{OpenCV}
+umgesetzt.
+Auch die in Kapitel \ref{subsubsec:ressourcen} genannte \emph{Unitree-Camera-SDK} nutzt OpenCV in der Implementierung.
+Im Rahmen dieser Arbeit wird jedoch nicht auf die erweiterten Funktionen durch den Einsatz von OpenCV eingegangen.
+Hierfür kann die Arbeit \citetitle{jonas} zu Rate gezogen werden.% todo genauer Titel
+\todo{Jonas Titel}

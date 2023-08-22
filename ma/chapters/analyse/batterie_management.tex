@@ -4,3 +4,18 @@
 % Was wird angezeigt
 % Wie werden Daten interpretiert?
 % Wie herausgefunden?
+
+Der Herstellerdokumentation und Werbung ist an einigen Stellen zu entnehmen, dass im \gls{go1} ein intelligentes \gls{bms} verbaut ist.
+Dieses ermöglicht es Nutzern, in Echtzeit Informationen zum Stand der Batterie abzugreifen und gegebenenfalls auf die Informationen
+zu reagieren.
+In der Herstellerdokumentation des Roboters ist nicht dokumentiert, wie die Daten erfasst oder interpretiert werden können,
+es wird lediglich auf die beiden Übersichten in der mobilen Anwendung und der Webseite verwiesen, die in Abbildung \ref{fig:bms-app-web}
+dargestellt werden.
+
+
+
+
+\begin{lstlisting}
+mosquitto_sub -h 192.168.123.161 -t bms/state -F %x
+0104011bf5e8ffff0f001e1e1f23800da00d20002000a00da00da00d20002000800d
+\end{lstlisting}
