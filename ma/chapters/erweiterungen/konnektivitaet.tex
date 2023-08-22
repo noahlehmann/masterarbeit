@@ -4,21 +4,124 @@
 % Wie kann der Hund kommunizieren
 % Was kann man wofür einsetzen?
 
+In Kapitel \ref{subsubsec:netzwerk} wurde bereits erläutert, wie das interne Netzwerk des \gls{go1} und all seiner
+Rechenkomponenten aufgebaut ist.
+In Kapitel \ref{subsec:hardware-architektur} wurde gezeigt, wie sich auf die einzelnen Rechenkomponenten verbunden werden kann.
+Im folgenden Kapitel sollen weitere Möglichkeiten erarbeitet werden, um den \gls{go1} über diverse Netzwerke zugänglich zu machen.
+Alle folgenden Erweiterungen der Konnektivität wurden getestet und dementsprechend dokumentiert.
+
 \subsubsection{Wifi}
+\label{subsubsec:wifi}
 % mehrere interfaces, eines im broadcasting eines im connection mode
 % Verbindungen unterwegs möglich?
 % Fremdes Wifi bis shutdown?
+
+Der Raspberry Pi des \gls{go1} besitzt drei \gls{wlan}-Interfaces, von denen lediglich eines für das Spannen des eigenen
+Access-Points verwendet wird.
+Das Interface \texttt{wlan2} kann verwendet werden, um den Roboter innerhalb eines bereits bestehenden Netzwerkes kabellos
+mit dem Internet zu verbinden.
+Hierfür muss die \texttt{configNetwork} Autostart-Funktion auf dem Raspberry Pi angepasst werden.
+Diese ist, wie in Kapitel \ref{subsubsec:software-autostart} dokumentiert, im Pfad
+\texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/\allowbreak configNetwork} zu finden.
+Im Skript \texttt{configNetwork.sh} werden zu Beginn alle Interfaces abgeschaltet, worauf nur die Interfaces \texttt{eth0}
+und \texttt{wlan1} wieder aktiviert und konfiguriert werden.
+Das Interface \texttt{wlan2} muss deshalb zunächst wieder aktiviert werden.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ sudo ifconfig wlan2 up
+\end{lstlisting}
+
+\myparagraph{Verbindung durch den wpa\_supplicant}
+
+Das installierte Betriebssystem des Pis, Debian (Raspbian) \num{10}, verwendet zur Konfiguration der kabellosen Netzwerkverbindungen
+das Paket \texttt{wpa\_supplicant}.
+Um die sensiblen Netzwerkkonfigurationen nicht zu korrumpieren, wird hierfür eine neue Konfigurationsdatei zum Verbinden
+mit einem Access-Point erstellt.
+Hierfür wird im Verzeichnis \texttt{/etc/wpa\_supplicant/} ein neues Verzeichnis für eigene Verbindungen angelegt.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ mkdir /etc/wpa_supplicant/config.d
+\end{lstlisting}
+
+\noindent Danach werden die nötigen Konfigurationen in eine Datei names \texttt{wlan2.conf} geschrieben.
+Wichtig ist hierbei das Setzen der korrekten Landeskürzung, um dem Betriebssystem klarzustellen, welche rechtlichen Grundlagen
+für die kabellose Verbindung über \gls{wlan} eingehalten werden müssen.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ echo "\
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=DE \n" \
+> wlan2.conf
+\end{lstlisting}
+
+\noindent Diese Länderkürzung muss auch noch global im System hinterlegt werden.
+
+\begin{lstlisting}[language=Bash]
+iw region set DE
+\end{lstlisting}
+
+\noindent Daraufhin können die Zugangsdaten zum Access-Point verschlüsselt an die oben erstellte \texttt{wlan2.conf}-Datei angehängt werden.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ wpa_passphrase Beispiel-SSID passwort >> /etc/wpa_supplicant/conf.d/wlan2.conf
+\end{lstlisting}
+
+\noindent Die Datei sollte nun wie folgt aussehen:
+
+\begin{lstlisting}[language=Bash]
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=DE
+network={
+  ssid="Beispiel-SSID"
+  #psk="passwort"
+  psk=6d2c8604ecb1f4825d410b859ed0fa19621bea7ffa0b1c9b8bdda995c7135c20
+}
+\end{lstlisting}
+
+\noindent Die auskommentierte \texttt{psk} Zeile sollte hierbei zur Geheimhaltung des Passworts entfernt werden.
+Nun kann das Interface mit der erstellten Konfiguration mit dem gewünschten Access-Point verbunden werden.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ wpa_supplicant -B -i wlan2 -c /etc/wpa_supplicant/conf.d/wlan2.conf
+\end{lstlisting}
+
+\noindent Sollte bereits eine laufende Konfiguration für das Interface vorhanden sein, so muss diese zuerst mit folgendem
+Befehl entfernt werden.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ sudo rm /var/run/wpa_supplicant/wlan2
+\end{lstlisting}
+
+Der Raspberry Pi des Roboters ist nun mit dem Access Point verbunden.
+Ist dieses ebenfalls am Internet angebunden, so hat der Raspberry Pi eine funktionierende Netzwerkverbindung,
+solange er sich in Funknähe des Access-Points befindet.
+
+\myparagraph{Automatisierung der Verbindung}
+
+Zur automatischen Verbindung des Pis mit dem Internet nach Systemstart kann die Autostart-Funktion \texttt{configNetwork}
+angepasst werden.
+Hierfür sollte ein weiteres Skript erstellt werden, welches die neue Logik enthält.
+Dieses kann wie folgt aussehen:
+
+\lstinputlisting[language=Bash,numbers=left,xleftmargin=2.5em,framexleftmargin=2em]{listing/connectWlan2.sh}
+
+\noindent Das Skript kann jetzt am Ende des bereits bestehenden Skripts \texttt{configNetwork.sh} aufgerufen werden.
+
+\lstinputlisting[language=Bash,numbers=left,xleftmargin=2.5em,framexleftmargin=2em,firstline=42,lastline=42,firstnumber=42]{listing/configNetwork.sh}
+
+\noindent Der Raspberry Pi verbindet sich nun während dem Systemstart mit dem konfigurierten Netzwerk.
 
 \subsubsection{GSM}
 \label{subsubsec:gsm}
 % maybe auf Schorsch
 % Für außerhalb und wo kein Network ist
 
+\subsubsection{Forwarding}
+\label{subsubsec:forwarding}
+
 \subsubsection{Bluetooth}
 % Wofür genutzt?
 % Wofür nutzbar?
 
-\subsubsection{Resilienz}
-% Fallback internet?
-% Routing mit priorisierung und fallback
-% erst wifi, dann gsm, dann eth?

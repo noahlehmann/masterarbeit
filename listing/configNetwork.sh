@@ -39,20 +39,4 @@ sudo hostapd /etc/hostapd/hostapd.conf&
 eval echo "[configNetwork] config WIFI" $toStartlog
 sleep 5
 
-
-# sudo ifconfig wlan0 up
-# retv=32
-# loop=0
-# while [ "$retv" != "64" ]
-# do
-#  sleep 1
-#  ping -I wlan0 8.8.8.8 -c 2 > tmp
-#  retv=$(cat tmp | grep "bytes from" | head -n 1 | awk '{print $1}')
-#   if [ "$loop" == 10 ];then
-#     break
-#   fi
-#  loop=$(($loop+1))
-#  echo "$loop"
-# done
-#
-# rm tmp
+sudo ./connectWifi2.sh&
