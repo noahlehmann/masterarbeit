@@ -1,0 +1,83 @@
+pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --dms-get-operating-mode
+[24 Aug 2023, 03:07:00] -Warning ** Error reading from istream: Resource temporarily unavailable
+error: couldn't create client for the 'dms' service: CID allocation failed in the CTL client: Transaction timed out
+pi@raspberrypi:~ $ ls /dev/cdc*
+/dev/cdc-wdm0
+pi@raspberrypi:~ $ sudo apt update && sudo apt install libqmi-utils udhcpc
+Hit:1 http://packages.ros.org/ros/ubuntu buster InRelease
+Hit:2 http://mirrors.tuna.tsinghua.edu.cn/raspberrypi buster InRelease
+Hit:3 https://mirrors.tuna.tsinghua.edu.cn/debian buster InRelease
+Hit:4 https://mirrors.tuna.tsinghua.edu.cn/debian buster-updates InRelease
+Hit:5 https://mirrors.tuna.tsinghua.edu.cn/debian buster-backports InRelease
+Hit:6 https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates InRelease
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+405 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+udhcpc is already the newest version (1:1.30.1-4).
+libqmi-utils is already the newest version (1.22.0-1.2).
+The following packages were automatically installed and are no longer required:
+  cython3 freeglut3 gdal-data geoclue-2.0 hdf5-helpers iio-sensor-proxy libaec-dev libaec0 libarmadillo-dev libarmadillo9 libarpack2
+  libarpack2-dev libblas-dev libboost-atomic-dev libboost-chrono-dev libboost-container-dev libboost-context-dev libboost-coroutine-dev
+  libboost-date-time-dev libboost-exception-dev libboost-fiber-dev libboost-filesystem-dev libboost-graph-dev libboost-graph-parallel-dev
+  libboost-iostreams-dev libboost-locale-dev libboost-log-dev libboost-math-dev libboost-mpi-dev libboost-mpi-python-dev libboost-numpy-dev
+  libboost-program-options-dev libboost-python-dev libboost-random-dev libboost-regex-dev libboost-serialization-dev libboost-signals-dev
+  libboost-stacktrace-dev libboost-system-dev libboost-test-dev libboost-timer-dev libboost-tools-dev libboost-type-erasure-dev
+  libboost-wave-dev libcharls-dev libcharls2 libcurl4-gnutls-dev libdap-dev libdap25 libdapclient6v5 libdapserver7v5 libeigen3-dev
+  libepsilon-dev libepsilon1 libflann-dev libflann1.9 libfreexl-dev libfreexl1 libfyba-dev libfyba0 libgdal-dev libgdal20 libgeos-3.7.1
+  libgeos-c1v5 libgeos-dev libgeotiff-dev libgeotiff2 libgif-dev libgl2ps-dev libgl2ps1.4 libglew-dev libglew2.1 libhdf4-0-alt libhdf4-alt-dev
+  libhdf5-103 libhdf5-cpp-103 libhdf5-dev libhdf5-mpi-dev libhdf5-openmpi-103 libhdf5-openmpi-dev libjson-c-dev libjsoncpp-dev libkml-dev
+  libkmlbase1 libkmlconvenience1 libkmldom1 libkmlengine1 libkmlregionator1 libkmlxsd1 liblapack-dev libminizip-dev libmm-glib0 libnetcdf-c++4
+  libnetcdf-cxx-legacy-dev libnetcdf-dev libnetcdf13 libogdi3.2 libogdi3.2-dev libogg-dev libopenjp2-7-dev libopenni-dev
+  libopenni-sensor-pointclouds0 libopenni0 libopenni2-0 libopenni2-dev libpcl-apps1.9 libpcl-common1.9 libpcl-features1.9 libpcl-filters1.9
+  libpcl-io1.9 libpcl-kdtree1.9 libpcl-keypoints1.9 libpcl-ml1.9 libpcl-octree1.9 libpcl-outofcore1.9 libpcl-people1.9 libpcl-recognition1.9
+  libpcl-registration1.9 libpcl-sample-consensus1.9 libpcl-search1.9 libpcl-segmentation1.9 libpcl-stereo1.9 libpcl-surface1.9
+  libpcl-tracking1.9 libpcl-visualization1.9 libpoppler-dev libpoppler-private-dev libproj-dev libproj13 libqhull-dev libqhull-r7 libqhull7
+  libqt5designer5 libqt5designercomponents5 libqt5help5 libqt5positioning5 libqt5qml5 libqt5quick5 libqt5quickparticles5 libqt5quicktest5
+  libqt5quickwidgets5 libqt5sensors5 libqt5webchannel5 libqt5webkit5 libqt5webkit5-dev libspatialite-dev libspatialite7 libsuperlu-dev
+  libsuperlu5 libsz2 libtheora-dev liburiparser-dev libvtk7-dev libvtk7-java libvtk7-jni libvtk7-qt-dev libvtk7.1 libvtk7.1-qt libwebp-dev
+  libxerces-c-dev libxerces-c3.2 libxss-dev libzstd-dev modemmanager openni-utils proj-bin proj-data python-colorzero python3-attr
+  python3-autobahn python3-automat python3-cbor python3-constantly python3-hyperlink python3-incremental python3-lz4 python3-mpi4py python3-nacl
+  python3-png python3-pyasn1 python3-pyasn1-modules python3-pyqrcode python3-service-identity python3-snappy python3-trie python3-twisted
+  python3-twisted-bin python3-txaio python3-u-msgpack python3-ubjson python3-vtk7 python3-wsaccel python3-zope.interface qdoc-qt5 qt5-assistant
+  qt5-qmltooling-plugins qtdeclarative5-dev qtdeclarative5-dev-tools qttools5-dev qttools5-dev-tools qttools5-private-dev rpi-eeprom-images
+  tcl-dev tcl-vtk7 tcl8.6-dev tk-dev tk8.6-dev vtk7 x11proto-scrnsaver-dev
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 405 not upgraded.
+pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --dms-get-operating-mode
+[24 Aug 2023, 03:08:52] -Warning ** Error reading from istream: Resource temporarily unavailable
+error: couldn't create client for the 'dms' service: CID allocation failed in the CTL client: Transaction timed out
+pi@raspberrypi:~ $ sudo systemctl stop ModemManager
+pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --dms-get-operating-mode
+[/dev/cdc-wdm0] Operating mode retrieved:
+	Mode: 'online'
+	HW restricted: 'no'
+pi@raspberrypi:~ $ sudo ip link set wwan0 down
+pi@raspberrypi:~ $ echo 'Y' | sudo tee /sys/class/net/wwan0/qmi/raw_ip
+Y
+pi@raspberrypi:~ $ sudo ip link set wwan0 up
+pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --wda-get-data-format
+[/dev/cdc-wdm0] Successfully got data format
+                   QoS flow header: no
+               Link layer protocol: 'raw-ip'
+  Uplink data aggregation protocol: 'disabled'
+Downlink data aggregation protocol: 'disabled'
+                     NDP signature: '0'
+  Uplink data aggregation max size: '0'
+Downlink data aggregation max size: '0'
+pi@raspberrypi:~ $ sudo qmicli -p -d /dev/cdc-wdm0 --device-open-net='net-raw-ip|net-no-qos-header' --wds-start-network="apn='YOUR_APN',ip-type=4" --client-no-release-cid
+[/dev/cdc-wdm0] Network started
+	Packet data handle: '2269198336'
+[/dev/cdc-wdm0] Client ID not released:
+	Service: 'wds'
+	    CID: '17'
+pi@raspberrypi:~ $ sudo udhcpc -q -f -i wwan0
+udhcpc: started, v1.30.1
+No resolv.conf for interface wwan0.udhcpc
+udhcpc: sending discover
+udhcpc: sending select for 10.123.202.214
+udhcpc: lease of 10.123.202.214 obtained, lease time 7200
+ip: RTNETLINK answers: File exists

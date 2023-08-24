@@ -111,12 +111,77 @@ Dieses kann wie folgt aussehen:
 
 \lstinputlisting[language=Bash,numbers=left,xleftmargin=2.5em,framexleftmargin=2em,firstline=42,lastline=42,firstnumber=42]{listing/configNetwork.sh}
 
-\noindent Der Raspberry Pi verbindet sich nun während dem Systemstart mit dem konfigurierten Netzwerk.
+\noindent Der Raspberry Pi verbindet sich jetzt während dem Systemstart mit dem konfigurierten Netzwerk.
 
 \subsubsection{GSM}
 \label{subsubsec:gsm}
-% maybe auf Schorsch
-% Für außerhalb und wo kein Network ist
+
+Die Modelle GO1 \emph{MAX} und \emph{EDU} haben laut Herstellerwerbung ein 4G/\gls{lte} Modem verbaut, welches genutzt werden
+kann, um den Roboter dauerhaft mit dem Internet zu verbinden oder ihn aus der Ferne zu steuern.
+Die Dokumentation des Herstellers gibt jedoch keine Hinweise zur Konfiguration oder Nutzung des Modems.
+Ein Blick auf die verbundenen \gls{usb} Geräte gibt einen Hinweis auf das genaue Modem.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ lsusb | grep Quectel
+Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem
+\end{lstlisting}
+
+Verbaut ist ein \emph{Quectel EC25 LTE Modem}, welches glücklicherweise in Linuxkreisen häufig genutzt wird und deshalb auch
+einfach genutzt werden kann, ohne neue Treiber nachinstallieren zu müssen.
+
+\myparagraph{Vorbereitung}
+
+Zur Verbindung des Modems mit dem Mobilfunknetz ist eine \gls{sim} Karte zwingend vorausgesetzt.
+Diese kann in den dafür vorgesehenen Slot auf der Oberseite des Rumpfes eingesteckt werden.
+Genaueres zur Positionierung des Slots kann in Kapitel \ref{subsubsec:recheneinheiten} nachgelesen werden.
+Der Slot ist für Micro-\gls{sim}-Karten der Größe \num{12} mm auf \num{15} mm geeignet.
+
+Der Großteil der gängigen \gls{sim}-Karten benötigt zur Entsperrung eine \gls{pin}.
+Dieser sollte für die Nutzung im Roboter deaktiviert werden.
+Da diese Funktion für alle Kartenanbieter variieren kann, sollte hierfür die Dokumentation des Anbieters konsultiert werden.
+Oftmals kann die \gls{pin} Funktion aber auch durch Endgeräte wie Smartphones deaktiviert werden.
+Auch hier unterscheiden sich die Vorgehensweisen jedoch stark, weshalb nicht weiter auf die Deaktivierung der \gls{pin}
+eingegangen wird.
+Nach Deaktivierung kann die \gls{sim} Karte dann in den Slot eingefügt und der Roboter eingeschaltet werden.
+
+
+\myparagraph{Analyse des Modems}
+
+\gls{lte} Modems können in der Regel in verschiedenen Modi betrieben werden.
+Je nach Modus unterscheiden sich auch die verwendeten Treiber des Gerätes.
+Um mit der Konfiguration des Modems fortzufahren, muss zuerst der Modus bestimmt werden, in dem das Gerät am Pi betrieben wird.
+Hierfür kann die \texttt{lsusb} Device-Nummer genutzt werden, die folgendermaßen bestimmt werden kann.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ lsusb | grep Quectel
+Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem
+pi@raspberrypi:~ $ lsusb -t | grep "Dev 3"
+        |__ Port 3: Dev 3, If 0, Class=Vendor Specific Class, Driver=option, 480M
+        |__ Port 3: Dev 3, If 1, Class=Vendor Specific Class, Driver=option, 480M
+        |__ Port 3: Dev 3, If 2, Class=Vendor Specific Class, Driver=option, 480M
+        |__ Port 3: Dev 3, If 3, Class=Vendor Specific Class, Driver=option, 480M
+        |__ Port 3: Dev 3, If 4, Class=Vendor Specific Class, Driver=qmi_wwan, 480M
+        |__ Port 3: Dev 3, If 5, Class=Audio, Driver=snd-usb-audio, 480M
+        |__ Port 3: Dev 3, If 6, Class=Audio, Driver=snd-usb-audio, 480M
+        |__ Port 3: Dev 3, If 7, Class=Audio, Driver=snd-usb-audio, 480M
+\end{lstlisting}
+
+\noindent Zu erkennen ist, dass das Gerät mit dem Treiber \texttt{qmi_wwan} betrieben wird.
+In diesem Modus wird das Modem als \texttt{wwan}-Interface gelistet.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ ifconfig -a | grep wwan
+wwan0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+\end{lstlisting}
+
+\noindent Für die vereinfachte Nutzung des Modems im \texttt{qmi} Modus wird das Paket \texttt{libqmi-utils} nachinstalliert.
+Hierfür muss der Raspberry Pi mit dem Internet verbunden sein\footnote{Siehe Kapitel \ref{subsubsec:wifi}}.
+
+\begin{lstlisting}[language=Bash]
+pi@raspberrypi:~ $ sudo apt update && sudo apt install libqmi-utils
+\end{lstlisting}
+
+
 
 \subsubsection{Forwarding}
 \label{subsubsec:forwarding}
