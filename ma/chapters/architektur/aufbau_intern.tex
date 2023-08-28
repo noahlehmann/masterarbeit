@@ -6,27 +6,28 @@ Hierfür werden einige Perspektiven des Roboters gezeigt, um die nach Einsatzzwe
 
 \subsubsection{Überblick}
 
-Die zoomorphe Form des \gls{go1} ist - wie bereits mehrfach angedeutet - an die eines Hundes angelehnt.
-\todo{KAum verwendete referenz}
-So ergeben sich die Bezeichnungen der äußerlich erkennbaren Bauteile von selbst.
+Durch die quadrupedale Fortbewegung und die enge Anlehnung an die Biologie können die Bezeichnungen der äußerlich
+erkennbaren Bauteile hergeleitet werden.
 Abbildung~\ref{fig:allgemeine_architektur} zeigt die äußerlichen Merkmale im Überblick.
 
 \begin{figure}[h]
     \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/allgemein}}
-    \caption[Überblick über den Go1]{Überblick über den GO1}\label{fig:allgemeine_architektur}
+    \caption{Überblick über den GO1}\label{fig:allgemeine_architektur}
 \end{figure}
 
 Die Grundlage des Roboters bildet der Körper - auf Abbildung~\ref{fig:allgemeine_architektur} mit \numref{1} gekennzeichnet.
-In diesem sind ie meisten Komponenten des \gls{go1} verbaut, unter Anderen die folgenden:
+In diesem sind die meisten Komponenten des \gls{go1} verbaut, unter Anderen die folgenden:
+
 \begin{itemize}
     \item Interne Hardwarekomponenten
     \item Intelligenter Akku
     \item Teile der Sensorik und Kameras
     \item Hüftgelenke und Motoren der Beine
 \end{itemize}
-Eine genauere Beschreibung der Einzelteile findet sich in den folgenden Unterkapiteln.
+
+\noindent Eine genauere Beschreibung der Einzelteile findet sich in den folgenden Unterkapiteln.
 An der Vorderseite des Körpers ist der Kopf \numref{2} des Roboters verbaut.
-In diesem sind beispielsweise ein \emph{NVIDIA Jetson Xavier NX}, eine Stereo-Kamera und Stereo Ultraschall Sensoren
+In diesem sind beispielsweise ein \emph{NVIDIA Jetson Nano}, eine Stereo-Kamera und Stereo Ultraschall Sensoren
 und weitere Bauteile wie Lautsprecher verbaut.
 An den vier äußeren Ecken des Körpers sind die Beine des Roboters verbaut.
 Innerhalb des Körpers sind die Motoren zur Steuerung der Hüftgelenke \numref{3} integriert.
@@ -34,12 +35,12 @@ Außerhalb der Hüftgelenke an der Oberseite der vier Oberschenkel \numref{4} si
 zur vertikalen Steuerung der Beine verbaut.
 Parallel zu diesen Motoren sind im äußeren Teil des oberen Oberschenkels identische Motoren
 zur Steuerung der Knie \numref{5} integriert, die die Gelenke jeweils durch steife Achsen und Seilzüge
-anwinkeln können.
+anwinkeln und strecken können.
 An den Enden der Beine sind jeweils Füße \numref{6} verbaut, in denen Drucksensoren integriert sind.
 
-Neben den äußerlich auffälligen Merkmalen ist auf der linken Seite des Körpers noch ein intelligenter Akku
+Neben den äußerlich auffälligen Merkmalen ist auf der linken Seite des Körpers ein intelligenter Akku
 \numref{7} verbaut.
-Auf der Oberseite des Körpers sind unterhalb der Tragevorrichtung \numref{8} noch Schnittstellen \numref{9} zur physischen
+Auf der Oberseite des Körpers sind unterhalb der Tragevorrichtung \numref{8} Schnittstellen \numref{9} zur physischen
 Verbindung auf die integrierten Hardwarekomponenten verbaut.
 
 % ----- Ende ----------
@@ -52,19 +53,21 @@ So sind am Körper selbst lediglich vier bewegliche Teile angebaut - die vier Se
 der Hüftgelenke \numref{1}.
 An den Hüftgelenken befestigt sind die einzigen weiteren beweglichen Bauteile des Roboters,
 die pro Bein jeweils zwei weiteren Motoren für die Neigung der Beine \numref{2} und der Kniegelenke \numref{3}.
-\todo{Validieren ob starre und Seizug Verbindung genutzt werden}
+
 \begin{figure}[h]
     \frame{\includegraphics[width=\linewidth]{img/aufbau_intern/mechanische_komponenten}}
     \caption[Mechanische Komponenten des Go1]{Mechanische Komponenten des \gls{go1}}\label{fig:mechanische_komponenten}
 \end{figure}
-Zum Strecken des Kniegelenks wird eine am äußeren Motor angebrachter Seilzug \numref{4} verwendet,
+
+\noindent Zum Strecken des Kniegelenks wird eine am äußeren Motor angebrachter Seilzug \numref{4} verwendet,
 zum Anwinkeln des unteren Beines wir im Gegenzug eine starre Verbindung \numref{5} an der Vorderseite des Kniegelenks genutzt.
 
 \myparagraph{Eigenschaften der Servomotoren}
+
 Die Servomotoren am Hüftgelenk - Abbildung~\ref{fig:mechanische_komponenten}, Bauteil \numref{1}, die Motoren an den Beininnenseiten \numref{2}
 und die Motoren an den Beinaußenseiten \numref{3} sind des gleichen Models -
 \emph{Unitree Robotics GO-M8010-6 Motor}\footcite{go_motor}.
-Die Servomotoren \todo{Sicher Servo?} haben ein maximales Drehmoment von \num{23.7}\gls{nm} und können in 3 verschiedene Konfigurationen
+Die Servomotoren haben ein maximales Drehmoment von \num{23.7}\gls{nm} und können in 3 verschiedene Konfigurationen
 eingeteilt werden:
 \begin{enumerate}
     \item \textbf{Hüftmotoren}\\
@@ -81,7 +84,7 @@ Diese Funktionalität wird im Kapitel~\ref{subsubsec:sensorik} näher beschriebe
 \subsubsection{Sensorik}
 \label{subsubsec:sensorik}
 
-Als wichtige Bausteine zur intelligenten Nutzung des \gls{go1} sind an vielen Stellen im Roboter
+Zur intelligenten Nutzung des \gls{go1} sind an vielen Stellen im Roboter
 einige Sensoren oder intelligente Hardware verbaut.
 Neben der dedizierten Sensorik zur Erkennung des Umfeldes ist ebenfalls einfachere Sensorik
 in einigen Bauteilen wie den mechanischen Bauteilen des Laufapparats integriert.
@@ -107,7 +110,7 @@ Die Kombination der Rotationsdaten und -kräfte sowie der gemessenen Kräfte an 
 \gls{go1}, die Motoren zum Ausgleich der Bewegungen anzusteuern und somit eine möglichst effiziente Fortbewegung zu
 ermöglichen.
 
-Neben der integrierten Sensorik zur steuerung des Laufapparats sind im \gls{go1} Kameras, Ultraschallsensoren und
+Neben der integrierten Sensorik zur Steuerung des Laufapparats sind im \gls{go1} Kameras, Ultraschallsensoren und
 Audiotechnik verbaut worden.
 Abbildung \ref{fig:kameras_sensorik} zeigt hier die Verteilung der Kameras und Ultraschallsenoren.
 
@@ -116,7 +119,7 @@ Abbildung \ref{fig:kameras_sensorik} zeigt hier die Verteilung der Kameras und U
     \caption{Darrstellung der verbauten Kamera und Sensorik}\label{fig:kameras_sensorik}
 \end{figure}
 
-Insgesamt sind im \gls{go1} fünf Stereokamerasysteme verbaut, die durch ihre doppelte Bauart ebenso zur Tiefenerkennung
+\noindent Insgesamt sind im \gls{go1} fünf Stereokamerasysteme verbaut, die durch ihre doppelte Bauart ebenso zur Tiefenerkennung
 fähig sind.
 Die Kameras sind folgendermaßen verteilt:
 
@@ -127,16 +130,15 @@ Die Kameras sind folgendermaßen verteilt:
     \item \numref{6} Rumpf nach unten gerichtet
 \end{itemize}
 
-Die Kameras am Kopf des \gls{go1} \numref{1} und \numref{3} werden durch den Jetson Nano im Kopf gesteuert, die beiden
+Die Kameras \numref{1} und \numref{3} am Kopf des \gls{go1} werden durch den Jetson Nano im Kopf gesteuert, die beiden
 nach außen gerichteten Kameras \numref{4} von einem weiteren Nano und die Kamera am Rumpf nach unten gerichtet \numref{6}
-vom letzten der drei verbauten Nanos.\footcite{go1_kamera_anleitung}
+vom letzten der drei verbauten Jetsons, dem Xavier NX.\footcite{go1_kamera_anleitung}
 Mehr zur Steuerung und den Funktionen der Kameras und Recheneinheiten in Kapitel \ref{subsec:hardware-architektur} und
 \ref{subsubsec:video-streaming}.
 Unter drei der fünf Kamerasysteme sind Ultraschallsensoren verbaut.
-Diese sind am Kopf nach vorne gerichtet \numref{2} und am Körper zu den Seiten gerichtet \numref{5} verbaut.
+Diese liegen am Kopf nach vorne \numref{2} und am Körper zu den Seiten gerichtet \numref{5}.
 Laut der Dokumentation der Ultraschallsensoren ist softwareseitig ein weiteres Ultraschallmodul am Rumpf nach hinten
 gerichtet \numref{7} vorgesehen, welches aber hardwareseitig nie realisiert wurde\footcite{go1_ultraschall_anleitung}.
-\todo[inline]{Prüfen, ob die seitlichen Ultraschall gekabelt und ansprechbar sind}
 Die Ultraschalleinheit im Kopf des Roboters wird vom Jetson Nano im Kopf des Roboters gesteuert während die beiden seitlichen
 Sensoren mit dem Raspberry Pi im Rumpf des \gls{go1} verbunden sind.
 
@@ -145,7 +147,7 @@ Sensoren mit dem Raspberry Pi im Rumpf des \gls{go1} verbunden sind.
 \label{subsubsec:recheneinheiten}
 
 Die \emph{Edu} Version des \gls{go1} ist mit einiger integrierter Rechenleistung versehen worden.
-Innerhalb des Rumpfes und des Kopfes sind diverse Kleinplatinenrechner verbaut worden, um beispielsweise die Daten der oben beschriebenen
+Innerhalb des Rumpfes und des Kopfes sind diverse Kleinplatinenrechner verbaut, um beispielsweise die Daten der oben beschriebenen
 Sensoren zu verwerten, den Bewegungsapparat manuell zu manipulieren und dem Roboter weitere Funktionen hinzuzufügen.
 Abbildung \ref{fig:intern} zeigt die interne Zusammensetzung des \gls{go1}.
 
@@ -160,9 +162,9 @@ ab.
 Mittig hinter dem eingebauten Akku liegt die Kernschnittstelle des \gls{go1} mit den Nutzern, der verbaute \emph{Raspberry Pi}
 \numref{3}.
 Dieser ist direkt über eine Erweiterungsplatine \numref{6} für Schnittstellen und feste Verbindungen mit den beiden im Rumpf
-verbauten \emph{NVIDIA Jetson Nanos} \numref{4}+\numref{5} verbunden.
-Über gekabelte Verbindungen entlang des für den Akku reservierten Platzes im Rumpf verläuft die gekabelte Verbindung \numref{7}
-zwischen den im Rumpf verbauten Komponenten und dem Kopf des Roboters.
+verbauten \emph{NVIDIA Jetsons} \numref{4}+\numref{5} verbunden.
+Entlang des für den Akku reservierten Platzes im Rumpf verläuft die gekabelte Verbindung \numref{7}
+zwischen den im Rumpf verbauten Komponenten und denen im Kopf des Roboters.
 Abbildung \ref{fig:kopf} zeigt die restlichen im Kopf verbauten Komponenten des Hundes.
 
 \begin{figure}[h]
@@ -170,11 +172,11 @@ Abbildung \ref{fig:kopf} zeigt die restlichen im Kopf verbauten Komponenten des 
     \caption{Ansicht des Kopfes von hinten}\label{fig:kopf}
 \end{figure}
 
-Die zentrale Steuereinheit der Komponenten im Kopf des roboters ist der verbaute \emph{NVIDIA Jetson Nano} \numref{1}, der
-über gekabelte Verbindungen \numref{2} mit den im Rumpf verbauten Komponenten verbunden ist.
-Direkt an den Nano ist ein Lautsprecher \numref{3} verbaut, der im \emph{Edu}-Modell frei nutzbar ist\footnote{Siehe Kapitel \ref{subsubsec:audio-interfaces}}.
-Ebenso direkt an den Nano angeschlossen sind links und rechts am Kopf zwei nach hinten und zur Seite orientierten
-\gls{led}-Arrays.
+Die zentrale Steuereinheit der Komponenten im Kopf des Roboters ist der verbaute \emph{NVIDIA Jetson Nano} \numref{1}, der
+über gekabelte Verbindungen \numref{2} mit den im Rumpf verbauten Komponenten gekoppelt ist.
+Direkt am Nano ist ein Lautsprecher \numref{3} verbaut, der im \emph{Edu}-Modell frei nutzbar ist\footnote{Siehe Kapitel \ref{subsubsec:audio-interfaces}}.
+Ebenso direkt an den Nano angeschlossen sind links und rechts am Kopf zwei nach hinten und zur Seite orientierte
+\gls{led}-Reihen.
 Auch diese sind frei programmierbar\footnote{Kapitel \ref{subsubsec:led}}.
 Eine detailliertere Beschreibung der Recheneinheiten und derer Funktionen folgt in Kapitel \ref{subsec:hardware-architektur}.
 
@@ -209,7 +211,7 @@ Die Verteilung ist wie folgt:
     \item \numref{9} Raspberry Pi
 \end{itemize}
 
-Auf den Nano im Kopf des Roboters ist über die Ports keine direkte Verbindung möglich.
+\noindent Auf den Nano im Kopf des Roboters ist über die Ports keine direkte Verbindung möglich.
 
 
 
