@@ -66,7 +66,7 @@ Das verwendete Beispiel ist die oben gezeigte Ausgabe des Befehls \texttt{mosqui
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|c|c|c|c|cc|}
+    \begin{tabularx}{\textwidth}{|X|X|X|X|XX|}
         \hline
         \textbf{Byte} & \textbf{Format} & \textbf{Inhalt} & \textbf{Beispiel} & \multicolumn{2}{c|}{\textbf{Konvertierung}} \\ \hline
         0-1 & 2 x uint8 & Version & 01, 04 & \multicolumn{2}{c|}{v1.4} \\ \hline
@@ -76,7 +76,7 @@ Das verwendete Beispiel ist die oben gezeigte Ausgabe des Befehls \texttt{mosqui
         8-9 & uint16 & Zyklus & 0f00 & \multicolumn{2}{c|}{15} \\ \hline
         10-13 & 4 x uint8 & Temperaturen & \begin{tabular}[c]{@{}c@{}}1e, 1e,\\ 1f, 23\end{tabular} & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}30 \textdegree C, 30 \textdegree C\\ 31 \textdegree C, 35 \textdegree C\end{tabular}} \\ \hline
         14-33 & 10 x uint16 & Zell-Spannung & \begin{tabular}[c]{@{}c@{}}800d, a00d,\\ 2000, 2000,\\ a00d, a00d,\\ a00d, 2000,\\ 2000, 800d\end{tabular} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}3456 mV, 3488 mV,\\ 32 mV, 32 mV,\\ 3488 mV, 3488 mV,\\ 3488 mV, 32 mV,\\ 32 mV, 3456 mV\end{tabular}} & \begin{tabular}[c]{@{}c@{}}\textbf{Summe:}\\ 20,992 V\end{tabular} \\ \hline
-    \end{tabular}
+    \end{tabularx}
     \label{tab:bms-format-matrix}
 \end{table}
 
