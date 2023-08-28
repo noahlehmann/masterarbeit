@@ -1,148 +1,153 @@
 \section{Einleitung}
 \label{sec:einleitung}
 
-% Robotik und KI wird immer populärer
-In der jüngeren Vergangenheit haben Roboter und Automationen im industriellen und privaten Gebrauch immer stärker an Relevanz gewonnen.
-\todo{Formulierung}
-So soll laut \emph{Statista} die Anzahl der weltweit verwendeten Roboter \num{2027} im Vergleich zu diesem Jahr (\num{2023})
-um fast \num{20}\% auf \num{4,9} Millionen Einheiten steigen.
-Im Vergleich zu \num{2016} sind das sogar über \num{80}\%.\footcite{statista_robotics_market}
-% durch effizientere Software, kleinere Hardware, mehr rechenpower, kleinere Akkus
-% - Kostengünstig und leistungsfähige Sensoren
-% - Fortschritte in KI, zulezt Sprachgebrauch
-% - Miniaturisierung und kostensenkung der Komponenten in Mechanik und Elektronik
-% - Breitentauglichkeit der Programmierung
-Gründe hierfür sind unter anderen besonders die Entwicklung und Verfügbarkeit immer kostengünstigerer und leistungsfähigerer Sensoren,
-die jüngere Entwicklungen im Bereich der \gls{ki}, die Miniaturisierung der benötigten Bauteile und letztlich auch
-die anbahnende Breitentauglichkeit der Programmierung durch Sprachen wie \emph{Python}.
-\todo{Nachweise}
+Der stetige Wachstum weltweiter Wirtschaftsräume und die ständigen Erneuerungen bekannter Mechanismen un Entwicklung,
+Produktion und Vertrieb bedürfen einer stetigen Effizienzsteigerung in allen Bereichen, die dei Kennzahlen zur Messung
+des Erfolges der Wirtschaft beeinflussen.
+Eine gängige Möglichkeit zur Steigerung der Effizienz ist die Automation diverser Prozesse, welche oftmals mit der Eliminierung
+menschlichen Fehlerpotentials in der Umsetzung einhergeht.
+Ansätze hierfür sind oftmals der Einsatz künstlicher Intelligenzen und hoch spezialisierter Maschinen, in vielen Fällen
+sogar die Kombination aus beidem.
+Die Folge ist eine schnelle und präzise Reaktion auf gegebene Einflüsse und Daten.
+
+Zu beobachten ist dieses Phänomen bereits seit Jahrzehnten im Bereich der Industrie, besonders in der Produktion,
+Materialhandhabung und Lagerhaltung.
+Maschinen werden hier so konfiguriert, dass sie einzelne Schritte einer Produktionskette effizient und weitgehend fehlerfrei
+übernehmen können, was besonders im Vergleich zum Einsatz menschlicher Arbeitskraft die Kosten senkt und die Qualitätssicherung
+vereinfacht.
+Solche Maschinen werden ab einem gewissen Automationsgrad Roboter genannt, was im Bereich der menschlichen Unterstützung
+und teilweise Ersetzung besonders passend ist, da das Wort \emph{Roboter} vom tschechischen \emph{robota} kommt, was so viel wie
+Lehnsarbeit bedeutet, den Menschen also unterstützend.
+
+Mit der Verbreitung der Roboter im industriellen Bereich und dem Einsatz dessen in diversen Szenarien weltweit sind
+auch die akademische und die konsumorientierten Bereiche auf das Konzept aufmerksam geworden und haben sich dessen angenommen.
+So unterstützen Roboter nicht nur industrielle Prozesse, sondern kommen seit vielen Jahren im konsumorientierten
+Umfeld auch in der Spielzeugindustrie und als Haushaltshelfer vor.
+Für diese konsumorientierten und auch bekannten industriellen Zwecken nimmt sich die Forschung vermehrt des Themas an und
+entwickelt weltweit neue Arten und Einsatzzwecke der Robotik und wertet diese im realen Einsatz in Punkten wie beispielsweise
+Effizienz, Mensch-Maschine-Kommunikation und Grenzen des Möglichen aus.
+So haben beispielsweise Einrichtungen wie die Firma \emph{Boston Dynamics}, das \emph{\gls{mit}} und auch der chinesische
+Roboter-Hersteller \emph{Unitree Robotics} in der nahen Vergangenheit an weit entwickelten vierbeinigen Robotern
+gearbeitet, die in ihrer Fortbewegung und dem Aussehen stark an Tiere wie Großkatzen oder Hunde erinnern.
+Akademische Einrichtungen wie das \gls{mit} setzen sich neben der Entwicklung dieser sogenannten \emph{Quadruped Robotern}
+ebenfalls mit der Erforschung möglicher Einsatzzwecke und deren Sinnhaftigkeit auseinander.
+Auch die Möglichkeiten und Grenzen solcher Roboter müssen stets getestet werden, besonders, wenn neue Modelle mit neuen
+Versprechungen und Funktionen auf den Markt kommen.
+
+Mit diesem Thema setzt sich diese Arbeit auseinander.
+Im Rahmen des Erwerb zweier Quadruped Roboter des Typs \emph{\gls{go1}} werden die Roboter initial in zwei Phasen
+untersucht und deren Funktionen getestet und etwaige Schwierigkeiten dokumentiert.
+Die erste Phase wird sich im Rahmen dieser Arbeit mit den Robotern selbst auseinandersetzen und die Stärken und Schwächen der Geräte erarbeiten,
+die zweite Phase im Rahmen einer weiteren Arbeit\footcite{jonas} setzt sich mit dem tatsächlichen Einsatz des Roboters
+in einem ersten möglichen Umfeld auseinander.
+
+\subsection{Unitree Robotics GO1 Edu}
+\label{subsec:unitree-robotics-go1-edu}
+
+Um eine Grundlage für die weitere Arbeit zu verschaffen, soll im folgenden Kapitel kurz auf den Roboter eingegangen werden,
+um den es sich in allen nicht Grundlagen-orientierten Erarbeitungen dieser Arbeit gehen wird.
+
+Der Roboter-Hersteller \emph{Unitree} wurde \num{2016} von Wang Xingxing in der chinesischen Provinz Zhejiang gegründet.
+Nach ersten Ausführungen eigener Quadruped Roboter wurde im Juni \num{2021} der Roboter GO1 veröffentlicht.
+Dieser wird seither vom Hersteller als erster bezahlbarer und konsumorientierter Quadruped Roboter und somit als
+Meilenstein in der zugänglichen Robotik beworben.\footcite{unitree-about}
+Der Roboter ist laut Herstellerangabe für rund \num{2700} \gls{usd} in der Grundausstattung (GO1 Air) erwerblich, welche jedoch
+keine Möglichkeit bietet, die Funktionalitäten zu erweitern oder auf die internen Komponenten des Roboters zuzugreifen.
+Neben der Grundausstattung bietet Unitree den GO1 noch in den Varianten \emph{Pro} und \emph{Edu}, welche gegenüber
+dem \emph{Air} einige Erweiterungen in Sensorik und Rechenleistung mitbringen.
+Der GO1 Edu ist die umfangreichste und teuerste Version des GO1 und besitzt eine umfangreiche Ausstattung an Sensoren,
+Kameras und Recheneinheiten, welche später in Kapitel \ref{sec:roboterarchitektur-und-systemkomponenten} genauer aufgelistet
+werden.
+Diese Arbeit beschäftigt sich ausschließlich mit dem Unitree GO1 Edu.
+Abbildung \ref{fig:go1-ad-foto} zeigt den GO1, wie er auf der Herstellerwebsite beworben wird.
+
+\begin{figure}[h]
+    \frame{\includegraphics[width=\linewidth]{img/einleitung/go1-ad-foto}}
+    \caption{Verkaufsbild des Unitree GO1\footcite{go1-ad-foto}}\label{fig:go1-ad-foto}
+\end{figure}
+\todo{footnote in bild caption fehlt}
 
 
-Der stetige Wachstum der Anzahl der Roboter besonders im industriellen Bereich sowie im Bereich der Haushaltshelfer
-lenkt die Aufmerksamkeit der Allgemeinheit immer weiter auf das Feld der Robotik. \todo{Belege}
-Besonders in Verbindung mit \gls{ki} gewinnt das Feld weiter an Relevanz.
-Die Aufmerksamkeit der Allgemeinheit aber auch der Industrie und der Forschung bewirkt, dass zunehmend neue Formen
-der Roboter entwickelt und erforscht werden.
-Einige Trends sind beispielsweise:
+Im Bearbeitungszeitraum dieser Arbeit ist bereits der Nachfolger in der Baureihe \emph{GO} erschienen - der Unitree GO2,
+welcher durch einen noch günstigeren Einstiegspreis von beworbenen \num{1600} \gls{usd} und den Spezifikationen nach zu urteilen
+deutlich verbesserten und erweiterten Funktionalitäten als verbraucherfreundliche Alternative zum \gls{go1} angesehen
+werden kann.
 
-\begin{itemize}
-    \item Roboterarten aufzählen
-    \item Quadruped Roboter
-\end{itemize}
+\subsection{Vorgehensweise}
+\label{subsec:intro-vorgehensweise}
 
-Diese Arbeit wird sich mit der Entwicklung und dem Umgang von Quadruped Robotern der Firma \emph{Unitree} beschäftigen.
+Die folgende Arbeit besteht im Grunde aus vier Teilen, den Grundlagen, der Roboterarchitektur, der Analyse des Roboters
+und der Funktionserweiterung des Roboters.
+Im ersten Teil, den Grundlagen, soll ein allgemeiner Überblick über das Thema Robotik geschaffen werden, der besonders zur
+Einordnung des bearbeiteten \gls{go1} in das Feld allgemein dienen soll.
+Darauf folgend wird der aktuelle Stand der Forschung und Industrie im Bereich der abgegrenzten Einordnung des Roboters
+in die Robotik gezeigt werden.
+Hierfür werden zuerst Arbeiten und Veröffentlichungen sowie Produkte im Bereich der Quadruped Robotik und deren Nutzung
+gezeigt.
+Danach sollen Ressourcen zum \gls{go1} gezeigt werden, die besonders in der Arbeit mit dem Roboter nützlich sind.
+Hierunter fallen nicht nur offizielle Ressourcen, sondern auch verwandte Veröffentlichungen und ungeprüfte Ressourcen
+aus nicht-akademischem Umfeld, die aufgrund ihres Umfangs dennoch beachtet werden sollten.
+Als Abschluss der Grundlagen werden einige Herausforderungen bei der Arbeit mit dem \gls{go1} aufgelistet, die zu Teilen
+im Laufe der Arbeit wieder aufgegriffen werden sollen.
 
+Nach Schaffung der Grundlagen zum Thema Robotik allgemein und den spezielleren Informationen zum \gls{go1} wird dieser
+genauer betrachtet.
+Hierfür wird der Aufbau des Roboters detailliert beschrieben und anhand von Grafiken und Fotografien veranschaulicht.
+Nach einem Überblick zum Aufbau des Roboters werden die verbauten mechanischen Komponenten, die Sensorik und die Recheneinheiten
+dokumentiert.
+Darauf folgt eine genaue Analyse der verbauten Recheneinheiten, deren einzelner Funktionen und der Kommunikation dieser
+untereinander und mit dem Nutzer.
+Zuletzt sollen die technischen Limitierungen des \gls{go1} gezeigt werden.
 
+Aufbauend auf dem geschaffenen Wissen zum Aufbau des Roboters wird in der Analyse des Roboters die Funktion dessen
+dokumentiert.
+Nach der Beschreibung der Inbetriebnahme des \gls{go1} wird der Großteil der Funktionen, die ab Werk möglich sind,
+dokumentiert und bewertet.
+Als Ergänzungen werden Funktionen, die im Rahmen der Arbeit nicht getestet werden konnten, noch aufgelistet.
 
+Zum Abschluss werden einige Funktionen aus den vorigen Kapiteln aufgegriffen und erweitert.
+Es werden nützliche Funktionen zum realen Einsatz des Roboters entwickelt, als auch Möglichkeiten zur Eliminierung oder
+Relativierung einiger Limitierungen gezeigt.
+Diese sollen dann noch in die Zielsetzung der Arbeit eingeordnet werden, worauf die Arbeit mit dem \gls{go1} noch einmal
+final bewertet werden soll.
 
+\subsection{Zielsetzung}
+\label{subsec:zielsetzung}
 
+Folgendes Kapitel soll die Erarbeitungen im Rahmen dieser Arbeit eingrenzen und die Ziele klar definieren.
+Eine Evaluation des Erreichten findet am Ende dieser Arbeit statt.
 
+\myparagraph{Ziele}
 
+Die Ziele dieser Arbeit leiten sich vom Titel dieser ab - \emph{\mytitle}.
+Die genannte \emph{Integration} des Roboters kann in verschiedenen Aspekte des Hochschulökosystems erreicht werden.
+Hierunter gehören die für diese Arbeit relevanten Aspekte \emph{Forschung}, \emph{Lehre} und \emph{Nutzen}.
+Die Nutzung des Roboters im Hochschulökosystem soll in dieser Arbeit nur exemplarisch dargestellt werden.
+Erarbeitungen, die eine gewisse Einordnung der Erkenntnisse bedürfen, können mögliche Nutzungen exemplarisch darstellen.
+Eine tatsächliche Umsetzung eines Projektes anhand des Roboters zur Nutzung auf dem Hochschulgelände ist jedoch nicht
+im Rahmen dieser Arbeit umgesetzt.
 
+Der zweite relevante Aspekt des Ökosystems ist die Forschung, welche in Kombination mit der Lehre besonders von der
+Anschaffung eines \gls{go1} durch die Hochschule profitieren kann.
+Als Grundlage für weitere Arbeiten am Roboter, besonders des Testens der Grenzen, des Erforschens neuer Einsatzmöglichkeiten
+oder der Interaktion des Roboters mit dem Menschen, sollen ein Großteil der Funktionen genau getestet und ihre Limitierungen,
+wenn vorhanden, dargestellt werden.
 
-% ab hier alt
-% Viele neue Formen und dadurch Anwendungsgebiete kristalisieren sich
-% Viele der Formen werden noch nicht in voller effizienz genutzt
+Im Bereich der Lehre gilt ein ähnliches Prinzip, die Darstellung der Funktionen und die Dokumentation der Einzelheiten
+des Roboters soll es den Lehrenden und Studierenden vereinfachen, Arbeiten und Versuche am Roboter durchzuführen.
+Auch die Dokumentation des Aufbaus soll es Neulingen im Bereich der Quadruped Robotik erleichtern, sich einen Überblick über
+die Funktion eines solchen Roboters zu verschaffen.
 
-Durch die weite Verbreitung der Roboter und das erhöhte Interesse der Wirtschaft entstehen vermehrt neue Formen von Robotern.
-Zu diesen gehören Iterationen der bekannten Formen, wie einarmige Industrieroboter, humanoide Roboter - auch Androide genannt - oder
-Tierwesen nachempfundene Formen - zoomorphe Roboter, wie beispielsweise sechsbeinige Roboter.
-Die hohe Entwicklungsrate und der rasante Fortschritt auf diesem Gebiet führt einerseits zu sehr fähigen Geräten,
-deren Einsatzgebiete aber auf der anderen seite oftmals nicht oder kaum erforscht sind.
-% Eine in letzter Zeit sehr bekannt gewordene Form ist die des vierbeinigen Roboters
-% Die Arbeit beschäfftigt sich mit einem verbraucherorientierten Roboter und den möglichen einsatzfeldern
-Unter anderem durch die Erfolge des Unternehmens \emph{Boston Dynamics} und besonders deren Roboter \emph{Spot} ist die zoomorphe Form
-des Hundes in der breiten Masse der Anwender bekannt geworden.
-Die folgende Arbeit setzt sich mit dem Umgang und der Weiterentwicklung solcher vierbeinigen Roboter auseinander.
+Zusammengefasst gilt diese Arbeit als eine Art \emph{Survey} zum \gls{go1} und dessen Funktionen.
+Hierbei wird dieser genau inspiziert, all dessen Komponenten dokumentiert, die wichtigsten Funktionalitäten getestet und
+dokumentiert und durch Erweiterungen die gravierendsten Limitierungen des Roboters behoben sowie die einfachsten Anwendungen
+dessen erleichtert.
 
-% \subsection{Hintergrund und Kontext}\label{subsec:hintergrund-und-kontext}
-% Im Rahmen des Ausbaus der Forschung in Robotik und KI hat FH Hof Quadruped Roboter gekauft
-% Diese sind vergleichsweise günstig in Anschaffung und sehr flexibel einsetzbar
-% Da Verbraucherorientiert muss erarbeitet werden, wie sie genutzt werden können
-% Was die grenzen sind, wo die einsatzgebiete liegen
+\myparagraph{Abgrenzung}
 
-Im Zuge des Ausbaus der Robotik in der Lehre und Forschung der \emph{\gls{haw}} hat
-die Fakultät Informatik der Hochschule zwei Roboter des Models \emph{Go1 Edu} der Marke \emph{Unitree Robotics} beschafft.
-Im Vergleich zu einigen Alternativprodukten dieser und anderer Firmen ist der \gls{go1} sehr kostengünstig in der Anschaffung und besonders flexibel einsetzbar.
-Die offenen Schnittstellen des \gls{go1} machen ihn ebenfalls für Forschungsinstitute besonders interessant.
-Der genaue Funktionsumfang und die potenziellen Einsatzgebiete des Roboters werden im späteren Verlauf der Arbeit genauer erläutert.
-Das folgende Kapitel grenzt den Umfang der Arbeit genauer ein.
-
-% \subsection{Zielsetzung und Methodik}
-\label{subsec:zielsetzung-und-methodik}
-\todo{Ziel klarer definieren, was macht die arbeit??}
-% Funktionserweiterung des Go1, um ihn sinnvoll nutzen zu können
-% Detaillierte einführung in die Nutzung erster Teil, zweiter Teil erweiterung um zu integrieren
-
-
-% Ziel:
-% Die Arbeit beschäftigt sich weniger mit Robotik und KI an sich
-% Mehr mit integration des Roboters in ein Hochschul-Umfeld
-% IT- Infrastruktur, Rechenleistung outsourcen
-% Software Robust halten
-
-Trotz des Themas \emph{\mytitle} beschäftigt sich diese Arbeit weniger mit dem Thema \emph{Robotik} und
-dem eng gekoppeltem Themenbereich der \gls{ki}.
-Stattdessen liegt der Fokus auf der Integration und Funktionserweiterung des Roboters innerhalb eines
-bestehenden IT-Ökosystems und der Umgebung, in dem dieses eingerichtet ist.
-Das Umfeld ist in diesem Fall exemplarisch das der \gls{haw}.
-Konkret besteht das Ökosystem der Hochschule aus folgenden Teilbereichen:
-
-\begin{itemize}
-    \item Studierende, Mitarbeiter und Besucher des Campuses
-    \item Flächen und Gebäude
-    \item IT-Infrastruktur inklusive des Rechenzentrums
-    \item Lehr- und Forschungsinhalte
-\end{itemize}
-
-Ziel dieser Arbeit ist es, die Einsatzbereiche des \gls{go1} so zu testen, dass sie dem Ökosystem der \gls{haw} möglichst viel Nutzen bereiten.
-\paragraph{Bewertungskriterien}
-\todo{Wie wird Nutzen bewertet?}
-
-% Methodik
-% Einige Grundlagen klären:
-% - Robotik, was benötigt in Arbeit?
-% - KI, was ist, was benötigt, was relevant? etc Rechenleistung
-% Zur Einleitung wird der Aufbau des Roboters
-% Dann Nutzung und Inbetriebnahme
-% - Einfache Nutzung
-% Dann Interne Hardware Komponenten
-% Überblick über die Komponenten
-% Clustering der Komponenten in Anwendungsbereiche
-% Erläuterung der Einsatzgebiete
-% Verbindung aller Elemente (Netzwerk)
-
-Das Ziel soll Schrittweise erreicht werden.
-Anfangs werden einige Grundlagen erläutert und definiert.
-So wird genauer auf Begriffe wie \emph{Robotik} und \emph{\gls{ki}}eingegangen, bevor diese im Laufe der Arbeit
-weiter vorausgesetzt werden.
-Zudem wird in diesem Schritt auch eingegrenzt, welche Teilbereiche dieser Fachgebiete relevant für den Verlauf der Arbeit sind.
-
-Im zweiten Schritt wird der in dieser Arbeit referenzierte \gls{go1} genauer betrachtet.
-Die einzelnen Bauteile werden aufgegliedert und ihre Funktion beschrieben.
-Abschließend zu diesem Schritt soll noch die Zusammenarbeit der Komponenten erläutert werden.
-Nachdem der \emph{Ist}-Stand des Roboters erklärt wurde, wird die im Lieferumfang ab Werk enthaltene Funktion gezeigt und dokumentiert.
-Zur Inbetriebnahme des \gls{go1} benötigt es vorerst kein Wissen über die internen Steuerkomponenten.
-
-Diese werden im nächsten Schritt genauer betrachtet.
-Die Systemarchitektur und die Funktionen der einzelnen Hardware-Bauteile sollen genau dokumentiert werden.
-Zudem wird hierbei auch die Kommunikation des Gesamtsystems in sich, als auch mit externen Komponenten wie Fernbedienungen
-und Endgeräten dokumentiert.
-\todo{In Gleiderung noch kommunikation einfügen oder in Protokollen abgedeckt?}
-Hierzu werden auch die Limitierungen des Roboters im Werkszustand aufgelistet.
-
-Als Nächstes wird darauf eingegangen, welche Schritte am Roboter getätigt werden können, um ihn sinnvoll
-in das \gls{haw} Ökosystem zu integrieren.
-Die einzelnen Möglichkeiten werden dann genauer aufgeschlüsselt und erläutert sowie bewertet.
-Des Weiteren sollen dann die finalen Limitierungen des Roboters und mögliche zusätzliche Erweiterungen gezeigt werden.
-Abschließend wird bewertet, inwiefern die Eingliederung eines \gls{go1} Roboters sinnvoll ist und welches Potenzial dieses Vorgehen birgt.
-
-% \subsection{Eingrenzung der Arbeit} % Eingrenzung Arbeit
-% Was wird nicht gemacht?
-% Robotik low level
-% KI im eigentlichen Sinne
-Diese Arbeit ist im Allgemeinen auf die Integration in ein Ökosystem und die Funktionserweiterung des \gls{go1} in diesem Zug limitiert.
-Das umfasst, dass Erweiterungen der Funktion im Bereich der Robotik und \gls{ki} auf der Hardware des Roboters selbst nur inkludiert sind, wenn
-diese zweckdienlich und zwingend notwendig für eine Erweiterung im Sinne der oben genannten Integration ist.
-\todo{Was wird nicht gemacht?}
-
+Der Roboter enthält diverse Vorbereitungen zum Thema \gls{ki}, welche in dieser Arbeit maximal erwähnt werden sollen.
+Auch die Umsetzung dieser Funktionen wird nicht dokumentiert.
+Unter diese Funktionen fallen Themen wie Kamerabildoptimierung, Umgebungserkennung durch Ultraschall und \gls{lidar},
+Objekterkennung durch die diversen Sensoren und Optimierung der Bewegungsabläufe.
+Auch die mechanischen und elektrotechnischen Grundlagen der Motorik und des Bewegungsapparats werden nicht weiter
+geschildert.
