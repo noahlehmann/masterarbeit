@@ -1,16 +1,16 @@
 \section{Grundlagen}
 \label{sec:grundlagen}
 
-Folgendes Kapitel beschreibt die Robotik und die benötige Einordnung der Arbeit in diese.
-Hierfür wird die Robotik oberflächlich definiert, eingeteilt und die relevanten Teilbereiche dieser genauer betrachtet.
-Da diese Arbeit sich mit einem \gls{go1} beschäftigt, wird dieser klassifiziert und in die Bereiche der Forschung, Industrie und weiterer Nutzung eingeordnet.
+Folgendes Kapitel beschreibt die Robotik und der möglichen Einordnung des \gls{go1} in diese.
+Hierfür wird die Robotik oberflächlich definiert, eingeteilt und die relevanten Teilbereiche genauer betrachtet.
+Da sich diese Arbeit mit einem \gls{go1} beschäftigt, wird dieser klassifiziert und in die Bereiche der Forschung, Industrie und weiterer Nutzung eingeordnet.
 Zum weiteren Verständnis des Ziels der Arbeit - der Analyse und Integration des \gls{go1} in ein bestehendes Ökosystem -
 wird der aktuelle Stand der Forschung genauer betrachtet.
 Relevant sind hier besonders die bereits erarbeiteten Erkenntnisse der Nutzung gleicher oder ähnlicher Roboter, als auch
 die Einbindung anderer Modelle in bestehende Ökosysteme.
 Hierfür soll nicht nur die Forschung allein betrachtet werden, sondern auch die Arbeit privater Unternehmen und Entwickler.
 Mit dem Wissen der korrekten Einordnung des \gls{go1} und dem Forschungsstand zu verwandten Themen sollen die Herausforderungen dieser
-Arbeit hervorgehoben werden, sodass im späteren Verlauf die Erarbeitungen auf die bekannten Probleme verweisen können.
+Arbeit hervorgehoben werden.
 
 \subsection{Robotik}
 \label{subsec:robotik}
@@ -22,22 +22,26 @@ So treffend diese Übersetzung auf die heutige Nutzung des Wortes ist, so vage i
 Eine gängige Definition im deutschsprachigen Raum ist die des \gls{vdi}:
 
 \begin{quote}
-    Industrieroboter sind universell einsetzbare Bewegungsautomaten mit mehreren Achsen,
+[Roboter]
+    sind universell einsetzbare Bewegungsautomaten mit mehreren Achsen,
     deren Bewegungen hinsichtlich Bewegungsfolge und Wegen bzw.
     Winkeln frei (d.h, ohne mechanischen Eingriff) programmierbar und ggf.~sensorgeführt sind\footcite{vdi_2860}.
 \end{quote}
 
-Auch wenn die \gls{vdi}-Richtlinie mittlerweile zurückgezogen wurde, wird die Definition aufgrund ihrer treffenden Eingrenzung
+\noindent Auch wenn die \gls{vdi}-Richtlinie mittlerweile zurückgezogen wurde, wird die Definition aufgrund ihrer treffenden Eingrenzung
 des Begriffes noch häufig zitiert.
 
-Die umstrittene Definition des Begriffs \emph{Roboter} zieht eine ebenso unklare Einteilung des Wissensfeldes der \emph{Robotik} mit sich.
-Hält man sich jedoch an die Definition des \gls{vdi}, so lassen sich Roboter in zwei Kategorien einteilen, Industrieroboter und Serviceroboter.
-Abbildung~\ref{fig:industrie_vs_service}\footcite{statista_robotics_market} zeigt die beiden Klassifizierungen und deren Eigenschaften im Überblick.
+Eine genaue und anerkannte Definition des Wortes \emph{Roboter} findet sich bis heute kaum, was auch die Einteilung der Robotik
+in Teilbereiche erschwert.
+Da für diese Arbeit und die Einordnung des \gls{go1} keine aufwändige Kategorisierung der Robotik nötig ist,
+wird eine Aufteilung der Roboter in zwei Klassen verwendet, Industrieroboter und Serviceroboter.
+Abbildung~\ref{fig:industrie_vs_service} zeigt die beiden Klassifizierungen und deren Eigenschaften im Überblick.
 
 \begin{figure}[h]
     \frame{\includegraphics[width=\linewidth]{img/grundlagen/industrie_vs_service}}
-    \caption{Vergleich zwischen Industrie- und Servicerobotern}\label{fig:industrie_vs_service}
+    \caption[Vergleich zwischen Industrie- und Servicerobotern]{Vergleich zwischen Industrie- und Servicerobotern\footnotemark}\label{fig:industrie_vs_service}
 \end{figure}
+\footnotetext{\cite{statista_robotics_market}}
 
 \subsubsection{Industrieroboter}
 
@@ -61,12 +65,12 @@ Serviceroboter unterscheiden sich im Kern von Industrierobotern in der Annahme, 
 sondern unterstützen oder von Menschen unterstützt werden.
 Der Begriff \emph{Serviceroboter} ist absichtlich weit gefasst und schließt im Umfang dieser Arbeit lediglich industrielle
 Roboter, so wie sie im vorigen Paragrafen beschrieben werden, aus.
-Bei Serviceroboter lässt sich grundsätzlich noch zwischen kommerziell eingesetzten und konsumorientierten Robotern unterscheiden\footcite{statista_robotics_market}.
+Bei Servicerobotern lässt sich grundsätzlich noch zwischen kommerziell eingesetzten und konsumorientierten Robotern unterscheiden\footcite{statista_robotics_market}.
 
 Serviceroboter sind in der Regel nicht stationär, da sie in ihren Einsatzmöglichkeiten deutlich flexibler sind, als Industrieroboter.
-Aus dem Vorteil der Flexibilität lässt sich ebenfalls der Nachteil der Komplexität ableiten.
+Aus dem Vorteil der Flexibilität, lässt sich ebenfalls der Nachteil der Komplexität ableiten.
 Das weitere Einsatzfeld der Serviceroboter steigert in der Regel den Aufwand der Entwicklung, steigert aber ebenfalls
-den Ertrag des Roboters, finanziell auch den \gls{roi}.
+den Ertrag des Roboters.
 
 Möchte man die Klasse der Serviceroboter weiter untergliedern, so sind unter anderen folgende Untergliederungen denkbar:
 
@@ -84,12 +88,12 @@ vollständig zu ersetzen, noch ist er strikt auf industrielle Zwecke beschränkt
 Eine Zuteilung zu industriellen Robotern ist somit nicht möglich.
 Eine genauere Klassifizierung innerhalb der Klasse der Serviceroboter ist zwar möglich, jedoch vom finalen Einsatzzweck des
 Quadruped Roboters abhängig.
-Mögliche Einsatzzwecke werden später in dieser Arbeit erörtert.
+Mögliche Einsatzzwecke im Hochschulumfeld werden in Kapitel \ref{subsubsec:integration} angerissen.
 
 \subsubsection{Cobots}
 
-Ein weiterer passender Begriff, der der Klassifizierung des \gls{go1} als Serviceroboter nicht widerspricht, ist \emph{Cobot}
-\emph{Cobot} setzt sich aus dem Englischen Wort \emph{collaborate} - (zusammenarbeiten, kollaborieren) und dem Wort \emph{Roboter}
+Ein weiterer passender Begriff, der der Klassifizierung des \gls{go1} als Serviceroboter nicht widerspricht, ist \emph{Cobot}.
+Das Wort \emph{Cobot} setzt sich aus dem englischen Wort \emph{collaborate} - (zusammenarbeiten, kollaborieren) und dem Wort \emph{Roboter}
 zusammen.
 Einige Merkmale sind:\footcite{statista_robotics_market}
 
@@ -102,10 +106,16 @@ Einige Merkmale sind:\footcite{statista_robotics_market}
 \end{itemize}
 
 Durch seine flexiblen Fortbewegungsmöglichkeiten und der hohen Anzahl an Sensorik und Erweiterungsmöglichkeiten des \gls{go1}
-sowie der zur Kollaboration einladenden Vorrichtungen wie den Mikrofonen und Lautsprechern\footnote{Siehe Kapitel~\ref{subsubsec:sensorik}}
+sowie den zur Kommunikation eingebauten Lautsprecher\footnote{Siehe Kapitel~\ref{subsubsec:sensorik}}
 lässt sich der \gls{go1} neben der Klassifizierung als Serviceroboter ebenfalls als \emph{Cobot} bezeichnen.
-Der kollaborative Aspekt und die Unterstützung des Menschen statt der Ersetzung dessen wird im Laufe der Arbeit weiter erörtert.
-\todo{Herleitung Quadruped}
+
+\subsubsection{Quadrupedie}
+
+Die letzte Einordnung des \gls{go1} ist die in den Begriff der Quadruped Robotik.
+Laut dem \emph{Lexikon der Biologie} ist die \emph{Quadrupedie} eine vierbeinige Fortbewegungsart, in der alle vier
+Extremitäten in Kontakt zum Boden stehen\footcite{quadrupedie}.
+Quadruped Roboter sind also stark an die Biologie angelehnt, was die restliche äußere Form des \gls{go1} bestätigt.
+Der Begriff \emph{Quadruped Roboter} bedeutet somit nur, dass der gemeinte Roboter vier Beine nutzt, um sich fortzubewegen.
 
 \subsection{Stand der Forschung}
 \label{subsec:stand-der-forschung}
@@ -115,12 +125,10 @@ Besonders im Fokus der Arbeiten sind in der Regel die Steuerung der Motoren zur 
 der Roboter in unbekanntem Umfeld und das Testen der Einsatzmöglichkeiten der vierbeinigen Roboter.
 Diese Arbeit hingegen beschäftigt sich mit der Integration des Roboters in ein Hochschulökosystem, welche die möglichen Einsatzzwecke
 nicht vorwegnimmt.
-Ziel dieser Arbeit ist es, Einsatzmöglichkeiten zu erarbeiten und die nötigen Anpassungen am Model \gls{go1} vorzunehmen,
-um diese zu ermöglichen.
 Deshalb werden im folgenden nur kurz allgemein interessante Forschungen an Quadruped Robotern gezeigt, wonach
 allgemeine Forschungen zur Einbindung und Nutzung von Servicerobotern dargestellt werden.
 Zuletzt sollen noch Arbeiten speziell zum Modell \gls{go1} gezeigt werden.
-Diese werden nicht zwingend akademischen Ursprungs sein und sollen dem Leser der Arbeit einen Überblick über die vorhandenen
+Diese sind nicht zwingend akademischen Ursprungs und sollen dem Leser der Arbeit einen Überblick über die vorhandenen
 Ressourcen zum Modell \gls{go1} bieten.
 
 \subsubsection{Quadruped Roboter}
@@ -136,22 +144,32 @@ gaben \emph{Big Dog} einen möglichen Vorteil gegenüber gängigen Fortbewegungs
 Weitere Entwicklungen am \emph{Big Dog} wurden später vom \gls{rcta} des \gls{us} Army Research Laboratory finanziert.
 \footcite{bigdog}\footcite{darpa_bigdog}
 
+\begin{figure}[h]
+    \frame{\includegraphics[width=\linewidth]{img/grundlagen/doggos}}
+    \caption[Big Dog (links), MIT Cheetah 3 (mitte) und Spot (rechts)]{Big Dog (links), MIT Cheetah 3 (mitte) und Spot (rechts)\footnotemark}\label{fig:doggos}
+\end{figure}
+\footnotetext{
+\cite{foto_bigdog}\newline
+\indent \cite{foto_cheetah}\newline
+\indent \cite{foto_spot}
+}
+
 % MIT Cheetah
-\num{2009} hat das \emph{Biometric Robotics Lab} des \gls{mit} das Projekt namens \emph{Cheetah} - auf Deutsch \emph{Gepard} -
+\num{2009} hat das \emph{Biometric Robotics Lab} des \gls{mit} ein Projekt namens \emph{Cheetah} - auf Deutsch \emph{Gepard} -
 bekannt gegeben.
 Das Projektziel war es, einen Quadruped Roboter zu entwickeln, der in den Bereichen Tempo und Energieeffizienz der echten
 Tierwelt Konkurrenz macht.
 Auch dieses Projekt wurde vom \gls{darpa} finanziert\footcite{bi_mit_cheetah_funding}\footcite{darpa_m3}.
 Im Gegenzug zum \emph{Big Dog} wurde der \emph{Cheetah} aber nie kommerziell oder militärisch beworben.
 Stattdessen liegt der Fokus des Roboters im Bereich der Forschung.
-Bereits \num{2012} veröffentlichte das \emph{Biometric Robotics Lab} die ersten Videos des Roboters im Lauf.
+Bereits \num{2012} veröffentlichte das \emph{Biometric Robotics Lab} die ersten Videos des Roboters im Lauf, was impliziert,
+dass der Roboter zu dieser Zeit bereits fertiggestellt wurde.
 Seit der Projektankündigung wurden mehrere Iterationen des Roboters entwickelt.
 Die aktuelle Iteration des Roboters ist in ihrer Bauart optimiert und somit kostentechnisch effizient im Einkauf und in der Reparatur.
 Im Gegensatz zum \emph{Big Dog} ist der \gls{mit} \emph{Cheetah} voll elektrisch, was das Ziel der einfachen Entwicklung hat.
 \footcite{ieee_spectrum_cheetah}
 Viele Erkenntnisse aus dem \gls{mit} \emph{Cheetah} Projekt werden heute noch in neuen Projekten verwendet.
 So auch bei der Umsetzung des \gls{go1}, worauf in dieser Arbeit aber weniger eingegangen wird.
-\todo{Akademische forschung als fokus}
 
 % Spot
 Die aktuell vermutlich bekannteste Umsetzung eines Quadruped Roboters ist der von \emph{Boston Dynamics} entwickelte
@@ -167,9 +185,10 @@ zum Kauf beworben.
 
 Die Veranschaulichung \citetitle{quadruped_timeline} gibt einen Überblick über die Zeitschiene der einflussreichsten
 Implementierungen von Quadruped Robotern in der jüngeren Vergangenheit\footcite{quadruped_timeline}.
-\todo{Bilder der Roboter}
+
 
 \subsubsection{Integration von Robotern}
+\label{subsubsec:integration}
 
 Im Bereich der Robotik liegt neben dem Fokus des Testens der Möglichkeiten immer die Suche nach einer sinnvollen Nutzung
 der gewonnenen Erkenntnisse und der entwickelten Roboter in realen Szenarien.
@@ -202,7 +221,7 @@ automatisierten Umsetzung ein verteiltes Monitoring möglich ist, bei dem sich n
 
 Im Bereich der Integration eines solchen Quadruped Roboters im Hochschulumfeld lässt sich dieser Ansatz beispielsweise
 in der automatisierten Modellierung des Campus übersetzen.
-Ein vorheriges Erstellen eines exakten Modells ist bei diesem Ansatz nicht nötig, man macht sich hier lediglich die 
+Ein vorheriges Erstellen eines exakten Modells ist bei diesem Ansatz nicht nötig, man macht sich hier lediglich die
 Möglichkeit der Modellierung durch Sensorik wie beispielsweise Ultraschall, \gls{lidar} und Kameras zu nutzen.
 
 
@@ -221,7 +240,7 @@ ohne sich selbst in Gefahr zu bringen.
 flexibel einsatzbar macht.
 \footcite{boston_dynamics_safety}
 
-Im Umfang dieser Arbeit wäre im Sinne der Sicherheit eine Nutzung des Roboters bei Brandbildung zur Suche nach Verletzten denkbar.
+Für den \gls{go1} im Hochschulumfeld wäre im Sinne der Sicherheit eine Nutzung des Roboters bei Brandbildung zur Suche nach Verletzten denkbar.
 Auch ein Ablaufen der potenziell gefährlichen Labore und der Prüfung nach Leckagen ist denkbar.
 Zu Schließzeiten könnten Quadruped Roboter wie der \gls{go1} ebenso genutzt werden, um den Campus nach nicht autorisierten
 Besuchern abzusuchen.
@@ -236,7 +255,7 @@ neue Automatisierungsmöglichkeiten.
 Die Arbeit \citetitle{quadruped_vineyard} beschreibt beispielsweise die Nutzung eines Quadruped Roboters, um im unebenen Umfeld
 von Weingärten Weinreben automatisch zu kontrollieren und mithilfe einer Erweiterung auch zu kürzen, sodass die Pflanze
 keine unnötigen Ressourcen verschwendet.
-Gleiches lässt sich auch auf andere Gebieter der Landwirtschaft übersetzen.
+Gleiches lässt sich auch auf andere Gebiete der Landwirtschaft übersetzen.
 So könnten Quadruped Roboter Kontrollgänge von Jägern und Förstern teilweise ersetzen oder die Frequenz dieser erhöhen.
 
 Auch hier lässt sich die Brücke zur Integration in ein Hochschulökosystem schlagen.
@@ -305,17 +324,17 @@ da vieles nicht offiziell bestätigt oder geprüft wurde.
 
 Der mechanische Aufbau und die allgemeine Erscheinung des \gls{go1} sind der des \gls{mit} \emph{Cheetah \num{3}} ähnlich
 und in Teilen sogar identisch.
-\todo{Bilder als Vergleich}
+Ein optischer Vergleich kann durch Abbildung \ref{fig:doggos} durchgeführt werden.
 Es ist also anzunehmen, dass \emph{Unitree Robotics} Teile der Ergebnisse der Forschung am \gls{mit} \emph{Cheetah \num{3}}
 für die Entwicklung des \gls{go1} wiederverwertet haben.
-Wenn auch kurz nach Veröffentlichung unklar, wird die Lizenz der \gls{mit}-Software, die im \gls{go1} verwendet wird, 
+Wenn auch kurz nach Veröffentlichung unklar, wird die Lizenz der \gls{mit}-Software, die im \gls{go1} verwendet wird,
 mittlerweile anerkannt und referenziert.
 Aus diesem Grund ist es ratsam, die hervorragend dokumentierten Erkenntnisse über den \gls{mit} Cheetah \num{3} zur Hand zu
 nehmen, wenn man genaueres über den Aufbau und die Funktion des \gls{go1} wissen will.
 Ein Einstieg gewährt hier der Artikel \citetitle{mit_cheetah_3}, welcher parallel zur Veröffentlichung des Cheetah \num{3}
 erschien.
 
-Seit der Veröffentlichung des Cheetah \num{3} sind seitens des \gls{mit} weitere Forschungsartikel über diesen veröffentlicht wurden.
+Seit der Veröffentlichung des Cheetah \num{3} sind seitens des \gls{mit} weitere Forschungsartikel über diesen erschienen.
 Hier hilft ein Blick auf die Webseite des Instituts \emph{\gls{mit} Biometric Robotics Lab} - \url{https://biomimetics.mit.edu/publications},
 an welchem der Cheetah \num{3} und seine Vorgänger entwickelt wurden.
 Für einen technischeren Überblick über die Hard- und Software-Steuerungen des \gls{mit} Cheetah 3 und somit auch des \gls{go1}
@@ -347,6 +366,10 @@ und eingeordnet.
     Ein weniger detailliertes Repository, welches jedoch gute Ansätze zur Lösung für gängige Probleme aufweist und zudem
     pragmatische Implementierungen neuer Funktionen enthält.
     Empfehlenswert im Bereich Batteriemanagement und Monitoring\footnote{Siehe Kapitel \ref{sec:funktionserweiterungen-und-integration}}.
+    \item \textbf{\url{https://github.com/Bin4ry/free-dog-sdk}}\\
+    Ein aufwändiges Repository, welches sich mit dem Reverse-Engineering der offiziellen Unitree Bibliotheken beschäftigt.
+    Die erarbeiteten Ergebnisse des Autors können genutzt werden, um die Versionen \emph{Air} und \emph{Pro} zu Teilen
+    mit den Funktionen des \emph{Edu} auszustatten oder um die Bibliotheken besser nachvollziehen zu können.
 \end{itemize}
 
 
@@ -377,16 +400,15 @@ Wie aus dem vorigen Kapitel \ref{subsubsec:ressourcen} entnommen werden kann, is
 Nicht nur die allgemeine Nutzung des Roboters in seinem Lieferzustand, sondern auch die mitgelieferten und erweiternden
 Bibliotheken sind kaum oder unzureichend beschrieben.
 Viele Bibliotheken zur Erweiterung der Grundfunktion sind so beispielsweise kaum kommentiert oder dokumentiert.
-Diese Herausforderung im Umgang mit dem \gls{go1} soll im Laufe der Arbeit für alle Grundfunktionalitäten und für die Erweiterungen
+Diese Herausforderung im Umgang mit dem \gls{go1} soll im Laufe der Arbeit für große Teile der Grundfunktionalitäten und für die Erweiterungen
 in Kapitel \ref{sec:funktionserweiterungen-und-integration} beseitigt werden.
 Ziel der Arbeit ist es unter anderem, die Nutzung und Arbeit am \gls{go1} so zu dokumentieren, dass er im Hochschulumfeld
 zukünftig effizienter genutzt werden kann - als eigenständiger Teil des Ökosystems, aber auch als Erweiterung der Lehre.
-\todo{Ziel in Einleitung aufnehmen}
 
 
 \myparagraph{Veraltete Ressourcen und Bibliotheken}
 
-Der \num{2021} veröffentlichte \gls{go1} ist in den vergangenen Jahren, inklusive der nur zu schätzenden Entwicklungszeit 
+Der \num{2021} veröffentlichte \gls{go1} ist in den vergangenen Jahren, inklusive der nur zu schätzenden Entwicklungszeit
 des Roboters durch die Firma \emph{Unitree Robotics}, in seinem Softwarestand teilweise gravierend veraltet.
 Der Softwareanteil des Roboters wird in Kapitel \ref{subsec:hardware-architektur} in Verbindung mit den verbauten
 Hardwarekomponenten genauer betrachtet, weshalb hier nur zwei Probleme exemplarisch dargestellt werden.
@@ -424,7 +446,10 @@ die Qualität der Ergebnisse jeder einzelnen Funktion stark nach.
 Gründe hierfür sind oftmals die unausgewogene Zuteilung der Ressourcen bei parallel laufenden Prozessen, welche sowohl zu
 hoher Auslastung der Recheneinheiten als auch zur grundlegend hohen Auslastung aller Bausteine im Gesamten führt.
 Besonders im Bereich der Kombinationen aus Fortbewegung und Rechenleistung für Auswertungen der Videodaten und Sensorik
-kommt es häufig zu sogenanntem \todo{definition ergänzen}\emph{Throttling} der Recheneinheiten aufgrund von Überhitzung der Bauteile durch die thermischen
+kommt es häufig zu sogenanntem \emph{Throttling}
+\footnote{Als Throttling bezeichnet man das Auslassen von Takten bei Prozessoren oder Grafikeinheiten, um die Temperatur zu senken
+und die Einheit somit vor Schäden zu schützen.}
+der Recheneinheiten aufgrund von Überhitzung der Bauteile durch die thermischen
 Emissionen der mechanischen Bauteile.
 Jedoch auch die mangelnde Qualität der verbauten Teile des \gls{go1} lässt die teils durchaus ausreichend gute Implementierung der
 Funktionen auf Softwareseite an ihre Grenzen kommen.
@@ -442,7 +467,7 @@ eines jeden Gelenkes bietet hinsichtlich der Vielseitigkeit der Fortbewegung und
 überwindendes Terrain einen großen Vorteil gegenüber einfacherer Lösungen in der Robotik, wie Rädern oder Ketten.
 Die präzise Steuerung der Motoren im gegenseitigen Zusammenspiel hingegen birgt mit ihrer Komplexität einen enormen Nachteil
 gegenüber anderer Fortbewegungsmöglichkeiten.
-Nicht nur ist der Bewegungsablauf deutlich aufwändiger zu implementieren, sondern sind die Motoren in ihrer Vielzahl auch
+Nicht nur ist der Bewegungsablauf deutlich aufwändiger zu implementieren, die Motoren sind in ihrer Vielzahl auch
 um einiges Energieineffizienter, als einfachere Bewegungsabläufe, wie die Rotation in einer Achse auf Rädern.
 Änderungen der Standardabläufe der Fortbewegung sind somit schwerer zu implementieren.
 Auch die Ausdauer des verbauten Batteriesystems leidet unter dem hohen Energieaufwand der Motoren und Recheneinheiten des Roboters.
@@ -454,6 +479,6 @@ beschäftigt sich diese Arbeit im Sinne dieser Herausforderung mit der Absicheru
 gegenüber\footnote{Siehe Kapitel \ref{sec:funktionserweiterungen-und-integration}}.
 Im Sinne der sinnvollen Integration des \gls{go1} in ein Hochschulökosystem werden die oben genannten Herausforderungen
 kritisch betrachtet und, wenn im Laufe der Arbeit sinnvoll, auch bewertet.
-Im folgenden Kapitel wird der Kern der Arbeit, der \gls{go1} präzise analysiert und beschrieben, sodass für den
+Im folgenden Kapitel wird der Kern der Arbeit, der \gls{go1}, präzise analysiert und beschrieben, sodass für den
 weiteren Verlauf der Arbeit die Kenntnis des Roboters ausreichend ist, um den Schilderungen der Erweiterungen zu folgen.
 
