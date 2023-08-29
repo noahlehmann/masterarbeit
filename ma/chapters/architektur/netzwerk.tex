@@ -1,5 +1,5 @@
-\subsubsection{Netzwerk}
-\label{subsubsec:netzwerk}
+\subsection{Netzwerk}
+\label{subsec:netzwerk}
 
 Aufgrund der vielen Komponenten, Funktionen und den möglichen Erweiterungen des \gls{go1} ist eine robuste interne Kommunikation nötig.
 Die interne Kommunikationsstruktur des Roboters baut großenteils auf Netzwerkstandards wie \emph{Ethernet} und \emph{Wi-Fi} auf,
@@ -9,8 +9,8 @@ Das folgende Kapitel erläutert die vorhandene Kommunikation der internen und ex
 auf ihre Stärken und Schwächen.
 Zudem soll die Methodik der Analyse des Netzwerks und mögliche Problemfeststellungen und -behebungen festgehalten werden.
 
-\myparagraph{Überblick}
-\label{par:netzwerk_ueberblick}
+\subsubsection{Überblick}
+\label{subsubsec:netzwerk_ueberblick}
 
 Abbildung~\ref{fig:netzwerk_ueberblick} gilt als Referenz für die folgenden Ausführungen.
 Zentrale Einheit der Kommunikation sind der verbaute Ethernet Switch und
@@ -23,10 +23,9 @@ Auch der extern zugängliche Ethernet-Port auf dem Rücken des Roboters ist mit 
 \begin{figure}[h]
     \frame{\includegraphics[width=\linewidth]{img/netzwerk/netzwerk_ueberblick}}
     \caption{Überblick über Netzwerkkonfiguration}\label{fig:netzwerk_ueberblick}
-\end{figure}\todo{Überblick Quelle aus Anleitung}
+\end{figure}
 
 Alle geswitchten Komponenten des Netzwerks sind im \texttt{192.168.123.0/24}-Netzwerk registriert.
-\todo{was ist gateway? nötig?}
 Dabei ist die Verteilung der \gls{ip}-Adressen folgendermaßen vorkonfiguriert:
 \begin{itemize}
     \item \textbf{\gls{mcu}:} \texttt{192.168.123.10}
@@ -48,7 +47,7 @@ Dieses Netz wird ab Werk für die Verbindung der App mit dem System benötigt.
 Des Weiteren kann dieses Netz genutzt werden, um eine kabellose Verbindung mit dem Gesamtsystem
 des Roboters herzustellen.
 
-\myparagraph{Gekabelte Verbindung}
+\subsubsection{Gekabelte Verbindung}
 
 Wie bereits in Kapitel \ref{subsubsec:recheneinheiten} angerissen, besitzt der \gls{go1} auf der Oberseite des Rumpfes
 eine RJ-45 Schnittstelle zur physischen Verbindung mit den Recheneinheiten.
@@ -61,7 +60,7 @@ Zu beachten ist lediglich, dass das Netzwerk nur ein geswitchtes Netzwerk ist, k
 Die interne Kommunikation muss also über Routen auf den einzelnen Recheneinheiten konfiguriert werden.
 Ein Beispiel hierfür ist im folgenden Paragrafen zum Thema \emph{kabellose Verbindung} aufgeführt.
 
-\myparagraph{Kabellose Verbindung}
+\subsubsection{Kabellose Verbindung}
 
 Zu kabellosen Verbindung mit dem Netzwerk des \gls{go1} ist im Gegensatz zur gekabelten Verbindung keine statische \gls{ip}
 Adresskonfiguration nötig.
@@ -121,7 +120,7 @@ default via 192.168.123.1 dev eth0 onlink
 beispielsweise die des Netzes \texttt{..12.0/24}, über dieses Interface an die Adresse \texttt{192.168.123.161}, was
 die Adresse des Ethernet Interfaces des Raspberry Pis ist.
 
-\myparagraph{Weitere Netzwerk Funktionen}
+\subsubsection{Weitere Netzwerk Funktionen}
 
 Innerhalb des Raspberry Pis sind neben den Interfaces \texttt{eth0} und \texttt{wlan1} noch weitere Netzkarten verbaut.
 Diese können beispielsweise genutzt werden, um den Pi mit einem \gls{wlan} Access Point zu verbinden oder ihn in ein
