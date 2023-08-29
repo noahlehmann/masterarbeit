@@ -18,7 +18,7 @@ Alle folgenden Erweiterungen der Konnektivität wurden getestet und dementsprech
 
 Der Raspberry Pi des \gls{go1} besitzt drei \gls{wlan}-Interfaces, von denen lediglich eines für das Spannen des eigenen
 Access-Points verwendet wird.
-Das Interface \texttt{wlan2} kann verwendet werden, um den Roboter innerhalb eines bereits bestehenden Netzwerkes kabellos
+Das freie Interface \texttt{wlan2} kann verwendet werden, um den Roboter innerhalb eines bereits bestehenden Netzwerkes kabellos
 mit dem Internet zu verbinden.
 Hierfür muss die \texttt{configNetwork} Autostart-Funktion auf dem Raspberry Pi angepasst werden.
 Diese ist, wie in Kapitel \ref{subsubsec:software-autostart} dokumentiert, im Pfad
@@ -69,18 +69,18 @@ pi@raspberrypi:~ $ wpa_passphrase Beispiel-SSID passwort >> /etc/wpa_supplicant/
 
 \noindent Die Datei sollte nun wie folgt aussehen:
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em]
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 country=DE
 network={
   ssid="Beispiel-SSID"
   #psk="passwort"
-  psk=6d2c8604ecb1f4825d410b859ed0fa19621bea7ffa0b1c9b8bdda995c7135c20
+  psk=6d2c8604ecb1f4825d410b859ed0f a19621bea7ffa0b1c9b8bdda995c7135c20
 }
 \end{lstlisting}
 
-\noindent Die auskommentierte \texttt{psk} Zeile sollte hierbei zur Geheimhaltung des Passworts entfernt werden.
+\noindent Zeile \num{6} - \texttt{psk} - sollte hierbei zur Geheimhaltung des Passworts entfernt werden.
 Nun kann das Interface mit der erstellten Konfiguration mit dem gewünschten Access-Point verbunden werden.
 
 \begin{lstlisting}[language=Bash]
@@ -126,8 +126,8 @@ pi@raspberrypi:~ $ lsusb | grep Quectel
 Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem
 \end{lstlisting}
 
-Verbaut ist ein \emph{Quectel EC25 LTE Modem}, welches glücklicherweise in Linuxkreisen häufig genutzt wird und deshalb auch
-einfach genutzt werden kann, ohne neue Treiber nachinstallieren zu müssen.
+Verbaut ist ein \emph{Quectel EC25 LTE Modem}, welches in Linuxkreisen häufig genutzt wird und deshalb auch
+genutzt werden kann, ohne neue Treiber nachinstallieren zu müssen.
 
 \myparagraph{Vorbereitung}
 
@@ -137,12 +137,12 @@ Genaueres zur Positionierung des Slots kann in Kapitel \ref{subsubsec:recheneinh
 Der Slot ist für Micro-\gls{sim}-Karten der Größe \num{12} mm auf \num{15} mm geeignet.
 
 Der Großteil der gängigen \gls{sim}-Karten benötigt zur Entsperrung eine \gls{pin}.
-Dieser sollte für die Nutzung im Roboter deaktiviert werden.
+Dieser sollte für die vereinfachte Nutzung im Roboter deaktiviert werden.
 Da diese Funktion für alle Kartenanbieter variieren kann, sollte hierfür die Dokumentation des Anbieters konsultiert werden.
-Oftmals kann die \gls{pin} Funktion aber auch durch Endgeräte wie Smartphones deaktiviert werden.
+Oftmals kann die \gls{pin} Funktion auch durch Endgeräte wie Smartphones deaktiviert werden.
 Auch hier unterscheiden sich die Vorgehensweisen jedoch stark, weshalb nicht weiter auf die Deaktivierung der \gls{pin}
 eingegangen wird.
-Nach Deaktivierung kann die \gls{sim} Karte dann in den Slot eingefügt und der Roboter eingeschaltet werden.
+Nach Deaktivierung kann die \gls{sim} Karte in den Slot eingefügt und der Roboter eingeschaltet werden.
 
 
 \myparagraph{Analyse des Modems}
@@ -203,7 +203,7 @@ pi@raspberrypi:~ $ ls /dev/cdc-*
 
 \myparagraph{Vorbereitung des Modems}
 
-Nun müssen einige Vorbereitungen getroffen werden, um das Modem mit dem Anbieter Netz verbinden zu können.
+Nun müssen einige Vorbereitungen getroffen werden, um das Modem mit dem Mobilfunknetz verbinden zu können.
 Zuerst muss geprüft werden, ob das Modem \emph{online} ist.
 
 \begin{lstlisting}[language=Bash]
@@ -244,9 +244,9 @@ pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --dms-set-operating-mode='online
 \end{lstlisting}
 
 
-\myparagraph{Verbindung mit Anbieternetz}
+\myparagraph{Verbindung mit Mobilfunknetz}
 
-Als Nächstes kann das Modem in das Anbieternetz eingewählt werden.
+Als Nächstes kann das Modem in das Mobilfunknetz eingewählt werden.
 Hierfür kann folgender Befehl genutzt werden.
 
 \begin{lstlisting}[language=Bash]
@@ -266,7 +266,7 @@ CID: '17'
 \noindent Als Wert für den \gls{apn} muss hier beim Anbieter direkt Auskunft eingeholt werden, da dies je nach Kartenart und Netzwerk
 unterschiedlich sein kann.
 Im Test war die Angabe des \gls{apn} nicht relevant, dies kann jedoch eine mögliche Fehlerquelle sein.
-Ein weiterer möglicher Fehler kann sein, dass das Modem nicht auf \texttt{raw-ip} eingestellt wurde.
+Ein weiterer möglicher Fehler kann sein, dass das Modem nicht für das Protokoll \texttt{raw-ip} eingestellt wurde.
 In diesem Fall muss das Netzwerk-Interface gestoppt werden, das Modem konfiguriert und daraufhin wieder aktiviert werden.
 Anschließend kann der \texttt{operating-mode} nochmals geprüft werden.
 
@@ -285,9 +285,9 @@ pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --wda-get-data-format
 \noindent Die Ausgabe zeigt ebenfalls, dass kein \texttt{QoS}-Header gesetzt werden sollte.
 Der Befehl zu Verbindung mit dem Netzwerk kann nun erneut ausgeführt werden.
 
-Als Letztes muss dem Modem im Anbieternetz noch eine \gls{ip} Adresse vergeben werden.
-Sobald das Modem im Anbieternetz eingewählt ist, kann es über \gls{dhcp} eine \gls{ip} Adresse zugewiesen bekommen.
-Hierfür wird ein weiteres Paket installiert, das eine Konfiguration sucht und, falls keine gefunden wird, eine
+Als Letztes muss dem Modem im Mobilfunknetz noch eine \gls{ip} Adresse zugewiesen werden.
+Sobald das Modem im Mobilfunknetz eingewählt ist, kann es über \gls{dhcp} eine \gls{ip} Adresse zugewiesen bekommen.
+Hierfür wird ein weiteres Paket installiert, das eine Konfiguration sucht und - falls keine gefunden wird - eine
 Anfrage im Netz zur Zuweisung einer \gls{ip} stellt.
 
 \begin{lstlisting}[language=Bash]
@@ -300,40 +300,35 @@ udhcpc: sending select for 10.114.75.205
 udhcpc: lease of 10.114.75.205 obtained, lease time 7200
 \end{lstlisting}
 
-\noindent Das Modem ist jetzt mit dem Anbieternetz und somit mit dem Internet verbunden.
+\noindent Das Modem ist jetzt mit dem Mobilfunknetz und somit mit dem Internet verbunden.
 
 \myparagraph{Automatische Verbindung}
 
 Mit der Konfiguration des Modems ist der Raspberry Pi bis zum nächsten Systemstart mit dem Internet verbunden.
 Startet man den Pi jedoch neu, so muss die Prozedur seit Anfang des Kapitels noch einmal durchführen.
-Zur vereinfachten automatisierten Verbindung mit dem Anbieternetz kann die in Kapitel \ref{subsubsec:software-autostart}
+Zur vereinfachten automatisierten Verbindung mit dem Mobilfunknetz kann die in Kapitel \ref{subsubsec:software-autostart}
 beschriebene Autostart-Funktion verwendet werden.
 Genauer kann hier die \texttt{configNetwork} Funktion erweitert werden, wie bereits in Kapitel \ref{subsubsec:wifi}
 dokumentiert.
 Hierfür muss lediglich ein weiteres Skript am Ende der \texttt{configNetwork.sh} Datei aufgerufen werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=43]
 sudo ./connectWwan0.sh&
 \end{lstlisting}
 
-\noindent Der Inhalt der Datei spiegelt dann die Verbindung des Modems mit dem Netzwerk und das Abgreifen der \gls{ip}
-über \gls{dhcp} wieder.
-
-\begin{lstlisting}[language=Bash]
-sudo ./connectWwan0.sh&
-\end{lstlisting}
-
-\noindent Der Inhalt des Skriptes sieht dann folgendermaßen aus.
+\noindent Der Inhalt der Datei spiegelt die Verbindung des Modems mit dem Netzwerk und das Abgreifen der \gls{ip}
+über \gls{dhcp} wieder und sieht folgendermaßen aus.
 
 \lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em]{listing/connectWwan0.sh}
 
 \noindent Der Roboter verbindet sich nun bei Systemstart per Modem mit dem Mobilfunknetz des Anbieters, vorausgesetzt,
 es befindet sich eine gültige und entsperrte \gls{sim} Karte im Slot auf der Oberseite des Rumpfes.
 
-\todo[inline]{Ausblick VPN}
+\myparagraph{Ausblick}
 
-
-\subsubsection{Forwarding}
-\label{subsubsec:forwarding}
-Kopieren der Wlan1 Forwarding Rules?
+Die Verbindung kann in Zukunft genutzt werden, um den Roboter aus weiter Entfernung steuern zu können.
+Hierfür kann ein sogenanntes \gls{vpn} verwendet werden.
+Der Raspberry Pi des Roboters müsste hierfür als \emph{Client} im \gls{vpn} registriert werden.
+Verbindet man sich nun mit einem weiteren Client mit dem VPN, so sind beide Geräte im gleichen Netzwerk, unabhängig
+davon, über welches Netzwerk sie mit dem Internet verbunden sind.
 

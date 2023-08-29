@@ -30,11 +30,11 @@ else
 fi
 
 
-# remove folder, don't care if not there
+# Ordner loeschen
 rm -r "$DIR/bmsMonitor" &> /dev/null
-# make symlinks to git repo
+# Symbolische Links zum Repository erstellen
 cp -rs "$SCRIPT_DIR/bmsMonitor" "$DIR"
-# real copy of script as symlink won't work
+# Skript kopieren um Pfade zu erhalten
 cp -f "$SCRIPT_DIR/bmsMonitor/bmsMonitor.template.sh" "$DIR/bmsMonitor/bmsMonitor.sh"
-# make scripts executable
+# Skripte ausfuehrbar machen
 chmod +x "$DIR/bmsMonitor/bmsMonitor.sh" "$SCRIPT_DIR/bmsMonitor/run.sh"

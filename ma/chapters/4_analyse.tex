@@ -33,4 +33,28 @@ Ausstattung und Softwaremöglichkeiten mitliefert, als die weniger ausgestattete
 \input{ma/chapters/analyse/batterie_management}
 
 \subsection{Weitere Funktionen}
-\label{subsec:weitere-funktionen} % todo nötig? Ausblick was nicht behandelt wurde
+\label{subsec:weitere-funktionen}
+
+Neben den in dieser Arbeit dokumentierten Funktionen bringt der \gls{go1} weitere Funktionen mit, die hier kurz
+aufgelistet und erläutert werden sollen.
+
+\begin{itemize}
+    \item \textbf{\gls{ros}:}
+    Auf einigen der Recheneinheiten des Roboters ist \gls{ros} installiert, was für umfangreiche Funktionserweiterungen
+    im Bereich der Robotik genutzt werden kann.
+    \item \textbf{\gls{slam}:}
+    Der Roboter verfügt über die mobile Anwendung und einige vorinstallierte Bibliotheken die Funktion, durch die verbaute
+    Sensorik ein Bild der Umgebung zu mappen und sich in diesem zu lokalisieren.
+    \item \textbf{OpenCV Kameraauswertung:}
+    Die mitgelieferte Bibliothek \emph{Unitree-Camera-SDK} nutzt OpenCV zur Auswertung der Kamerabilder.
+    Durch OpenCV können die Fischaugen der Kameras kombiniert in ein Bild zusammengefasst, die Tiefenmessung der Kamera
+    genutzt und die Bilder ausgewertet werden.
+    \item \textbf{Ultraschallsensorik:}
+    Die Ultraschallsensoren können ebenfalls über eine offizielle Bibliothek ausgelesen werden um auf Bewegungen und Hürden
+    im Umfeld des Roboters zu reagieren.
+    \item \textbf{Bewegungssteuerung:}
+    Die Motoren des \gls{go1} können in zwei Modi programmatisch gesteuert werden, den High und Low Level Modi.
+\end{itemize}
+
+\noindent Die Funktionen \gls{ros}, \gls{slam}, OpenCV und die Nutzung der Ultraschallsensoren werden in der Arbeit
+\citetitle{jonas} aufgegriffen und dokumentiert\footcite{jonas}.

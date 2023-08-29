@@ -18,30 +18,30 @@ Ziel ist es, bei einer niedrigen Akkuladung von \num{5} \% eine Warnung über di
 \gls{go1} dann sanft zu Boden zu lassen, bevor die eingebauten Mechanismen bei \num{3} \% Ladung greifen und die Motoren
 abschalten.
 Hierfür werden die bereits verbauten Funktionen MQTT und Autostart verwendet.
-Dokumentation hierfür sind im Kapitel \ref{subsec:funktionen} zu finden.
+Dokumentation hierfür ist im Kapitel \ref{subsec:funktionen} zu finden.
 
 \myparagraph{Entwurf}
 
-Abbildung \ref{fig:sequenz-bms} zeigt das Sequenzdiagramm zur Darstellung des Batterie-Monitorings.
+Abbildung \ref{fig:sequenz-bms} zeigt das Sequenzdiagramm zur Darstellung des Batterie-\allowbreak Monitorings.
 
 \begin{figure}[h]
     \frame{\includegraphics[width=\linewidth]{img/erweiterung/sequenz-bms}}
     \caption{Sequenzdiagramm der Batterie-Monitoring Komponenten}\label{fig:sequenz-bms}
 \end{figure}
 
-\noindent Die beteiligten Komponenten des Roboters sind die Autostart-Funktion, die Software-Komponenten BMS-Sniffer, LED-Control
+\noindent Die beteiligten Komponenten des Roboters sind die Autostart Funktion, die Softwarekomponenten BMS-\allowbreak Sniffer, LED-\allowbreak Control
 und Movement-Control, der MQTT-Broker, die \glspl{led} des Kopfes, die \gls{mcu} und die zwölf Motoren.
-Tatsächlich interagiert wird lediglich mit der Autostart-Funktion und dem MQTT-Broker, die drei Software-Komponenten müssen
+Tatsächlich interagiert wird lediglich mit der Autostart-Funktion und dem MQTT-Broker. Die drei Software-Komponenten müssen
 noch entwickelt werden.
 
 Das Autostart-Modul auf dem Raspberry Pi soll um die neue Funktionalität \texttt{bmsMonitoring} erweitert werden.
-Hierfür wird ein Ordner mit Skript angelegt, das alle weiteren Software-Komponenten auslöst.
+Hierfür wird ein Ordner mit Skript angelegt, das alle weiteren Softwarekomponenten auslöst.
 Das Modul BMS-Sniffer soll dauerhaft die \gls{bms} Daten über den MQTT-Broker abfragen.
 Ist das \gls{bms} nicht erreichbar, beispielsweise weil der Roboter im Netzbetrieb ohne Akku gestartet wurde,
 so wird die Komponente LED-Control aufgerufen, welche die \glspl{led} des Roboters dauerhaft gelb leuchten lässt.
-Sollte das \gls{bms} erreichbar sein und die \gls{soc} auf \num{5} \% oder weniger fallen, so wird zuerst LED-Control
+Sollte das \gls{bms} erreichbar sein und die \gls{soc} auf \num{5} \% oder weniger fallen, so wird zuerst das LED-Control-Modul
 aufgerufen, um die \glspl{led} des \gls{go1} rot blinken zu lassen, worauf das Movement-Control-Modul aufgerufen wird,
-um den Roboter erst hinzulegen und danach die Motoren zu entspannen (Damping-State).
+um den Roboter hinzulegen und danach die Motoren zu entspannen (Damping-State).
 Sowohl das LED-Control-Modul als auch das Movement-Control-Modul nutzen den MQTT-Broker als Schnittstelle zu den zu steuernden
 Hardwarekomponenten.
 
@@ -107,7 +107,7 @@ aufgerufen.
 Roboters annehmen sollen.
 Der Parameter \texttt{c} ist die MQTT-Client-Instanz, die zur Kommunikation mit dem Broker genutzt wird.
 Das Format des MQTT-Topics \texttt{face\_light/color} ist in Kapitel \ref{subsubsec:led} beschrieben.
-Die RGB-Werte \texttt{r=10}, \texttt{g=10} und \texttt{b=0} stellen die \glspl{led} auf ein sehr gedimmtes Gelb ein.
+Die RGB-Werte \texttt{r=10}, \texttt{g=10} und \texttt{b=0} stellen die \glspl{led} auf ein stark gedimmtes Gelb ein.
 
 In Zeile \num{21} der Datei \texttt{sniff\_bms.py} prüft den Wert des \gls{soc} des Akkus, ist dieser größer als \num{5},
 so endet die Funktion und es wird auf die nächste MQTT-Nachricht gewartet.
@@ -116,7 +116,7 @@ auf Rot-blinkend konfiguriert.
 
 \lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=7,lastline=11,firstnumber=7]{listing/go1-bmsMonitor/bmsMonitor/led_control.py}
 
-\noindent Die Übergabeparameter sind hier die gleichen wie in der Funktion \texttt{const\_led(c,r,g,b)}.
+\noindent Die Übergabeparameter sind hier die gleichen wie die der Funktion \texttt{const\_led(c,r,g,b)}.
 Nur den Wert \texttt{r=255} zu setzen hat zur Folge, dass die \glspl{led} in der maximalen Helligkeit Rot leuchten.
 Die Funktion \texttt{lay\_down()} des Moduls Movement-Control ist der Einfachheit wegen in der Datei \texttt{sniff\_bms.py}
 formuliert.
@@ -124,17 +124,17 @@ formuliert.
 \lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=31,lastline=33,firstnumber=31]{listing/go1-bmsMonitor/bmsMonitor/sniff_bms.py}
 
 \noindent Die Funktion sendet lediglich zwei Befehle an das MQTT-Topic \texttt{controller/action}.
-Die \texttt{action} \texttt{standDown} bewirkt, dass der Roboter alle vier Beine anwinkelt und somit den Rumpf nah an
+Die Aktion \texttt{standDown} bewirkt, dass der Roboter alle vier Beine anwinkelt und somit den Rumpf nah an
 den Boden bewegt.
-Die \texttt{action} \texttt{damping} bewirkt, dass der Roboter die Spannung aus den Gelenken nimmt und die Motoren deaktiviert.
-Das hat zur Folge, dass der Roboter leicht zusammensackt, weshalb er vorher hingelegt werden sollte.
+Die Aktion \texttt{damping} bewirkt, dass der Roboter die Spannung aus den Gelenken nimmt und die Motoren deaktiviert.
+Das hat zur Folge, dass der Roboter leicht zusammensackt, weshalb er vorher in einen liegenden Zustand gebracht werden sollte.
 Die gesamte Aktion der \gls{led} Konfiguration und des Hinlegens ist kurz genug, dass die \gls{soc} des Akkus nicht auf
 \num{3} \% fällt.
 Sobald dies passiert werden die Motoren abgeschaltet und können nicht mehr verwendet werden.
+
 Die Konstanten der gesamten Python-Umgebung sind in der Datei \texttt{constants.py} hinterlegt.
 
 \lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em]{listing/go1-bmsMonitor/bmsMonitor/constants.py}
-\todo{Breite der Box nicht wie lst env} % todo breite graue box lstinput und lst env nicht gleich
 
 \noindent Zur finalen Installation der Erweiterung kann wie folgt vorgegangen werden.
 
