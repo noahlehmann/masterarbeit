@@ -67,7 +67,7 @@ unitree@unitree-desktop:~/Unitree/autostart/wsaudio$ ps -ax | grep wsaudio
 \noindent Wichtig ist bei der manuellen Ausführung von Autostartskripten, dass diese aus ihrem Ordner heraus gestartet werden,
 da die Skripte selbst oftmals mit relativen Pfaden arbeiten.
 
-In der mobilen Anwendung kann nun der Wert \texttt{Audio Connection} gewählt werden, um diese von \texttt{OFF} auf
+In der mobilen Anwendung kann nun der Wert \texttt{Audio Connection} gewählt werden, um diesen von \texttt{OFF} auf
 \texttt{ON} zu schalten.
 Sobald dies auch für den Wert \texttt{Microphone} erledigt wurde, kann über das eingebaute Mikrofon des Handys, auf dem
 die Anwendung läuft, Audio aufgenommen werden.
@@ -88,7 +88,7 @@ Ab Werk ist das nur der im vorigen Paragraf beschriebene \texttt{wsaudio}-Prozes
 beendet werden kann.
 Danach kann mit dem Befehl \texttt{aplay} die Datei wiedergegeben werden.
 Hierfür wird der Gerätename benötigt, welcher mit dem Befehl \texttt{aplay -L}, in dessen Ausgabe nach dem Gerät mit
-der Kennung \num{2} gesucht wird.
+der Kennung \num{2} gesucht wird, ausgelesen werden kann.
 Die Kennung wurde am Anfang des Kapitels über den Mount-Point erfasst.
 Die Ausgabe der Datei \texttt{/proc/\allowbreak asound/\allowbreak cards} zeigt den \gls{usb} Lautsprecher unter dem Index \num{2}.
 
@@ -99,9 +99,9 @@ unitree@unitree-desktop:~$ cat /proc/asound/cards
                       C-Media Electronics Inc. USB Audio Device at usb-70090000.xusb-3.4, full speed
 \end{lstlisting}
 
-\noindent Die Ausgabe der Datei \texttt{/proc/\allowbreak asound/\allowbreak card2/\allowbreak pcm0p/\allowbreak info} - \texttt{card2} wegen des Indes \num{2} und
-\texttt{pcm0p} für das erste \texttt{PLAYBACK} Gerät - zeigt, dass die Karte mit dem Index \num{2} nur einen Kanal hat,
-der für das Abspielen verwendet werden kann.
+\noindent Die Ausgabe der Datei \texttt{/proc/\allowbreak asound/\allowbreak card2/\allowbreak pcm0p/\allowbreak info}
+zeigt, dass die Karte mit dem Index \num{2} nur einen Kanal hat, der für das Abspielen verwendet werden kann
+\footnote{\texttt{card2} steht hier für den Index \num{2} der \texttt{/proc/asound/cards}-Liste, \texttt{pcm0p} für das erste \texttt{PLAYBACK} Gerät zur Ausgabe}.
 
 \begin{lstlisting}[language=Bash]
 unitree@unitree-desktop:~$ cat /proc/asound/card2/pcm0p/info
@@ -119,7 +119,7 @@ subdevices_avail: 1
 \end{lstlisting}
 
 \noindent Dadurch ergibt sich der direkte Hardwarename des Lautsprechers \texttt{plughw:2,0}
-\footnote{\texttt{plug} für gesteckte Hardware \texttt{hw} (z.B. \gls{usb}), \num{2} für den Index, \num{0} für den Kanal (subdevice)},
+\footnote{\texttt{plug} steht hier für gesteckte Hardware \texttt{hw} (z.B. \gls{usb}), \num{2} für den Index und \num{0} für den Kanal (subdevice)},
 welcher für folgenden Befehl benötigt wird:
 
 \begin{lstlisting}[language=Bash]
@@ -131,8 +131,8 @@ Playing WAVE '/home/unitree/Music/beispiel.wav' : Signed 16 bit Little Endian, R
 des \gls{go1} verbunden ist:
 
 \begin{lstlisting}[language=Bash]
-nlehmann@thinkpadE480 ~ % sshpass -p 123 ssh unitree@192.168.123.13 'pkill -f wsaudio'
-nlehmann@thinkpadE480 ~ % sshpass -p 123 ssh unitree@192.168.123.13 'aplay -D plughw:2,0 ~/Music/beispiel.wav'
+sshpass -p 123 ssh unitree@192.168.123.13 'pkill -f wsaudio'
+sshpass -p 123 ssh unitree@192.168.123.13 'aplay -D plughw:2,0 ~/Music/beispiel.wav'
 \end{lstlisting}
 
 \noindent Um die Lautstärke des Lautsprechers anzupassen, stellt die Bibliothek, die auch \texttt{aplay} enthält, ebenfalls die

@@ -3,7 +3,7 @@
 
 In diesem Kapitel wird die erste Inbetriebnahme des Roboters beschrieben.
 Hierzu werden auch die Inhalte und Erweiterungen aufgelistet, welche im Lieferumfang für einen \gls{go1} Edu enthalten sind.
-Anschließend soll der Betrieb durch den Akku und ein Netzteil beschrieben werden.
+Anschließend soll der Betrieb durch den Akku oder ein Netzteil beschrieben werden.
 
 % todo an aus fernbedienung?
 
@@ -21,12 +21,12 @@ gleichzeitig der gesamte Lieferumfang des \gls{go1} in der \emph{Edu} Version is
 
 \begin{enumerate}
     \item \gls{go1} inklusive Akku
-    \item Kompakte Fernbedienung mit \emph{Folge-Mir}-Funktion
+    \item Kompakte Fernbedienung mit \emph{Follow-Me}-Funktion
     \item Netzteil für das Akku-Ladegerät
     \item Fernbedienung für An-/Ausschaltfunktion
     \item Ladegerät für die Fernbedienungen inklusive \gls{usb}-A auf \gls{usb}-C Kabel
-    \item Vier Ersatzfüße inklusive der integrierten Drucksensoren
-    \item Akku-Ladegerät mit \gls{usb}-C Anschluss zur Akkuinspektion
+    \item Vier Ersatzfüße inklusive integrierter Drucksensoren
+    \item Batterieladegerät mit \gls{usb}-C Anschluss zur Akkuinspektion
     \item Fernbedienung
     \item Standfuß aus drei Teilen für die Ablage des \gls{go1}
     \begin{enumerate}
@@ -63,7 +63,7 @@ Abbildung \ref{fig:ausgangsposition} zeigt die Ausgangsposition des Roboters.
     \caption{Ausgangsposition des Roboters}\label{fig:ausgangsposition}
 \end{figure}
 
-Durch einfaches Drücken auf dem Knopf neben der Ladeanzeige des Akkus wir der Ladestand über die vier \glspl{led}
+Durch einfaches Drücken auf dem Knopf über der Ladeanzeige des Akkus wird der Ladestand durch die vier \glspl{led}
 angezeigt.
 Durch ein sofortiges weiteres Drücken und Halten des Knopfes startet der Roboter.
 Dies wird über ein kurzes serielles Aufblinken aller vier \glspl{led} signalisiert.
@@ -103,9 +103,10 @@ Akkuladegerät, so erkennt man, dass das Ladegerät die passende Ausgangsspannun
 zu betreiben.
 Da das Netzteil lediglich einen Hohlstecker zum Anschluss bietet, muss hierfür jedoch in Eigenarbeit ein Adapter auf XT-30
 hergestellt werden.
-Herbei sind die in den Ressourcen beschriebenen Bauteile nötig, die Schraubverbindung ist zwar optional und kann durch eine
+Herbei sind die in den Ressourcen beschriebenen Bauteile nötig.
+Die Schraubverbindung ist zwar optional und kann durch eine
 Lötstelle oder ein vorgefertigtes Teil ersetzt werden, sie erleichtert jedoch die Beschaffung und den Zusammenbau des Adapters.
-Zu beachten ist hierbei nur ide korrekte Abmantelung der Kabel für die Schraubklemme und die Orientierung der Kabel in der
+Zu beachten ist hierbei nur die korrekte Abmantelung der Kabel für die Schraubklemme und die Orientierung der Kabel in der
 Klemme.
 Abbildung \ref{fig:xt30} zeigt eine beispielhafte Umsetzung des Beschriebenen und die korrekte Orientierung des XT-30 Steckers.
 
@@ -142,19 +143,19 @@ Zum Ausschalten muss der Stecker lediglich entfernt und der Roboter somit vom St
 Hierfür muss nur sichergestellt sein, dass alle manuellen Operationen auf den Recheneinheiten vollendet sind, damit diese
 nicht korrumpiert werden.
 
-\subsubsection{Anwendungen}
+\subsubsection{Grafische Anwendungen}
 \label{subsubsec:anwendungen}
 
 Nach Inbetriebnahme des \gls{go1} stehen dem Nutzer zwei grafische Anwendungen zur Verfügung, mit denen er Funktionen
 des Roboters wie Monitoring, Steuerung und Simulationen ausführen kann.
-Dieses Kapitel soll kurz die erste Einrichtung beziehungsweise Öffnen der Anwendungen dokumentieren.
+Dieses Kapitel soll kurz die erste Einrichtung beziehungsweise das Öffnen der Anwendungen dokumentieren.
 
 \myparagraph{Webinterface}
 
 Der Raspberry Pi des \gls{go1} startet zum Systemstart automatisch einen Webserver mit einer Webseite, die diverse Funktionen
 zugänglich macht.
 Für das Aufrufen der Webseite muss man sich im selben Netzwerk wie der \gls{go1} befinden.
-Weitere Informationen hierzu sind in den Kapiteln \ref{subsubsec:lokales-netzwerk} und \ref{subsubsec:netzwerk} beschrieben.
+Weitere Informationen hierzu sind in den Kapiteln \ref{subsubsec:netzwerk} und \ref{subsubsec:lokales-netzwerk} beschrieben.
 Auf dem \gls{http}-Port \num{80} des Pis\footnote{Erreichbar auf \texttt{192.168.123.161} oder \texttt{192.168.12.1} im eigenen WLAN-Hotspot (Siehe \ref{subsubsec:lokales-netzwerk})}
 ist nun die Seite aufrufbar.
 In Browsern reicht hierfür lediglich die Eingabe der \gls{ip} Adresse, der Port muss nicht definiert sein.

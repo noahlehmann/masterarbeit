@@ -20,7 +20,7 @@ Die Funktion wird in diesem Kapitel exemplarisch am Raspberry Pi gezeigt.
 \myparagraph{Implementierung}
 
 Zu Prüfung der Implementierung muss sich vorerst auf den Raspberry Pi verbunden werden.
-Hier Prüfen wir zunächst, welcher Benutzer auf dem System nach einem Boot automatisch eingeloggt wird, damit die
+Hier wird zunächst geprüft, welcher Benutzer auf dem System nach einem Boot automatisch eingeloggt wird, damit die
 Desktop-Umgebung die passenden Programme startet.
 Erwartet wird hier der Benutzer \emph{pi}, was bei der Prüfung bestätigt wird.
 
@@ -58,7 +58,7 @@ Ein Blick auf die Zeilen \num{6} und \num{7} des ausgeführten Skripts verweise 
 \noindent Das Skript \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/\allowbreak update.sh}
 legt eine neue Log-Datei an und initiiert dann den Autostart Prozess.
 
-\begin{lstlisting}[language=Bash,numbers=left,xleftmargin=2.5em,framexleftmargin=2em,firstnumber=13]
+\begin{lstlisting}[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=13]
 for dir in `cat .startlist.sh`
 do
   if [[ $dir = \#* ]] ; then
@@ -83,5 +83,5 @@ das denselben Namen wie der Ordner selbst inklusive der Dateiendung \texttt{.sh}
 Zur Erweiterung der Autostart-Funktion oder dem Hinzufügen eigener Prozesse nach Systemstart muss somit lediglich ein
 Ordner im Pfad \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak auto\-start/} angelegt werden, in dem eine
 ausführbare Datei mit dem Namen des Ordners inklusive der Dateiendung \texttt{.sh} liegt.
-Weitere Informationen zu dieser Vorgehensweise und ein Beispiel der Erweiterung werden in Kapitel \ref{subsubsec:bms-monitor}
+Weitere Informationen zu dieser Vorgehensweise und ein Beispiel der Erweiterung werden in Kapitel \ref{subsec:bms-monitor}
 gezeigt.
