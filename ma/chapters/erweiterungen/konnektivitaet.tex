@@ -105,11 +105,11 @@ angepasst werden.
 Hierfür sollte ein weiteres Skript erstellt werden, welches die neue Logik enthält.
 Dieses kann wie folgt aussehen:
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em]{listing/connectWlan2.sh}
+\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Verbindes des \texttt{wlan2} Interface]}]{listing/connectWlan2.sh}
 
 \noindent Das Skript kann jetzt am Ende des bereits bestehenden Skripts \texttt{configNetwork.sh} aufgerufen werden.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=42,lastline=42,firstnumber=42]{listing/configNetwork.sh}
+\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=42,lastline=42,firstnumber=42,caption={[Aufrufen des \texttt{connectWlan2.sh} Skripts]}]{listing/configNetwork.sh}
 
 \noindent Der Raspberry Pi verbindet sich jetzt während dem Systemstart mit dem konfigurierten Netzwerk.
 
@@ -319,7 +319,7 @@ sudo ./connectWwan0.sh&
 \noindent Der Inhalt der Datei spiegelt die Verbindung des Modems mit dem Netzwerk und das Abgreifen der \gls{ip}
 über \gls{dhcp} wieder und sieht folgendermaßen aus.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em]{listing/connectWwan0.sh}
+\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Modemkonfiguration des \texttt{wwan0} Interfaces]}]{listing/connectWwan0.sh}
 
 \noindent Der Roboter verbindet sich nun bei Systemstart per Modem mit dem Mobilfunknetz des Anbieters, vorausgesetzt,
 es befindet sich eine gültige und entsperrte \gls{sim} Karte im Slot auf der Oberseite des Rumpfes.

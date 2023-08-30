@@ -6,14 +6,14 @@
 Der Raspberry Pi des \gls{go1} nutzt eines seiner Netzwerk-Schnittstellen, um ein \gls{wlan} zu publizieren.
 Ein Blick auf das Autostartmodul \texttt{configNetwork} zeigt, dass hierfür das Interface \texttt{wlan1} verwendet wird.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=35,lastline=38,firstnumber=35]{listing/configNetwork.sh}
+\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=35,lastline=38,firstnumber=35,caption={[Konfiguration des hostapd in \texttt{configNetwork.sh}]}]{listing/configNetwork.sh}
 
 \noindent Um weitere Informationen Konfiguration des \gls{wlan} zu finden, muss die \gls{hostapd} Konfiguration in
 \texttt{/etc/\allowbreak hostapd/\allowbreak hostapd\allowbreak .conf} betrachtet werden.
 Der Service \texttt{\gls{hostapd}} ist ein für Nutzer eines Systems verfügbarer Service für diverse Access Points und
 Authentifizierungsserver\footcite{hostapd-doc}.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=18,lastline=22,firstnumber=18]{listing/hostapd.conf}
+\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=18,lastline=22,firstnumber=18,caption={[Konfiguration des \texttt{hostapd}]}]{listing/hostapd.conf}
 
 \noindent Hier ist ersichtlich, dass die \gls{ssid} des \gls{wlan} Access Points der Seriennummer des jeweiligen \gls{go1} entspricht.
 Diese ist auf diversen Teilen des Roboters gekennzeichnet.
