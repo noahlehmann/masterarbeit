@@ -3,16 +3,126 @@
 \section{Fazit}
 \label{sec:fazit}
 
-
+Dieses Kapitel dient als Abschluss und Zusammenfassung der erarbeiteten Erkenntnisse dieser Arbeit.
+Zu Beginn werden die Ergebnisse dieser Arbeit zusammengefasst und bewertet.
+Danach soll die Vorgehensweise und das Arbeitsmittel in Form des \gls{go1} bewertet werden.
+In diesem Zug wird auch ein Fazit zur Integration dessen in ein Hochschulökosystem geschlossen.
+Abschließend soll ein Ausblick gestaltet werden, der die potenziell nächsten Schritte der Arbeit am Roboter in Aussicht stellt.
 
 \subsection{Rückblick}
 \label{subsec:ruckblick}
 
+Diese Arbeit hatte besonders das Ziel, als Grundlage für die Arbeit mit dem \gls{go1} angesehen zu werden, um ihn dann in einem
+Hochschulumfeld in der Forschung, Lehre und anderen Gebieten einsetzen zu können.
+Hierfür wurde der Roboter in ein vereinfachtes Feld der Serviceroboter eingeordnet, wobei ebenfalls erläutert wurde, welche weiteren
+Merkmale zutreffend sind.
+Anschließend wurde der Aufbau und Umfang des GO1 in der Edu Version genau dokumentiert, sodass dieser Teil als Referenz für die
+Einarbeitung in den Roboter verwendet werden kann.
+Im Architekturbereich wurden die internen Komponenten genau analysiert.
+Hierzu gehören auch die genauen Kenndaten der verbauten Recheneinheiten, deren Funktionen und besonders die Kommunikation
+der Einheiten untereinander.
+
+Anhand der gewonnenen Erkenntnisse über den Roboter konnte mit der Analyse der Funktionen begonnen werden.
+Nach Dokumentation des Lieferumfangs und der diversen Möglichkeiten der Inbetriebnahme wurden diverse Grundfunktionen sowie
+vereinzelt auch fortgeschrittene Funktionen des \gls{go1} dokumentiert und bewertet.
+Viele dieser Funktionen werden zwar vom Hersteller beworben, leider jedoch nicht dokumentiert, weshalb die Arbeit
+an dieser Stelle als detaillierte und besonders umfangreiche alternative Dokumentation angesehen werden kann.
+Anzumerken ist hier der hohe Detailgrad der Untersuchungen bei Funktionen, die nicht oder nur unzureichend
+dokumentiert oder nicht vollständig funktionsfähig sind.
+Da nicht alle Funktionen des Roboters getestet wurden, wurde anschließend eine Liste der wichtigsten nicht bearbeiteten Funktionen
+angefertigt, in der auch Referenzen zu einer anderen Arbeit gegeben sind, die sich mit großen Teilen dieser
+Funktionen beschäftigt.
+
+Abschließend wurde auf dem Wissen des Aufbaus, der Komponenten und der Funktionen des \gls{go1} eine Reihe neuer Funktionen
+und Erweiterungen erarbeitet, welche im allgemeinen alle das Ziel verfolgen, den Roboter aus der Ferne steuern zu können
+und somit deutlich flexibler einsetzbar zu machen.
+Ein weiteres Ziel der Funktionen ist es, die Grundlage für eine autonome Nutzung des Roboters zu schaffen, in dem man es
+steuernder Software ermöglicht, auf die Daten des Roboters zuzugreifen, ohne direkt verbunden zu sein.
+
+Zuletzt wird die Arbeit noch bewertet und ein Ausblick geschaffen, welcher in den folgenden Abschnitten erarbeitet wird.
+
 \subsection{Einschätzung}
 \label{subsec:einschatzung}
+
+Die Arbeit am \gls{go1} ist eine meist ertragreiche, jedoch oftmals auch mühsame.
+Einerseits sind die Präzision der Bauteile, besonders der mechanischen Bauteile der Motoren und Gelenkstrukturen, die Qualität
+verbauten Komponenten, wie der drei NVIDIA Jetsons und der Raspberry Pi, sowie der Funktionsumfang von Teilen der
+gelieferten Software beeindruckend, besonders in Relation zum Einstiegspreis des Roboters.
+Jedoch zeigt die Ausstattung und Umsetzung besonders des Edu Models des GO1 klare Defizite, möglicherweise durch die kurze
+Entwicklungszeit, welche sich anhand der verwendeten open-source Software und der Bekanntgabe des Verkaufs annähernd auf
+zwei bis drei Jahre schätzen lässt.
+Dieses Model ist auch bedeutend teurer in der Anschaffung, was die initiale Erwartung deutlich erhöht.
+
+Positiv anzumerken sind die Öffnung aller Systeme für die Erweiterung durch neue Funktionen, die ausreichende Rechenkraft
+der verbauten Einplatinencomputer und die umfangreiche Ausstattung an Sensorik.
+Besonders die Verwendung von Open-Source Komponenten wie den Betriebssystemen, verwendeten nativen Bibliotheken und
+Treibern für verbaute Zusatzkomponenten erleichtern die Untersuchung und Erweiterung der Funktionen, die der \gls{go1}
+bereits ab Werk liefert.
+
+Negativ anzumerken sind hingegen die unzureichende Dokumentation der Roboter, besonders der Unitree-Bibliotheken, sowie
+das Verbergen der Implementierungen durch die ausschließliche Verwendung von Binärcode für native Funktionen.
+Das macht es besonders bei der Suche nach Fehlern bei zu testenden Funktionen nahezu unmöglich, die Ursachen zu identifizieren,
+ohne die Bestandssoftware detailliert zu untersuchen und teilweise zu Reverse-Engineering zurückzugreifen.
+
+Eine einfache Integration des \gls{go1} in ein Hochschulökosystem ist somit ohne angemessenen Aufwand nicht möglich.
+Die initiale Dokumentation der Funktionen, das Testen und Bewerten dieser muss als Grundlage dieser Arbeit gesehen werden.
+Um den Roboter dann in realen Situation an der Hochschule einsetzen zu können, kann dann auf die erarbeiteten Erkenntnisse
+aufgebaut werden.
+Für die Integration in die Lehre ist der Roboter hingegen ein wertvolles Gut.
+Das Testen der Funktionen und das Erweitern dieser durch eigene Entwicklungen kann in verschiedenen Kenntnisständen der
+Robotik durchgeführt werden.
+So ist dieser Roboter durch die Nutzung bekannter Komponenten wie der NVIDIA Karten und des Raspberry Pis eine solide Plattform
+für Anfänger auf dem Gebiet.
+Arbeitet man jedoch intensiver mit dem Gerät, so Bedarf es eines weiten Spektrums an Kenntnissen, unter anderen in den Bereichen
+der Grundlageninformatik, hardwarenaher Programmierung und der Programmierung allgemein, Netzwerktechnik, Physik, Elektrotechnik,
+Systemadministration und besonders der \gls{ki}.
+Richtig eingesetzt ist der \gls{go1}, sowie ähnliche Geräte, eine sinnvolle Investition in eine Hochschule und der Lehre dieser.
+
 
 \subsection{Ausblick}
 \label{subsec:ausblick}
 
+Zuletzt soll diese Arbeit noch als Referenz für Zukünftige Projekte am \gls{go1} dienen.
+Die Ausarbeitung des Funktionsumfangs des Roboters kann in mehreren Schritten erfolgen, welche in ihrer Komplexität
+steigen und aufeinander aufbauen.
+Die Erweiterungen haben das Ziel, den Roboter möglichste autonom verwenden zu können, ihm also eine Aufgabe zuzuweisen,
+die er dann in allen Belangen ohne menschliche Unterstützung erledigen kann.
 
-%\input{ma/chapters/fazit/naechste_scritte}
+Der erste Schritt ist die dauerhafte Erreichbarkeit des Roboters für Entwickler und externe Server, unabhängig des Standortes
+dessen.
+Hierfür können die Erkenntnisse aus den Kapiteln \nameref{subsubsec:wifi} und \ref{subsubsec:gsm} verwendet werden, um
+den Roboter per \gls{vpn} an einen Server zu verbinden, über den er nun dauerhaft und unabhängig der Art der Verbindung zum Internet
+erreichbar ist.
+
+Über diese Verbindung kann im zweiten Schritt eine Art Austausch der Logs und aktuellen Daten zur Telemetrie, des Standortes und
+des \gls{bms} zwischen dem Roboter und einem fest installierten Server implementiert werden.
+Dies ist nicht zwingend trivial, da hierfür das Format der Daten, das Intervall des Austauschs und die Art der Daten festgelegt werden
+müssen.
+Zudem muss das Protokoll zur Kommunikation und das Format der zu speichernden Daten erarbeitet werden.
+Ein besonderes Augenmerk muss hierfür auf die Latenz der Übertragung gelegt werden, da diese im Laufe dieser Arbeit
+oftmals ein Problem in der Effizienz der genutzten Funktionen darstellte.
+
+Nach Austausch der relevanten Daten in einem effizienten, robusten und festgelegten Format kann an der Arbeit der manuellen
+Fernsteuerung des Systems begonnen werden.
+Auch hier muss der Fokus auf der Übertragungsgeschwindigkeit der Daten und der Zuverlässigkeit der Verbindung liegen.
+Im Rahmen der Fernsteuerung kann ebenfalls an der effizienten Videoübertragung gearbeitet werden, da diese zur sicheren Steuerung
+des Roboters ohne Sichtkontakt zu diesem zwingend nötig ist.
+Auch die Nutzung der Ultraschalldaten kann hier in Betracht gezogen werden.
+
+Als letzter Schritt zur Autonomie ist abschließend die Steuerung zu bearbeiten.
+Denkbar sind hier zwei Szenarien, die besonders von den Erkenntnissen zur Qualität der Netzwerkverbindung aus den
+vorigen Schritten abhängig sind.
+ISt die Übertragung der Daten unzuverlässig, so sollte die Übertragungsmenge verringert werden und der Roboter
+über eingebettete Software gesteuert werden.
+Hier ist der Fokus auf die Effizienz der Implementierung zu legen, da die Recheneinheiten des Roboters nur
+eine begrenzte Leistung liefern können.
+Ist die Übertragungsrate ausreichend, so kann die Steuerung des Roboters auf ein externes System ausgelagert
+werden.
+Hier ist der Fokus auf die Übertragung der Daten gelegt.
+
+Abschließend kann der \gls{go1} anhand der Erkenntnisse dieser Arbeit und der möglichen Erweiterungen auf
+mögliche Einsatzzwecke erforscht werden, um den Übergang der akademischen Nutzung zu einer kommerziellen Nutzung
+zu schaffen, die der Gesellschaft potenziell Nutzen bringt, was im Endeffekt das ultimative Ziel aller akademischen Arbeiten
+ist, diese Arbeit mit dem Titel \emph{\mytitle} eingeschlossen.
+
+
