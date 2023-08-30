@@ -36,7 +36,7 @@ Laut der JavaScript-Dokumentation ist ein \texttt{Uint8Array} ein Array aus \num
 Somit können je zwei Ziffern der hexadezimalen Ausgabe des \gls{bms} als ein Wert des Arrays interpretiert werden.
 Die Zeilen \num{14} bis \num{17} und Zeile \num{20} in Listing \ref{lst:bms-reverse} zeigen die Umwandlungen der \num{8}-bit Integer.
 
-\begin{lstlisting}[language=JavaScript,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=14,label={lst:bms-reverse},caption=Inhalt der Webpack Datei \texttt{bmsReceivers.ts}]
+\begin{lstlisting}[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=14,label={lst:bms-reverse},caption=Inhalt der Webpack Datei \texttt{bmsReceivers.ts}]
 const uint8s = new Uint8Array(message);
 data.bms.version = uint8s[0] + "." + uint8s[1];
 data.bms.status = uint8s[2];
@@ -53,7 +53,7 @@ data.bms.voltage = data.bms.cellVoltages.reduce((a,c) => a+c);
 \noindent Die Dokumentation der Klasse \texttt{DataView} zeigt, das die Funktionen \texttt{get\allowbreak Int32()} und \texttt{get\- Uint16()}
 folgenden Syntax haben\footcite{dataview}.
 
-\begin{lstlisting}[language=JavaScript]
+\begin{lstlisting}
 getInt32(byteOffset, littleEndian)
 getUint16(byteOffset, littleEndian)
 \end{lstlisting}

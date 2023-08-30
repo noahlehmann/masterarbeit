@@ -13,7 +13,7 @@ die Bewegung über MQTT steuern lässt.
 Eine Inspektion des Quellcodes der Webseite zeigt folgenden Ausschnitt der Datei \texttt{webpack\allowbreak :///\allowbreak src/\allowbreak views/\allowbreak Vision.vue}.
 
 \begin{lstlisting}[
-    language=JavaScript,numbers=left,xleftmargin=\dimexpr3em-1pt,framexleftmargin=2.5em,
+    numbers=left,xleftmargin=\dimexpr3em-1pt,framexleftmargin=2.5em,
     firstnumber=172,
     label={lst:vision-vue},caption=Ausschnitt der Datei \texttt{Vision.vue}
 ]
@@ -37,7 +37,7 @@ in dem $x$ und $y$ Werte angegeben werden, um die Position des Sticks relativ zu
 Über das Bewegen des linken Sticks der auf der Webseite angezeigten Steuerungen auf ein oberes Maximum lässt sich über
 das Einhängen eines Debuggers folgender Wert der vier Koordinaten ausgeben.
 
-\begin{lstlisting}[language=JavaScript]
+\begin{lstlisting}
 evt = {lx: 0,ly: 1,rx: 0,ry: 0}
 \end{lstlisting}
 
@@ -55,14 +55,14 @@ Zum Test der Ergebnisse kann ein Befehl mit dem Paket \texttt{mosquitto\_pub} an
 Hierfür ist die hexadezimale Darstellung der Werte hilfreich.
 Die hexadezimale Representation des binären Wertes eines \texttt{float32} mit dem Wert \num{1} ist Folgende.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 Binaer  = 00111111100000000000000000000000
 Hex     = 3F800000
 \end{lstlisting}
 
 \noindent Der Befehl lautet wie folgt.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 echo -ne "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x3f\x80\x00\x00" | mosquitto_pub -h 192.168.123.161 -t controller/stick -s
 \end{lstlisting}
 

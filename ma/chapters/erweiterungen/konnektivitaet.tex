@@ -27,7 +27,7 @@ Im Skript \texttt{configNetwork.sh} werden zu Beginn alle Interfaces abgeschalte
 und \texttt{wlan1} wieder aktiviert und konfiguriert werden.
 Das Interface \texttt{wlan2} muss deshalb zunächst wieder aktiviert werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo ifconfig wlan2 up
 \end{lstlisting}
 
@@ -39,7 +39,7 @@ Um die sensiblen Netzwerkkonfigurationen nicht zu korrumpieren, wird hierfür ei
 mit einem Access-Point erstellt.
 Hierfür wird im Verzeichnis \texttt{/etc/wpa\_supplicant/} ein neues Verzeichnis für eigene Verbindungen angelegt.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ mkdir /etc/wpa_supplicant/config.d
 \end{lstlisting}
 
@@ -47,7 +47,7 @@ pi@raspberrypi:~ $ mkdir /etc/wpa_supplicant/config.d
 Wichtig ist hierbei das Setzen der korrekten Landeskürzung, um dem Betriebssystem klarzustellen, welche rechtlichen Grundlagen
 für die kabellose Verbindung über \gls{wlan} eingehalten werden müssen.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ echo "\
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
@@ -57,19 +57,19 @@ country=DE \n" \
 
 \noindent Diese Länderkürzung muss auch noch global im System hinterlegt werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 iw region set DE
 \end{lstlisting}
 
 \noindent Daraufhin können die Zugangsdaten zum Access-Point verschlüsselt an die oben erstellte \texttt{wlan2.conf}-Datei angehängt werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ wpa_passphrase Beispiel-SSID passwort >> /etc/wpa_supplicant/conf.d/wlan2.conf
 \end{lstlisting}
 
 \noindent Die Datei sollte nun wie folgt aussehen:
 
-\begin{lstlisting}[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em]
+\begin{lstlisting}[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em]
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 country=DE
@@ -83,14 +83,14 @@ network={
 \noindent Zeile \num{6} - \texttt{psk} - sollte hierbei zur Geheimhaltung des Passworts entfernt werden.
 Nun kann das Interface mit der erstellten Konfiguration mit dem gewünschten Access-Point verbunden werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ wpa_supplicant -B -i wlan2 -c /etc/wpa_supplicant/conf.d/wlan2.conf
 \end{lstlisting}
 
 \noindent Sollte bereits eine laufende Konfiguration für das Interface vorhanden sein, so muss diese zuerst mit folgendem
 Befehl entfernt werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo rm /var/run/wpa_supplicant/wlan2
 \end{lstlisting}
 
@@ -105,11 +105,11 @@ angepasst werden.
 Hierfür sollte ein weiteres Skript erstellt werden, welches die neue Logik enthält.
 Dieses kann wie folgt aussehen:
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Verbindes des \texttt{wlan2} Interface]}]{listing/connectWlan2.sh}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Verbindes des \texttt{wlan2} Interface]}]{listing/connectWlan2.sh}
 
 \noindent Das Skript kann jetzt am Ende des bereits bestehenden Skripts \texttt{configNetwork.sh} aufgerufen werden.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=42,lastline=42,firstnumber=42,caption={[Aufrufen des \texttt{connectWlan2.sh} Skripts]}]{listing/configNetwork.sh}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=42,lastline=42,firstnumber=42,caption={[Aufrufen des \texttt{connectWlan2.sh} Skripts]}]{listing/configNetwork.sh}
 
 \noindent Der Raspberry Pi verbindet sich jetzt während dem Systemstart mit dem konfigurierten Netzwerk.
 
@@ -121,7 +121,7 @@ kann, um den Roboter dauerhaft mit dem Internet zu verbinden oder ihn aus der Fe
 Die Dokumentation des Herstellers gibt jedoch keine Hinweise zur Konfiguration oder Nutzung des Modems.
 Ein Blick auf die verbundenen \gls{usb} Geräte gibt einen Hinweis auf das genaue Modem.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ lsusb | grep Quectel
 Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem
 \end{lstlisting}
@@ -152,7 +152,7 @@ Je nach Modus unterscheiden sich auch die verwendeten Treiber des Gerätes.
 Um mit der Konfiguration des Modems fortzufahren, muss zuerst der Modus bestimmt werden, in dem das Gerät am Pi betrieben wird.
 Hierfür kann die \texttt{lsusb} Device-Nummer genutzt werden, die folgendermaßen bestimmt werden kann.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ lsusb | grep Quectel
 Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem
 pi@raspberrypi:~ $ lsusb -t | grep "Dev 3"
@@ -169,7 +169,7 @@ pi@raspberrypi:~ $ lsusb -t | grep "Dev 3"
 \noindent Zu erkennen ist, dass das Gerät mit dem Treiber \texttt{qmi\_wwan} betrieben wird.
 In diesem Modus wird das Modem als \texttt{wwan}-Interface gelistet.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ ifconfig -a | grep wwan
 wwan0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
 \end{lstlisting}
@@ -177,7 +177,7 @@ wwan0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
 \noindent Für die vereinfachte Nutzung des Modems im \texttt{qmi} Modus wird das Paket \texttt{libqmi-utils} nachinstalliert.
 Hierfür muss der Raspberry Pi mit dem Internet verbunden sein\footnote{Siehe Kapitel \ref{subsubsec:wifi}}.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo apt update && sudo apt install libqmi-utils
 \end{lstlisting}
 
@@ -185,7 +185,7 @@ pi@raspberrypi:~ $ sudo apt update && sudo apt install libqmi-utils
 Dateisystem bestimmt werden.
 Hierfür können die Kernel-Nachrichten zurate gezogen werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ dmesg | grep qmi
 [    7.606540] qmi_wwan 1-1.3:1.4: cdc-wdm0: USB WDM device
 [    7.682555] qmi_wwan 1-1.3:1.4 wwan0: register 'qmi_wwan' at usb-fe980000.usb-1.3, WWAN/QMI device, 8e:c2:07:55:9c:c3
@@ -195,7 +195,7 @@ pi@raspberrypi:~ $ dmesg | grep qmi
 \noindent Der Gerätename ist in der ersten Zeile der Ausgabe als \texttt{cdc-wdm0} angegeben.
 Das kann über eine Ausgabe der möglichen Geräte im Verzeichnis \texttt{/dev/} bestätigt werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ ls /dev/cdc-*
 /dev/cdc-wdm0
 \end{lstlisting}
@@ -206,7 +206,7 @@ pi@raspberrypi:~ $ ls /dev/cdc-*
 Nun müssen einige Vorbereitungen getroffen werden, um das Modem mit dem Mobilfunknetz verbinden zu können.
 Zuerst muss geprüft werden, ob das Modem \emph{online} ist.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --dms-get-operating-mode
 error: couldn't create client for the 'dms' service: CID allocation failed in the CTL client: Transaction timed out
 \end{lstlisting}
@@ -215,7 +215,7 @@ error: couldn't create client for the 'dms' service: CID allocation failed in th
 Ein gängiger Service, der auf das Modem zugreift, ist oft der \texttt{ModemManager.service}.
 Folgender Befehl prüft, ob dieser aktiv ist.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ systemctl | grep Modem
 ModemManager.service   loaded active running   Modem Manager
 \end{lstlisting}
@@ -223,7 +223,7 @@ ModemManager.service   loaded active running   Modem Manager
 \noindent Folgender Befehl stoppt diesen.
 Danach kann das Modem noch einmal per \texttt{qmicli} abgefragt werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo systemctl stop ModemManager
 pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --dms-get-operating-mode
 [/dev/cdc-wdm0] Operating mode retrieved:
@@ -238,7 +238,7 @@ Ein möglicher blockierender Prozess muss dann über seine Prozess-ID und den Be
 Ist der angezeigte \texttt{Mode} des \texttt{qmicli} Befehls nicht \texttt{online}, so muss dieser Wert manuell gesetzt
 werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --dms-set-operating-mode='online'
 [/dev/cdc-wdm0] Operating mode set successfully
 \end{lstlisting}
@@ -249,7 +249,7 @@ pi@raspberrypi:~ $ sudo qmicli -d /dev/cdc-wdm0 --dms-set-operating-mode='online
 Als Nächstes kann das Modem in das Mobilfunknetz eingewählt werden.
 Hierfür kann folgender Befehl genutzt werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo qmicli \
     -p \ # Request to use the 'qmi-proxy' proxy
     -d /dev/cdc-wdm0 \ # Device Path
@@ -270,7 +270,7 @@ Ein weiterer möglicher Fehler kann sein, dass das Modem nicht für das Protokol
 In diesem Fall muss das Netzwerk-Interface gestoppt werden, das Modem konfiguriert und daraufhin wieder aktiviert werden.
 Anschließend kann der \texttt{operating-mode} nochmals geprüft werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo ip link set wwan0 down
 pi@raspberrypi:~ $ echo 'Y' | sudo tee /sys/class/net/wwan0/qmi/raw_ip
 Y
@@ -290,7 +290,7 @@ Sobald das Modem im Mobilfunknetz eingewählt ist, kann es über \gls{dhcp} eine
 Hierfür wird ein weiteres Paket installiert, das eine Konfiguration sucht und - falls keine gefunden wird - eine
 Anfrage im Netz zur Zuweisung einer \gls{ip} stellt.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ sudo apt install udhcpc
 pi@raspberrypi:~ $ sudo udhcpc -q -f -i wwan0
 udhcpc: started, v1.30.1
@@ -312,14 +312,14 @@ Genauer kann hier die \texttt{configNetwork} Funktion erweitert werden, wie bere
 dokumentiert.
 Hierfür muss lediglich ein weiteres Skript am Ende der \texttt{configNetwork.sh} Datei aufgerufen werden.
 
-\begin{lstlisting}[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=43]
+\begin{lstlisting}[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=43]
 sudo ./connectWwan0.sh&
 \end{lstlisting}
 
 \noindent Der Inhalt der Datei spiegelt die Verbindung des Modems mit dem Netzwerk und das Abgreifen der \gls{ip}
 über \gls{dhcp} wieder und sieht folgendermaßen aus.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Modemkonfiguration des \texttt{wwan0} Interfaces]}]{listing/connectWwan0.sh}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Modemkonfiguration des \texttt{wwan0} Interfaces]}]{listing/connectWwan0.sh}
 
 \noindent Der Roboter verbindet sich nun bei Systemstart per Modem mit dem Mobilfunknetz des Anbieters, vorausgesetzt,
 es befindet sich eine gültige und entsperrte \gls{sim} Karte im Slot auf der Oberseite des Rumpfes.

@@ -3,4 +3,39 @@
 \section{Listings}
 \setstretch{1}
 
-%todo listings einfügen...
+\lstset{
+    numbers=left,
+    xleftmargin=\dimexpr2.5em-1pt,
+    framexleftmargin=2em,
+    captionpos=tl,
+}
+
+\lstinputlisting[title={\texttt{/home/pi/UnitreeUpgrade/start.sh}}]{listing/start.sh}
+\lstinputlisting[title={\texttt{/home/pi/autostart/Unitree/configNetwork/configNetwork.sh}}]{listing/configNetwork.sh}
+\lstinputlisting[title={\texttt{hostapd.conf}}]{listing/hostapd.conf}
+\lstinputlisting[title={\texttt{webpack://../bmyReceivers.ts}}]{listing/bmsReceivers.ts}
+\lstinputlisting[title={\texttt{/home/pi/autostart/Unitree/configNetwork/connectWlan2.sh}}]{listing/connectWlan2.sh}
+\lstinputlisting[title={\texttt{/home/pi/autostart/Unitree/configNetwork/connectWwan0.sh}}]{listing/connectWwan0.sh}
+\lstinputlisting[title={\texttt{/home/pi/Extensions/go1-bmsMonitor/install.sh}}]{listing/go1-bmsMonitor/install.sh}
+\lstinputlisting[title={\texttt{/home/pi/Extensions/go1-bmsMonitor/bmsMonitor/run.sh}}]{listing/go1-bmsMonitor/bmsMonitor/run.sh}
+\lstinputlisting[title={\texttt{/home/pi/Extensions/go1-bmsMonitor/bmsMonitor/sniff\_bms.py}}]{listing/go1-bmsMonitor/bmsMonitor/sniff_bms.py}
+\lstinputlisting[title={\texttt{/home/pi/Extensions/go1-bmsMonitor/bmsMonitor/led\_control.py}}]{listing/go1-bmsMonitor/bmsMonitor/led_control.py}
+\lstinputlisting[title={\texttt{/home/pi/Extensions/go1-bmsMonitor/bmsMonitor/constants.py}}]{listing/go1-bmsMonitor/bmsMonitor/constants.py}
+\begin{lstlisting}[
+    title={Ausschnitt von \texttt{webpack:///src/views/Vision.vue}},
+    firstnumber=172,
+]
+const  handleStickData = (evt: {
+    lx: number;
+    ly: number;
+    rx: number;
+    ry: number;
+}) => {
+    const  floats = new  Float32Array (4);
+    floats [0] = evt.lx;
+    floats [1] = evt.rx;
+    floats [2] = evt.ry;
+    floats [3] = evt.ly;
+    mqtt.publish("controller/stick", floats.buffer , { qos: 0 });
+};
+\end{lstlisting}

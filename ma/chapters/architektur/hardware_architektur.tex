@@ -78,21 +78,21 @@ zu den Eigenschaften dessen.
 Zur Prüfung der Eigenschaften des Pis kann sich mit dem Roboter per Ethernet verbunden werden.
 Über den Standard-Nutzer kann sich laut Dokumentation per \gls{ssh} auf den Roboter verbunden werden.
 
-\begin{lstlisting}[language=sh,label=lst:pi-ssh]
+\begin{lstlisting}[label=lst:pi-ssh]
 # user: pi, password: 123, root-password:123
 ssh pi@192.168.123.161
 \end{lstlisting}
 
 \noindent Als Erstes soll das genaue Modell des Raspberry Pi erkannt werden:
 
-\begin{lstlisting}[language=sh, label=lst:pi-model]
+\begin{lstlisting}[label=lst:pi-model]
 pi@raspberrypi:~ $ grep Model /proc/cpuinfo
 Model		: Raspberry Pi Compute Module 4 Rev 1.0
 \end{lstlisting}
 
 \noindent Die Prüfung der verbauten Variante des Compute Model 4 lässt dich durch folgendes Kommando durchführen:
 
-\begin{lstlisting}[language=sh, label=lst:pi-ram]
+\begin{lstlisting}[label=lst:pi-ram]
 pi@raspberrypi:~ $ grep MemTotal /proc/meminfo
 MemTotal:        1894664 kB
 \end{lstlisting}
@@ -104,7 +104,7 @@ realisiert.
 Um das auf dem Raspberry Pi zu prüfen kann die Belegung des Dateisystems ausgegeben werden.
 Die temporären Dateisysteme werden hierbei ausgeschlossen.
 
-\begin{lstlisting}[language=sh, label=lst:pi-sd]
+\begin{lstlisting}[label=lst:pi-sd]
 pi@raspberrypi:~ $ df -HTx tmpfs -x devtmpfs
 Filesystem     Type  Size  Used Avail Use% Mounted on
 /dev/root      ext4   32G   18G   13G  59% /
@@ -115,7 +115,7 @@ Filesystem     Type  Size  Used Avail Use% Mounted on
 Zudem lässt sich die Gesamtgröße des Dateisystems ablesen - \num{32} \gls{gb}.
 Zur Prüfung des verbauten Betriebssystems und des Linux Kernels kann folgendes Kommando verwendet werden:
 
-\begin{lstlisting}[language=sh, label=lst:pi-os]
+\begin{lstlisting}[label=lst:pi-os]
 pi@raspberrypi:~ $ grep PRETTY_NAME /etc/os-release
 PRETTY_NAME="Debian GNU/Linux 10 (buster)"
 pi@raspberrypi:~ $ uname -r
@@ -142,7 +142,7 @@ man die Funktion des Pi als Schnittstelle zwischen Entwickler und Roboter gut.
 Angeschlossene Geräte lassen sich großenteils über die Ausgabe der per \gls{usb} verbundenen Geräte mit dem Befehl
 \texttt{lsusb} prüfen.
 
-\begin{lstlisting}[language=sh, label=lst:pi-usb]
+\begin{lstlisting}[label=lst:pi-usb]
 pi@raspberrypi:~ $ lsusb
 Bus 001 Device 004: ID 0bda:c812 Realtek Semiconductor Corp.
 Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem
@@ -159,7 +159,7 @@ Netzwerk zu verbinden.
 Ein Blick auf die offizielle Dokumentation der Ultraschallsensoren lässt hier erkennen, dass die beiden Sensoren links und rechts
 am Rumpf des Roboters über den Serial-Port \texttt{ttyAMA0} verbunden sind.
 
-\begin{lstlisting}[language=sh, label=lst:pi-ultrasonic]
+\begin{lstlisting}[label=lst:pi-ultrasonic]
 pi@raspberrypi:~ $ dmesg | grep ttyAMA0
 [    1.251673] fe201000.serial: ttyAMA0 at MMIO 0xfe201000 (irq = 14, base_baud = 0) is a PL011 rev2
 \end{lstlisting}
@@ -176,7 +176,7 @@ Dies gilt auch für die Sensoren im Kopf des \gls{go1}.
 Folgt man der Dokumentation der Hersteller, so erreicht man die Recheneinheit im Kopf des Roboters unter der \gls{ip} Adresse \texttt{192.168.123.13}.
 Verbinden lässt sich der Rechner über den Nutzer \texttt{unitree} und dem Passwort \texttt{123}.
 
-\begin{lstlisting}[language=sh, label=lst:nanos-ssh]
+\begin{lstlisting}[label=lst:nanos-ssh]
 # user: unitree, password: 123, root disabled
 ssh unitree@192.168.123.<nano-ip(13|14|15)>
 \end{lstlisting}
@@ -185,7 +185,7 @@ Laut Hersteller ist auf allen drei NVIDIA Chips das Betriebssystem Ubuntu instal
 Funktionen über die Basis von Debian hinaus mitbringt.
 So auch den Befehl \texttt{lshw}, über den sich eine Zusammenfassung der auf dem System verwendeten Hardware ausgeben lässt.
 
-\begin{lstlisting}[language=sh, label=lst:nanos-hardware-kopf, columns=fixed]
+\begin{lstlisting}[label=lst:nanos-hardware-kopf, columns=fixed]
 unitree@unitree-desktop:~$ sudo lshw -short
 [...] Class       Description
 [...] =======================
@@ -207,7 +207,7 @@ Die nach vorne gerichtete Kamera ist unter \texttt{/dev/video1} gemountet, die i
 Die Dokumentation der Ultraschallsensoren zeigt ebenfalls, dass sich am Serial-Port \texttt{ttyTHS1} der Ultraschall-Sensor
 am Kopf des Roboters befindet.
 
-\begin{lstlisting}[language=sh, label=lst:nano-head-ulrtassonic]
+\begin{lstlisting}[label=lst:nano-head-ulrtassonic]
 unitree@unitree-desktop:~$ dmesg| grep ttyTHS1
 [    1.099918] 70006040.serial: ttyTHS1 at MMIO 0x70006040 (irq = 64, base_baud = 0) is a TEGRA_UART
 \end{lstlisting}
@@ -216,7 +216,7 @@ unitree@unitree-desktop:~$ dmesg| grep ttyTHS1
 Ein Blick auf die Dateisysteme zeigt im Gegensatz zum selben Befehl auf dem Raspberry Pi lediglich die \texttt{root}-Partition,
 ein weiteres Inspizieren zeigt dann jedoch ebenfalls die \texttt{boot}-Partition auf der \gls{sd}-Karte.
 
-\begin{lstlisting}[language=sh, label=lst:nanos-kopf-fs, columns=fixed]
+\begin{lstlisting}[label=lst:nanos-kopf-fs, columns=fixed]
 unitree@unitree-desktop:~$ df -Hx tmpfs -x devtmpfs
 Filesystem      Size  Used Avail Use% Mount
 /dev/mmcblk0p1   15G   12G  2.5G  83% /
@@ -236,7 +236,7 @@ starke Grafikeinheiten verbaut.
 Laut Hersteller ist eine \texttt{NVIDIA Maxwell-GPU} mit 128 Cores verbaut.
 Die genaue Version des Betriebssystems lässt sich analog zum Vorgehen im Raspberry Pi ermitteln:
 
-\begin{lstlisting}[language=sh, label=lst:nanos-kopf-os]
+\begin{lstlisting}[label=lst:nanos-kopf-os]
 unitree@unitree-desktop:~$ grep PRETTY_NAME /etc/os-release
 PRETTY_NAME="Ubuntu 18.04.5 LTS"
 unitree@unitree-desktop:~$ uname -r
@@ -269,7 +269,7 @@ Die Ausgaben für das Betriebssystem in \texttt{/etc/os-release}, der Kernel-Ver
 zur \gls{sd}-Karte aus \texttt{df -Hx tmpfs -xdevtmpfs} stimmen bei beiden Geräten überein.
 Die Unterschiede in der verbundenen Hardware gehen aus folgender Ausgabe hervor:
 
-\begin{lstlisting}[language=sh, label=lst:nanos-hardware-rumpf, columns=fixed]
+\begin{lstlisting}[label=lst:nanos-hardware-rumpf, columns=fixed]
 unitree@unitree-desktop:~$ sudo lshw -short
 [...] Class       Description
 [...] =======================
@@ -294,7 +294,7 @@ Die zentrale Recheneinheit mit der höchsten Leistung ist der im Rumpf verbaute 
 Auf dem NX ist - wie auf beiden Nanos - das Betriebssystem Ubuntu installiert.
 Auch die Kernel-Version ist identisch zu beiden Nanos.
 
-\begin{lstlisting}[language=sh, label=lst:nx-os]
+\begin{lstlisting}[label=lst:nx-os]
 unitree@nx:~$ grep PRETTY_NAME /etc/os-release
 PRETTY_NAME="Ubuntu 18.04.5 LTS"
 unitree@nx:~$ uname -r
@@ -305,7 +305,7 @@ Im Wesentlichen unterscheidet der NX sich in seiner Plattform, der Prozessoreinh
 von den beiden Nanos.
 Folgende Übersicht gibt die Hardwareausstattung aus:
 
-\begin{lstlisting}[language=sh, label=lst:nanos-hardware-rumpf-nx, columns=fixed]
+\begin{lstlisting}[label=lst:nanos-hardware-rumpf-nx, columns=fixed]
 unitree@nx:~$ sudo lshw -short
 [sudo] password for unitree:
 [...] Class       Description
@@ -323,7 +323,7 @@ Die angeschlossene Kamera ist die im Rumpf nach unten gerichtete Kamera.
 Ein Blick auf die Festplattenkapazitäten des NX stellt auch klar, warum Unitree diese Einheit als Kernstück der Rechenleistung des
 \gls{go1} bewirbt.
 
-\begin{lstlisting}[language=sh, label=lst:nx-fs,columns=fixed]
+\begin{lstlisting}[label=lst:nx-fs,columns=fixed]
 unitree@nx:~$ df -Hx tmpfs -x devtmpfs
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/nvme0n1p1  118G   22G   90G  20% /

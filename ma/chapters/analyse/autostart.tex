@@ -34,7 +34,7 @@ autologin-user=pi
 Dateien mit dieser Endung werden von der Desktop-Umgebung verwendet, um Programme zu starten und in der Oberfläche
 gegebenenfalls weitere Informationen wie Bilder und Beschreibungen anzuzeigen.
 
-\begin{lstlisting}[language=sh]
+\begin{lstlisting}
 pi@raspberrypi:~ $ ls /home/pi/.config/autostart/
 unitree.desktop
 pi@raspberrypi:~ $ cat /home/pi/.config/autostart/unitree.desktop
@@ -53,12 +53,12 @@ NoDisplay=true
 Kommandozeilenbefehl interpretiert und ausgeführt.
 Ein Blick auf die Zeilen \num{6} und \num{7} des ausgeführten Skripts verweise lediglich auf ein weiteres Skript.
 
-\lstinputlisting[language=Bash,firstline=6,lastline=7,numbers=left,xleftmargin=2em,framexleftmargin=1.5em,firstnumber=6,caption={[Inhalt der Autostartdatei \texttt{/home/pi/UnitreeUpgrade/start.sh}]}]{listing/start.sh}
+\lstinputlisting[firstline=6,lastline=7,numbers=left,xleftmargin=2em,framexleftmargin=1.5em,firstnumber=6,caption={[Inhalt der Autostartdatei \texttt{/home/pi/UnitreeUpgrade/start.sh}]}]{listing/start.sh}
 
 \noindent Das Skript \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/\allowbreak update.sh}
 legt eine neue Log-Datei an und initiiert dann den Autostart Prozess.
 
-\begin{lstlisting}[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=13]
+\begin{lstlisting}[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=13]
 for dir in `cat .startlist.sh`
 do
   if [[ $dir = \#* ]] ; then

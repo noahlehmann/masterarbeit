@@ -22,7 +22,7 @@ Diese werden auch im folgenden Beispiel verwendet.
 Die Implementierung des Medienservers ist zur Nutzung als Docker-Image verfügbar, welches über folgenden Befehl
 genutzt werden kann.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 docker run --rm -it \
     -e MTX_PROTOCOLS=tcp \
     -p 8554:8554 \
@@ -40,7 +40,7 @@ Sobald der Container gestartet ist, wartet der Medienserver auf Verbindungen.
 
 Das Streaming der Kamerabilder vom Roboter auf den Server verläuft analog zu der Vorgehensweise in Kapitel \ref{subsubsec:video-streaming}.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 ffmpeg -nostdin \                  # Keine Interaktion
     -f video4linux2 \              # Input Format
     -i /dev/video1 \               # Input-URL
@@ -58,13 +58,13 @@ Als Stream Name kann ein selbst gewählter Begriff genutzt werden.
 Streamt man mehrere Kameras gleichzeitig, so bietet es sich an, die Namen nach Ausrichtung der Kamera zu benennen.
 Für den Stream der nach vorne gerichteten Kameras des \gls{go1} bietet sich beispielsweise folgende Server-\gls{url} an:
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 rtsp://192.168.123.70:8554/head
 \end{lstlisting}
 
 \noindent Nach erfolgreicher Verbindung wird auf dem Server folgende Meldung ausgegeben.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 2023/08/25 10:22:02 INF [RTSP] [conn 192.168.123.13:35428] opened
 2023/08/25 10:22:02 INF [RTSP] [session f35fae28] created by 192.168.123.13:35428
 2023/08/25 10:22:02 INF [RTSP] [session f35fae28] is publishing to path 'head', with TCP, 1 track (H264)
@@ -72,7 +72,7 @@ rtsp://192.168.123.70:8554/head
 
 \noindent Auf dem Nano im Kopf des Roboters wird folgende Meldung ausgegeben.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 Output #0, rtsp, to 'rtsp://192.168.123.51:8554/head':
   Metadata:
     encoder         : Lavf57.83.100

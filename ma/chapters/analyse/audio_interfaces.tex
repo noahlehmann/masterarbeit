@@ -10,7 +10,7 @@ Im Kopf des \gls{go1} ist wie in Abschnitt \ref{par:nano-kopf} beschrieben ein L
 Ein Blick auf die Hierarchie der verbundenen \gls{usb} Geräte zeigt, dass das Gerät mit der ID \texttt{Dev \num{6}}
 die Klasse Audio hat.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 unitree@unitree-desktop:~$ lsusb -t | grep Class=Audio
     S|__ Port 4: Dev 6, If 0, Class=Audio, Driver=snd-usb-audio, 12M
     S|__ Port 4: Dev 6, If 1, Class=Audio, Driver=snd-usb-audio, 12M
@@ -22,7 +22,7 @@ Bus 001 Device 006: ID 0d8c:0012 C-Media Electronics, Inc.
 \noindent Der Mount-Point \texttt{/dev/\allowbreak snd/\allowbreak controlC2} des Gerätes lässt sich über den Sym-Link
 im Ordner \texttt{/dev/\allowbreak snd/\allowbreak by-id/} auslesen.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 unitree@unitree-desktop:~$ ls -l /dev/snd/by-id/
 total 0
 lrwxrwxrwx 1 root root 12 1x  28 23:58 usb-C-Media_Electronics_Inc._USB_Audio_Device-00 -> ../controlC2
@@ -48,14 +48,14 @@ Das Icon im rechten oberen Bildrand zeigt an, ob das Audiointerface im Kopf des 
 Hierfür muss der Autostartprozess \texttt{wsaudio} auf dem Nano noch in Betrieb sein.
 Das kann über folgenden Befehl geprüft werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 unitree@unitree-desktop:~$ ps -aux | grep wsaudio
 unitree   8205 95.0  0.4 466312 18360 ?        Rl   00:00   0:23 ./build/wsaudio
 \end{lstlisting}
 
 \noindent Sollte dieser Prozess nicht aktiv sein, so kann das Autostartskript manuell ausgeführt werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 unitree@unitree-desktop:~$ cd /home/unitree/Unitree/autostart/wsaudio/
 unitree@unitree-desktop:~/Unitree/autostart/wsaudio$ ./wsaudio.sh &
 [1] 9179
@@ -79,7 +79,7 @@ Für das Abspielen von Audiodateien müssen diese erst auf den Nano im Kopf des 
 Hierfür kann die auf den meisten Linux-basierten Betriebssystemen installierte Funktion \texttt{scp} verwendet werden.
 Ist der Rechner mit der Datei im Netzwerk des \gls{go1}, so kann folgender Befehl verwendet werden, um die Datei zu kopieren:
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 sshpass -p 123 scp beispiel.wav unitree@192.168.123.13:~/Music
 \end{lstlisting}
 
@@ -92,7 +92,7 @@ der Kennung \num{2} gesucht wird, ausgelesen werden kann.
 Die Kennung wurde am Anfang des Kapitels über den Mount-Point erfasst.
 Die Ausgabe der Datei \texttt{/proc/\allowbreak asound/\allowbreak cards} zeigt den \gls{usb} Lautsprecher unter dem Index \num{2}.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 unitree@unitree-desktop:~$ cat /proc/asound/cards
 [...]
  2 [Device         ]: USB-Audio - USB Audio Device
@@ -103,7 +103,7 @@ unitree@unitree-desktop:~$ cat /proc/asound/cards
 zeigt, dass die Karte mit dem Index \num{2} nur einen Kanal hat, der für das Abspielen verwendet werden kann
 \footnote{\texttt{card2} steht hier für den Index \num{2} der \texttt{/proc/asound/cards}-Liste, \texttt{pcm0p} für das erste \texttt{PLAYBACK} Gerät zur Ausgabe}.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 unitree@unitree-desktop:~$ cat /proc/asound/card2/pcm0p/info
 card: 2
 device: 0
@@ -122,7 +122,7 @@ subdevices_avail: 1
 \footnote{\texttt{plug} steht hier für gesteckte Hardware \texttt{hw} (z.B. \gls{usb}), \num{2} für den Index und \num{0} für den Kanal (subdevice)},
 welcher für folgenden Befehl benötigt wird:
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 unitree@unitree-desktop:~$ aplay -D plughw:2,0  ~/Music/beispiel.wav
 Playing WAVE '/home/unitree/Music/beispiel.wav' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
 \end{lstlisting}
@@ -130,7 +130,7 @@ Playing WAVE '/home/unitree/Music/beispiel.wav' : Signed 16 bit Little Endian, R
 \noindent Zur einfacheren Handhabung von einem externen Gerät können auch folgende Befehle verwendet werden, insofern das Gerät mit dem Netzwerk
 des \gls{go1} verbunden ist:
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 sshpass -p 123 ssh unitree@192.168.123.13 'pkill -f wsaudio'
 sshpass -p 123 ssh unitree@192.168.123.13 'aplay -D plughw:2,0 ~/Music/beispiel.wav'
 \end{lstlisting}

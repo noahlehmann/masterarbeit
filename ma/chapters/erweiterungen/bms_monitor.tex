@@ -64,7 +64,7 @@ Die einzelnen Dateien und Ordner können über ein Installationsskript in die Au
 Folgendes Listing zeigt die relevanten Teile des Installationsskriptes.
 Die vollständigen Dateien sind im Anhang zu finden.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=33,lastline=40,firstnumber=33,caption={[Datei \texttt{install.sh} zur BMS-Moniitor Initialisierung]}]{listing/go1-bmsMonitor/install.sh}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=33,lastline=40,firstnumber=33,caption={[Datei \texttt{install.sh} zur BMS-Moniitor Initialisierung]}]{listing/go1-bmsMonitor/install.sh}
 
 \noindent Folgende Übersicht zeigt den Aufbau des Quellcode-Ordners zur Einordnung des Installationsskripts und der weiteren Erklärungen.
 
@@ -87,12 +87,12 @@ Diese installiert vorerst alle benötigten \emph{Python}-Bibliotheken, die in de
 sind.
 Daraufhin wird das Skript \texttt{sniff\_bms.py} gestartet, welches den BMS-Monitor enthält.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=8,lastline=9,firstnumber=8,caption={[Entkopplung des BMS-Monitor durch \texttt{run.sh}]}]{listing/go1-bmsMonitor/bmsMonitor/run.sh}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=8,lastline=9,firstnumber=8,caption={[Entkopplung des BMS-Monitor durch \texttt{run.sh}]}]{listing/go1-bmsMonitor/bmsMonitor/run.sh}
 
 \noindent Die Zeilen \num{13} bis \num{23} des Skripts \texttt{sniff\_bms.py} zeigen die Dekodierung der binären Message-Payload
 bei neuen MQTT-Nachrichten und die weitere Auswertung der \gls{soc}.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=13,lastline=23,firstnumber=13,caption={[Dekodierung der binären BMS Daten]}]{listing/go1-bmsMonitor/bmsMonitor/sniff_bms.py}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=13,lastline=23,firstnumber=13,caption={[Dekodierung der binären BMS Daten]}]{listing/go1-bmsMonitor/bmsMonitor/sniff_bms.py}
 
 \noindent Die Methode \texttt{struct.unpack(...)} zeigt die in Kapitel \ref{subsubsec:batterie-management} erarbeitete
 Dekodierung der Message-Payload des Topics \texttt{bms/state}.
@@ -101,7 +101,7 @@ Ist das \gls{bms} inaktiv, so besteht die Message-Payload nur aus binären Nulle
 In diesem Fall wird die Funktion \texttt{const\_led(c,r,g,b)} aus dem Modul LED-Control in der Datei \texttt{led\_control.py}
 aufgerufen.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=14,lastline=16,firstnumber=14,caption={[Konstantes Leuchten der LEDs durch \texttt{const\_led()}]}]{listing/go1-bmsMonitor/bmsMonitor/led_control.py}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=14,lastline=16,firstnumber=14,caption={[Konstantes Leuchten der LEDs durch \texttt{const\_led()}]}]{listing/go1-bmsMonitor/bmsMonitor/led_control.py}
 
 \noindent Die Übergabeparameter \texttt{r}, \texttt{g} und \texttt{b} sind die RGB-Werte, die die \glspl{led} am Kopf des
 Roboters annehmen sollen.
@@ -114,14 +114,14 @@ so endet die Funktion und es wird auf die nächste MQTT-Nachricht gewartet.
 Andernfalls werden die \glspl{led} in der \texttt{alert\_led()} Funktion der Datei \texttt{led\_control.py}
 auf Rot-blinkend konfiguriert.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=7,lastline=11,firstnumber=7,caption={[Rotes Blinken der LEDs durch \texttt{alert\_led()}]}]{listing/go1-bmsMonitor/bmsMonitor/led_control.py}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=7,lastline=11,firstnumber=7,caption={[Rotes Blinken der LEDs durch \texttt{alert\_led()}]}]{listing/go1-bmsMonitor/bmsMonitor/led_control.py}
 
 \noindent Die Übergabeparameter sind hier die gleichen wie die der Funktion \texttt{const\_led(c,r,g,b)}.
 Nur den Wert \texttt{r=255} zu setzen hat zur Folge, dass die \glspl{led} in der maximalen Helligkeit Rot leuchten.
 Die Funktion \texttt{lay\_down()} des Moduls Movement-Control ist der Einfachheit wegen in der Datei \texttt{sniff\_bms.py}
 formuliert.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=31,lastline=33,firstnumber=31,caption={[Hinlegen des Hundes im Skript \texttt{sniff\_bms.py}]}]{listing/go1-bmsMonitor/bmsMonitor/sniff_bms.py}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstline=31,lastline=33,firstnumber=31,caption={[Hinlegen des Hundes im Skript \texttt{sniff\_bms.py}]}]{listing/go1-bmsMonitor/bmsMonitor/sniff_bms.py}
 
 \noindent Die Funktion sendet lediglich zwei Befehle an das MQTT-Topic \texttt{controller/action}.
 Die Aktion \texttt{standDown} bewirkt, dass der Roboter alle vier Beine anwinkelt und somit den Rumpf nah an
@@ -134,11 +134,11 @@ Sobald dies passiert werden die Motoren abgeschaltet und können nicht mehr verw
 
 Die Konstanten der gesamten Python-Umgebung sind in der Datei \texttt{constants.py} hinterlegt.
 
-\lstinputlisting[language=Bash,numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Konstanten der Python Umgebung des BMS Monitors]}]{listing/go1-bmsMonitor/bmsMonitor/constants.py}
+\lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Konstanten der Python Umgebung des BMS Monitors]}]{listing/go1-bmsMonitor/bmsMonitor/constants.py}
 
 \noindent Zur finalen Installation der Erweiterung kann wie folgt vorgegangen werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pi@raspberrypi:~ $ mkdir ~/Extensions/ && cd ~/Extensions
 pi@raspberrypi:~/Extensions $ git clone <Repository Link>
 pi@raspberrypi:~/Extensions $ cd go1-bmsMonitor/

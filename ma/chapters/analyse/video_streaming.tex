@@ -25,7 +25,7 @@ Geprüft werden kann dies über den Befehl \texttt{fuser -vm /dev/\allowbreak vi
 die als \texttt{ACCESS}-Flag den Wert \texttt{m} für \texttt{memory mapped files} haben.
 Die Prozesse können dann mit deren Namen beendet werden.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 pkill -f point_cloud_nod
 pkill -f example_point
 \end{lstlisting}
@@ -35,7 +35,7 @@ genutzt werden, das auf allen Ubuntu Systemen des \gls{go1} vorinstalliert ist.
 Folgender Befehl inklusive Erläuterung zu den Optionen kann genutzt werden, um per \texttt{ffmpeg} einen Videostream
 über \gls{rtsp} auf einen Streaming-Server zu starten.
 
-\begin{lstlisting}[language=Bash]
+\begin{lstlisting}
 ffmpeg -nostdin \                  # Keine Interaktion
     -f video4linux2 \              # Input Format
     -i /dev/video1 \               # Input-URL
