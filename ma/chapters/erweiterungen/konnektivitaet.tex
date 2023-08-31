@@ -80,7 +80,7 @@ network={
 }
 \end{lstlisting}
 
-\noindent Zeile \num{6} - \texttt{psk} - sollte hierbei zur Geheimhaltung des Passworts entfernt werden.
+\noindent Zeile \num{6} -- \texttt{psk} -- sollte hierbei zur Geheimhaltung des Passworts entfernt werden.
 Nun kann das Interface mit der erstellten Konfiguration mit dem gewünschten Access-Point verbunden werden.
 
 \begin{lstlisting}
@@ -130,8 +130,7 @@ Verbaut ist ein \emph{Quectel EC25 LTE Modem}, welches in Linuxkreisen häufig g
 genutzt werden kann, ohne neue Treiber nachinstallieren zu müssen.
 
 \myparagraph{Vorbereitung}
-
-Zur Verbindung des Modems mit dem Mobilfunknetz ist eine \gls{sim} Karte zwingend vorausgesetzt.
+Zur Verbindung des Modems mit dem Mobilfunknetz ist eine \gls{sim}-Karte zwingend vorausgesetzt.
 Diese kann in den dafür vorgesehenen Slot auf der Oberseite des Rumpfes eingesteckt werden.
 Genaueres zur Positionierung des Slots kann in Kapitel \ref{subsubsec:recheneinheiten} nachgelesen werden.
 Der Slot ist für Micro-\gls{sim}-Karten der Größe \num{12} mm auf \num{15} mm geeignet.
@@ -142,7 +141,7 @@ Da diese Funktion für alle Kartenanbieter variieren kann, sollte hierfür die D
 Oftmals kann die \gls{pin} Funktion auch durch Endgeräte wie Smartphones deaktiviert werden.
 Auch hier unterscheiden sich die Vorgehensweisen jedoch stark, weshalb nicht weiter auf die Deaktivierung der \gls{pin}
 eingegangen wird.
-Nach Deaktivierung kann die \gls{sim} Karte in den Slot eingefügt und der Roboter eingeschaltet werden.
+Nach Deaktivierung kann die \gls{sim}-Karte in den Slot eingefügt und der Roboter eingeschaltet werden.
 
 
 \myparagraph{Analyse des Modems}
@@ -287,7 +286,7 @@ Der Befehl zu Verbindung mit dem Netzwerk kann nun erneut ausgeführt werden.
 
 Als Letztes muss dem Modem im Mobilfunknetz noch eine \gls{ip} Adresse zugewiesen werden.
 Sobald das Modem im Mobilfunknetz eingewählt ist, kann es über \gls{dhcp} eine \gls{ip} Adresse zugewiesen bekommen.
-Hierfür wird ein weiteres Paket installiert, das eine Konfiguration sucht und - falls keine gefunden wird - eine
+Hierfür wird ein weiteres Paket installiert, das eine Konfiguration sucht und, falls keine gefunden wird, eine
 Anfrage im Netz zur Zuweisung einer \gls{ip} stellt.
 
 \begin{lstlisting}
@@ -322,7 +321,7 @@ sudo ./connectWwan0.sh&
 \lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Modemkonfiguration des \texttt{wwan0} Interfaces]}]{listing/connectWwan0.sh}
 
 \noindent Der Roboter verbindet sich nun bei Systemstart per Modem mit dem Mobilfunknetz des Anbieters, vorausgesetzt,
-es befindet sich eine gültige und entsperrte \gls{sim} Karte im Slot auf der Oberseite des Rumpfes.
+es befindet sich eine gültige und entsperrte \gls{sim}-Karte im Slot auf der Oberseite des Rumpfes.
 
 \myparagraph{Ausblick}
 

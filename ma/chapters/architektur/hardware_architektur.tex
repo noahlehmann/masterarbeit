@@ -26,7 +26,7 @@ Beide werden vom Hersteller nicht für den Zugriff freigeschaltet und können le
 So können beispielsweise die Daten der Motoren und deren Steuerung aktuell nur über Bibliotheken gelesen und manipuliert werden.
 Auch die Daten des \gls{bms} sind nur lesend verfügbar.
 Zentral zu allen Komponenten steht ein Switch, welcher diese über ein Netzwerk verbindet.
-Direkt daran angeschlossen sind alle drei \emph{NVIDIA Jetson} Einheiten - zwei Nanos und ein Xavier NX, der \emph{Raspberry Pi},
+Direkt daran angeschlossen sind alle drei \emph{NVIDIA Jetson} Einheiten -- zwei Nanos und ein Xavier NX, der \emph{Raspberry Pi},
 die \emph{\gls{mcu}} und der nach außen verfügbar gemachte \emph{RJ-45 Port}.
 Der Raspberry Pi kann als zentraler Baustein für alle Entwickler am \gls{go1} bezeichnet werden.
 Bis auf dedizierte Auswertungen oder Zugriffe auf die Kameramodule werden die meisten Prozesse zumindest auf dem Pi verwaltet.
@@ -73,7 +73,7 @@ verwendet.
 \label{par:raspi}
 
 Laut Hersteller-Dokumentation ist im Roboter ein \emph{Raspberry Pi \num{4}} verbaut.
-Anhand der Dokumentation erkennt man lediglich die \gls{ip}-Adresse des Pi - \texttt{192.168.123.161}, jedoch keine Informationen
+Anhand der Dokumentation erkennt man lediglich die \gls{ip}-Adresse des Pi -- \texttt{192.168.123.161}, jedoch keine Informationen
 zu den Eigenschaften dessen.
 Zur Prüfung der Eigenschaften des Pis kann sich mit dem Roboter per Ethernet verbunden werden.
 Über den Standard-Nutzer kann sich laut Dokumentation per \gls{ssh} auf den Roboter verbunden werden.
@@ -112,7 +112,7 @@ Filesystem     Type  Size  Used Avail Use% Mounted on
 \end{lstlisting}
 
 \noindent Zu erkennen ist, dass tatsächlich eine \gls{sd}-Karte als Boot-Partition unter \texttt{/dev/mmcblk0p1} eingebunden wurde.
-Zudem lässt sich die Gesamtgröße des Dateisystems ablesen - \num{32} \gls{gb}.
+Zudem lässt sich die Gesamtgröße des Dateisystems ablesen -- \num{32} \gls{gb}.
 Zur Prüfung des verbauten Betriebssystems und des Linux Kernels kann folgendes Kommando verwendet werden:
 
 \begin{lstlisting}[label=lst:pi-os]
@@ -150,7 +150,7 @@ Bus 001 Device 003: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE m
 \end{lstlisting}
 
 \noindent Nennenswert sind in der Ausgabe besonders der \emph{Realtek} \gls{usb}-WiFi Adapter und das \emph{Quectel}-Modem zum
-Einstecken der 4G/ \gls{lte} Karte.
+Einstecken der 4G/ \gls{lte} \gls{sim}-Karte.
 Die genaue Funktion der \gls{usb} Geräte lässt sich oftmals durch eine Suche der Geräteidentifikation links neben dem
 vollen Namen des Gerätes auf der Herstellerwebsite prüfen.
 Beide Geräte erlauben es dem Pi, sich neben der auf der Platine verbauten Schnittstellen mit dem Internet oder einem lokalen
@@ -291,7 +291,7 @@ Als Übersicht zu den Kerndaten des Nanos im Rumpf des Roboters kann Tabelle \re
 
 Die zentrale Recheneinheit mit der höchsten Leistung ist der im Rumpf verbaute \emph{NVIDIA Jetson Xavier NX} mit der internen
 \gls{ip}-Adresse \texttt{192.168.123.15}.
-Auf dem NX ist - wie auf beiden Nanos - das Betriebssystem Ubuntu installiert.
+Auf dem NX ist, wie auf beiden Nanos, das Betriebssystem Ubuntu installiert.
 Auch die Kernel-Version ist identisch zu beiden Nanos.
 
 \begin{lstlisting}[label=lst:nx-os]
@@ -331,7 +331,7 @@ Filesystem      Size  Used Avail Use% Mounted on
 \end{lstlisting}
 
 Die deutlich höhere Speicherkapazität durch das Anschließen einer \gls{ssd} zusätzlich zur für den Bootvorgang verwendeten
-\gls{sd} Karte ermöglicht dem NX das Auswerten größerer Datenmengen als auf den beiden Nanos mit nur \num{16} \gls{gb}
+\gls{sd}-Karte ermöglicht dem NX das Auswerten größerer Datenmengen als auf den beiden Nanos mit nur \num{16} \gls{gb}
 Speicherkapazität auf deren \gls{sd}-Karten.
 Wie auf den Nanos ist auch auf dem NX die Grafikeinheit deutlich wichtiger als die Recheneinheit.
 Laut Hersteller ist eine \texttt{NVIDIA Volta-GPU} mit 384 Cores und 48 Tensor Cores verbaut.
