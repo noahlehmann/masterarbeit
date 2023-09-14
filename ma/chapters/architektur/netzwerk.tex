@@ -15,8 +15,8 @@ Zudem soll die Methodik der Analyse des Netzwerks und mögliche Problemfeststell
 Abbildung~\ref{fig:netzwerk_ueberblick} gilt als Referenz für die folgenden Ausführungen.
 Zentrale Einheit der Kommunikation sind der verbaute Ethernet Switch und
 der intern verbaute \emph{Raspberry Pi}.
-Wie auf Abbildung~\ref{fig:netzwerk_ueberblick} zu erkennen ist, sind alle fünf Recheneinheiten -
-der Raspberry Pi, die \gls{mcu}, die beiden NVIDIA Jetson Nanos und der Jetson Xavier NX -
+Wie auf Abbildung~\ref{fig:netzwerk_ueberblick} zu erkennen ist, sind alle fünf Recheneinheiten --
+der Raspberry Pi, die \gls{mcu}, die beiden NVIDIA Jetson Nanos und der Jetson Xavier NX --
 per \emph{Ethernet} mit dem Switch verbunden.
 Auch der extern zugängliche Ethernet-Port auf dem Rücken des Roboters ist mit dem Switch verbunden.
 
@@ -41,7 +41,7 @@ Dem Endgerät, das am externen Ethernet-Port an der Oberseite des Roboters anges
 muss eine statische \gls{ip}-Adresse im Bereich \texttt{192.168.123.0/24} vergeben werden, die nicht bereits von einem der oben genannten
 Geräten verwendet wird.
 
-Der Raspberry Pi hat zusätzlich zu seiner physischen Verbindung zum Switch und der \texttt{192.168.123.161}-\gls{ip}-Addresse
+Der Raspberry Pi hat zusätzlich zu seiner physischen Verbindung zum Switch und der \texttt{192.168.123.161}-\gls{ip}-Adresse
 noch ein \gls{wlan} Modul verbaut, mit welchem er das Netz \texttt{192.168.12.0/24} publiziert.
 Dieses Netz wird ab Werk für die Verbindung der App mit dem System benötigt.
 Des Weiteren kann dieses Netz genutzt werden, um eine kabellose Verbindung mit dem Gesamtsystem
@@ -51,9 +51,9 @@ des Roboters herzustellen.
 
 Wie bereits in Kapitel \ref{subsubsec:recheneinheiten} angerissen, besitzt der \gls{go1} auf der Oberseite des Rumpfes
 eine RJ-45 Schnittstelle zur physischen Verbindung mit den Recheneinheiten.
-Nachdem eine gekabelte Verbindung hergestellt wurde, muss auf der verbundenen Einheit eine statische \gls{ip} Adresse
+Nachdem eine gekabelte Verbindung hergestellt wurde, muss auf der verbundenen Einheit eine statische \gls{ip}-Adresse
 konfiguriert werden, die nicht bereits von einer der verbauten Komponenten belegt ist.
-Im Rahmen dieser Arbeit wird stets die \gls{ip} Adresse \texttt{192.168.123.51} angegeben.
+Im Rahmen dieser Arbeit wird stets die \gls{ip}-Adresse \texttt{192.168.123.51} angegeben.
 Vergeben sind lediglich die Adressen, die im Überblick bereits gelistet wurden.
 Ist die statische Adresse konfiguriert, können nun alle Systeme, bei denen \gls{ssh} aktiviert ist, erreicht werden.
 Zu beachten ist lediglich, dass das Netzwerk nur ein geswitchtes Netzwerk ist, kein geroutetes.
@@ -70,7 +70,7 @@ Die genaue Konfiguration dessen ist in Kapitel \ref{subsubsec:lokales-netzwerk} 
 Nach Start des Roboters wird ein Access Point mit der Seriennummer des verwendeten \gls{go1} als \gls{ssid} aufgespannt.
 Das Standardpasswort zur Verbindung ist \texttt{00000000}.
 Die \gls{ip} Konfiguration des Hosts wird dann über \gls{dhcp} geregelt.
-Der Access Point hat die Addresse \texttt{192.168.12.1}, weshalb dem Host auch eine Adresse im Netzwerk
+Der Access Point hat die Adresse \texttt{192.168.12.1}, weshalb dem Host auch eine Adresse im Netzwerk
 \texttt{192.168.12.0/24} vergeben wird.
 
 Um die interne Kommunikation des Pis mit dem Rest des Netzwerks besser nachvollziehen zu können, können die Forwarding-Regeln
@@ -90,7 +90,7 @@ ACCEPT     all  --  anywhere             anywhere
 [...]
 \end{lstlisting}
 
-\noindent Zu erkennen ist, dass das System alle Forwardingversuche zulässt.
+\noindent Zu erkennen ist, dass das System alle Forwarding-Versuche zulässt.
 Des Weiteren müssen für Kommunikation des \texttt{192.168.12.0/24} Netzes mit den Hosts im \texttt{192.168.123.0/24} Netz
 die Routen auf dem Pi geprüft werden.
 
@@ -105,7 +105,7 @@ default via 192.168.12.1 dev wlan1 src 192.168.12.1 metric 305
 \noindent Zu erkennen ist, dass die Standardroute aller Anfragen an das Gateway im Netz \texttt{..12.0/24} über das
 Interface \texttt{wlan1} geleitet werden, worüber sie dann an den verbundenen Host kommen.
 Umgekehrt werden alle Nachrichten des Host an das Netz \texttt{..123.0/24} über das Ethernet Interface \texttt{eth0}
-geleitet, dass als Gateway fungiert und die Pakete an die Empfänger direkt weiterleitet, da diese über den Switch ohne
+geleitet, das als Gateway fungiert und die Pakete an die Empfänger direkt weiterleitet, da diese über den Switch ohne
 weitere Gateways erreichbar sind.
 
 Auf den verbundenen NVIDIA Jetsons ist hingegen nur eine Standardroute definiert.

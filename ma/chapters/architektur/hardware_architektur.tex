@@ -101,7 +101,7 @@ MemTotal:        1894664 kB
 in der Variation mit \num{2} \gls{gb} Arbeitsspeicher verbaut ist.
 Die Boot-Partition und der initiale Festplattenspeicher werden bei diversen Kleinplatinenrechner oftmals über eine \gls{sd}-Karte
 realisiert.
-Um das auf dem Raspberry Pi zu prüfen kann die Belegung des Dateisystems ausgegeben werden.
+Um das auf dem Raspberry Pi zu prüfen, kann die Belegung des Dateisystems ausgegeben werden.
 Die temporären Dateisysteme werden hierbei ausgeschlossen.
 
 \begin{lstlisting}[label=lst:pi-sd]
@@ -138,7 +138,7 @@ pi@raspberrypi:~ $ uname -r
 \end{table}
 
 Wirft man einen Blick auf die zusätzlich zu den im Raspberry Pi integrierten angeschlossenen Komponenten, so erkennt
-man die Funktion des Pi als Schnittstelle zwischen Entwickler und Roboter gut.
+man die Funktion des Pis als Schnittstelle zwischen Entwickler und Roboter gut.
 Angeschlossene Geräte lassen sich großenteils über die Ausgabe der per \gls{usb} verbundenen Geräte mit dem Befehl
 \texttt{lsusb} prüfen.
 
@@ -164,7 +164,7 @@ pi@raspberrypi:~ $ dmesg | grep ttyAMA0
 [    1.251673] fe201000.serial: ttyAMA0 at MMIO 0xfe201000 (irq = 14, base_baud = 0) is a PL011 rev2
 \end{lstlisting}
 
-\noindent Da die Bibliotheken des Herstellers zur Nutzung der Ultraschallsensoren vorkompiliert und nicht dokumentiert ist
+\noindent Da die Bibliotheken des Herstellers zur Nutzung der Ultraschallsensoren vorkompiliert und nicht dokumentiert ist,
 konnten über die Verbindungsart und die Nutzung der Sensoren ohne die Bibliothek keine weiteren Informationen gefunden werden.
 Dies gilt auch für die Sensoren im Kopf des \gls{go1}.
 
@@ -173,7 +173,7 @@ Dies gilt auch für die Sensoren im Kopf des \gls{go1}.
 \myparagraph{NVIDIA Jetson Nano Kopf}
 \label{par:nano-kopf}
 
-Folgt man der Dokumentation der Hersteller, so erreicht man die Recheneinheit im Kopf des Roboters unter der \gls{ip} Adresse \texttt{192.168.123.13}.
+Folgt man der Dokumentation der Hersteller, so erreicht man die Recheneinheit im Kopf des Roboters unter der \gls{ip}-Adresse \texttt{192.168.123.13}.
 Verbinden lässt sich der Rechner über den Nutzer \texttt{unitree} und dem Passwort \texttt{123}.
 
 \begin{lstlisting}[label=lst:nanos-ssh]
@@ -263,7 +263,7 @@ Zusammenfassen lassen sich die Kerndaten des NVIDIA Jetson Nanos im Kopf des Rob
 \myparagraph{NVIDIA Jetson Nano Rumpf}
 \label{par:nano-rumpf}
 
-Der Nano im Rumpf des Roboters is dem Nano im Kopf des Roboters gegenüber bis auf die angeschlossenen Geräte und seiner
+Der Nano im Rumpf des Roboters ist dem Nano im Kopf des Roboters gegenüber bis auf die angeschlossenen Geräte und seiner
 \gls{ip}-Adresse \texttt{192\allowbreak .168\allowbreak .123\allowbreak .14} identisch.
 Die Ausgaben für das Betriebssystem in \texttt{/etc/os-release}, der Kernel-Version aus \texttt{uname -r} und der Informationen
 zur \gls{sd}-Karte aus \texttt{df -Hx tmpfs -xdevtmpfs} stimmen bei beiden Geräten überein.
