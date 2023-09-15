@@ -29,12 +29,12 @@ Abbildung \ref{fig:sequenz-bms} zeigt das Sequenzdiagramm zur Darstellung des Ba
     \caption{Sequenzdiagramm der Batterie-Monitoring Komponenten}\label{fig:sequenz-bms}
 \end{figure}
 
-\noindent Die beteiligten Komponenten des Roboters sind die Autostart Funktion, die Softwarekomponenten BMS-\allowbreak Sniffer, LED-\allowbreak Control
+\noindent Die beteiligten Komponenten des Roboters sind die Autostartfunktion, die Softwarekomponenten BMS-\allowbreak Sniffer, LED-\allowbreak Control
 und Movement-Control, der MQTT-Broker, die \glspl{led} des Kopfes, die \gls{mcu} und die zwölf Motoren.
-Tatsächlich interagiert wird lediglich mit der Autostart-Funktion und dem MQTT-Broker. Die drei Software-Komponenten müssen
+Tatsächlich interagiert wird lediglich mit der Autostartfunktion und dem MQTT-Broker. Die drei Software-Komponenten müssen
 noch entwickelt werden.
 
-Das Autostart-Modul auf dem Raspberry Pi soll um die neue Funktionalität \texttt{bmsMonitoring} erweitert werden.
+Das Autostartmodul auf dem Raspberry Pi soll um die neue Funktionalität \texttt{bmsMonitoring} erweitert werden.
 Hierfür wird ein Ordner mit Skript angelegt, das alle weiteren Softwarekomponenten auslöst.
 Das Modul BMS-Sniffer soll dauerhaft die \gls{bms} Daten über den MQTT-Broker abfragen.
 Ist das \gls{bms} nicht erreichbar, beispielsweise weil der Roboter im Netzbetrieb ohne Akku gestartet wurde,
@@ -47,20 +47,20 @@ Hardwarekomponenten.
 
 \myparagraph{Umsetzung}
 
-Für die Umsetzung des \gls{bms}-Monitors muss zuerst die Autostart-Funktion ergänzt werden.
+Für die Umsetzung des \gls{bms}-Monitors muss zuerst die Autostartfunktion ergänzt werden.
 Hierfür muss der Ordner \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/\allowbreak bmsMonitor}
 erstellt werden.
 In diesem wird das Skript \texttt{bmsMonitor.sh} angelegt, welches lediglich ein weiteres Skript namens \texttt{run.sh}
 als Hintergrundprozess startet.
-Dieser Schritt ist nötig, um die Monitoring-Funktion vom Autostart-Prozess zu entkoppeln.
+Dieser Schritt ist nötig, um die Monitoring-Funktion vom Autostartprozess zu entkoppeln.
 Das \texttt{run.sh} Skript startet nun alle Loggingaktivitäten und die nötigen Software-Komponenten.
 Als letzter Schritt muss die neue Funktion noch in die Startup-Liste
 \texttt{/home/pi/Unitree/autostart/.startlist.sh}
 angehängt werden.
 
-Um die Entwicklung und Anpassung der Autostart-Funktion zu vereinfachen, kann der Quellcode in einem Ordner an anderer
+Um die Entwicklung und Anpassung der Autostartfunktion zu vereinfachen, kann der Quellcode in einem Ordner an anderer
 Stelle über die Versionsverwaltung \emph{Git} aktuell gehalten werden.
-Die einzelnen Dateien und Ordner können über ein Installationsskript in die Autostart-Funktion integriert werden.
+Die einzelnen Dateien und Ordner können über ein Installationsskript in die Autostartfunktion integriert werden.
 Folgendes Listing zeigt die relevanten Teile des Installationsskriptes.
 Die vollständigen Dateien sind im Anhang zu finden.
 
@@ -130,7 +130,7 @@ Die Aktion \texttt{damping} bewirkt, dass der Roboter die Spannung aus den Gelen
 Das hat zur Folge, dass der Roboter leicht zusammensackt, weshalb er vorher in einen liegenden Zustand gebracht werden sollte.
 Die gesamte Aktion der \gls{led} Konfiguration und des Hinlegens ist kurz genug, dass die \gls{soc} des Akkus nicht auf
 \num{3} \% fällt.
-Sobald dies passiert werden die Motoren abgeschaltet und können nicht mehr verwendet werden.
+Sobald dies passiert, werden die Motoren abgeschaltet und können nicht mehr verwendet werden.
 
 Die Konstanten der gesamten Python-Umgebung sind in der Datei \texttt{constants.py} hinterlegt.
 
@@ -145,7 +145,7 @@ pi@raspberrypi:~/Extensions $ cd go1-bmsMonitor/
 pi@raspberrypi:~/Extensions/go1-bmsMonitor $ sh install.sh
 \end{lstlisting}
 
-\noindent Das Installationsskript erstellt einen Link im Autostart-Ordner zum Verzeichnis des geklonten Git-Repositories und
+\noindent Das Installationsskript erstellt einen Link im Autostartordner zum Verzeichnis des geklonten Git-Repositories und
 konfiguriert die Skripte, sodass sie ausführbar sind.
-Bei einem erneuten Systemstart des Raspberry Pi wird die Funktion am Ende des Autostart-Prozess' gestartet.
+Bei einem erneuten Systemstart des Raspberry Pi wird die Funktion am Ende des Autostartprozesses gestartet.
 Der gesamte Quellcode kann in dem zur Versionsverwaltung angelegten Git-Repository genauer untersucht werden\footcite{git-bms-monitor}.

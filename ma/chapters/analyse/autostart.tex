@@ -2,17 +2,17 @@
 \label{subsubsec:software-autostart}
 
 Unitree Robotics hat bei der Implementierung der Startsequenzen ihrer Softwarekomponenten eine einfache, für den Nutzer
-zugängliche Autostart Funktion der Betriebssysteme des Raspberry Pis und der NVIDIA Jetsons verwendet.
+zugängliche Autostartfunktion der Betriebssysteme des Raspberry Pis und der NVIDIA Jetsons verwendet.
 Auf den Ubuntu Systemen wird das Paket \texttt{gnome\allowbreak -start\-up-\allowbreak app\-li\-cations} verwendet.
 Die Installation des Paketes kann durch den Befehl \texttt{apt list --installed | grep gnome-\allowbreak start\-up-\allowbreak app\-li\-cations}
 geprüft werden.
 Anzumerken ist, dass die Funktionalität von der Desktop-Umgebung \emph{Gnome} bereitgestellt wird, nicht vom Betriebssystem
 der Recheneinheiten.
 Die auf \gls{lxde} basierende Desktop-Umgebung \gls{pixel}, die auf dem Raspberry Pi installiert ist, liefert eine andere
-Möglichkeit der Autostart-Konfiguration.
+Möglichkeit der Autostartkonfiguration.
 Dennoch ist die Einrichtung identisch zur Bibliothek \texttt{gnome-\allowbreak start\-up-\allowbreak app\-li\-cations}, welche aber nicht auf dem System
 installiert ist.
-Eine offizielle Dokumentation für die Autostart-Funktion des Pis ist deshalb nicht verfügbar, es ist lediglich ersichtlich,
+Eine offizielle Dokumentation für die Autostartfunktion des Pis ist deshalb nicht verfügbar, es ist lediglich ersichtlich,
 dass die Funktion dem auf dem Open-Source-Projekt \emph{FreeDesktop} beschriebenen Standard \emph{Autostart Of Applications During Startup}
 entspricht\footcite{freedesktop_autostart}.
 Die Funktion wird in diesem Kapitel exemplarisch am Raspberry Pi gezeigt.
@@ -56,7 +56,7 @@ Ein Blick auf die Zeilen \num{6} und \num{7} des ausgeführten Skripts verweise 
 \lstinputlisting[firstline=6,lastline=7,numbers=left,xleftmargin=2em,framexleftmargin=1.5em,firstnumber=6,caption={[Inhalt der Autostartdatei \texttt{/home/pi/UnitreeUpgrade/start.sh}]}]{listing/start.sh}
 
 \noindent Das Skript \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/\allowbreak update.sh}
-legt eine neue Log-Datei an und initiiert dann den Autostart Prozess.
+legt eine neue Log-Datei an und initiiert dann den Autostartprozess.
 
 \begin{lstlisting}[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,firstnumber=13]
 for dir in `cat .startlist.sh`
@@ -80,7 +80,7 @@ Zeile \num{15} prüft, ob der aktuelle Ordner in der Liste auskommentiert wurde 
 In Zeile \num{18} wird andernfalls in den Ordner navigiert und in Zeile \num{20} jenes Skript in dem Ordner ausgeführt,
 das denselben Namen wie der Ordner selbst inklusive der Dateiendung \texttt{.sh} hat.
 
-Zur Erweiterung der Autostart-Funktion oder dem Hinzufügen eigener Prozesse nach Systemstart muss somit lediglich ein
+Zur Erweiterung der Autostartfunktion oder dem Hinzufügen eigener Prozesse nach Systemstart muss somit lediglich ein
 Ordner im Pfad \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak auto\-start/} angelegt werden, in dem eine
 ausführbare Datei mit dem Namen des Ordners inklusive der Dateiendung \texttt{.sh} liegt.
 Weitere Informationen zu dieser Vorgehensweise und ein Beispiel der Erweiterung werden in Kapitel \ref{subsec:bms-monitor}

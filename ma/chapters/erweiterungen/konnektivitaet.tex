@@ -20,7 +20,7 @@ Der Raspberry Pi des \gls{go1} besitzt drei \gls{wlan}-Interfaces, von denen led
 Access-Points verwendet wird.
 Das freie Interface \texttt{wlan2} kann verwendet werden, um den Roboter innerhalb eines bereits bestehenden Netzwerkes kabellos
 mit dem Internet zu verbinden.
-Hierfür muss die \texttt{configNetwork} Autostart-Funktion auf dem Raspberry Pi angepasst werden.
+Hierfür muss die \texttt{configNetwork} Autostartfunktion auf dem Raspberry Pi angepasst werden.
 Diese ist, wie in Kapitel \ref{subsubsec:software-autostart} dokumentiert, im Pfad
 \texttt{/home/\allowbreak pi/\allowbreak Unitree/\allowbreak autostart/\allowbreak configNetwork} zu finden.
 Im Skript \texttt{configNetwork.sh} werden zu Beginn alle Interfaces abgeschaltet, worauf nur die Interfaces \texttt{eth0}
@@ -100,7 +100,7 @@ solange er sich in Funknähe des Access-Points befindet.
 
 \myparagraph{Automatisierung der Verbindung}
 
-Zur automatischen Verbindung des Pis mit dem Internet nach Systemstart kann die Autostart-Funktion \texttt{configNetwork}
+Zur automatischen Verbindung des Pis mit dem Internet nach Systemstart kann die Autostartfunktion \texttt{configNetwork}
 angepasst werden.
 Hierfür sollte ein weiteres Skript erstellt werden, welches die neue Logik enthält.
 Dieses kann wie folgt aussehen:
@@ -130,6 +130,7 @@ Verbaut ist ein \emph{Quectel EC25 LTE Modem}, welches in Linuxkreisen häufig g
 genutzt werden kann, ohne neue Treiber nachinstallieren zu müssen.
 
 \myparagraph{Vorbereitung}
+
 Zur Verbindung des Modems mit dem Mobilfunknetz ist eine \gls{sim}-Karte zwingend vorausgesetzt.
 Diese kann in den dafür vorgesehenen Slot auf der Oberseite des Rumpfes eingesteckt werden.
 Genaueres zur Positionierung des Slots kann in Kapitel \ref{subsubsec:recheneinheiten} nachgelesen werden.
@@ -306,7 +307,7 @@ udhcpc: lease of 10.114.75.205 obtained, lease time 7200
 Mit der Konfiguration des Modems ist der Raspberry Pi bis zum nächsten Systemstart mit dem Internet verbunden.
 Startet man den Pi jedoch neu, so muss die Prozedur seit Anfang des Kapitels noch einmal durchführen.
 Zur vereinfachten automatisierten Verbindung mit dem Mobilfunknetz kann die in Kapitel \ref{subsubsec:software-autostart}
-beschriebene Autostart-Funktion verwendet werden.
+beschriebene Autostartfunktion verwendet werden.
 Genauer kann hier die \texttt{configNetwork} Funktion erweitert werden, wie bereits in Kapitel \ref{subsubsec:wifi}
 dokumentiert.
 Hierfür muss lediglich ein weiteres Skript am Ende der \texttt{configNetwork.sh} Datei aufgerufen werden.
@@ -316,7 +317,7 @@ sudo ./connectWwan0.sh&
 \end{lstlisting}
 
 \noindent Der Inhalt der Datei spiegelt die Verbindung des Modems mit dem Netzwerk und das Abgreifen der \gls{ip}
-über \gls{dhcp} wieder und sieht folgendermaßen aus.
+über \gls{dhcp} wider und sieht folgendermaßen aus.
 
 \lstinputlisting[numbers=left,xleftmargin=\dimexpr2.5em-1pt,framexleftmargin=2em,caption={[Modemkonfiguration des \texttt{wwan0} Interfaces]}]{listing/connectWwan0.sh}
 

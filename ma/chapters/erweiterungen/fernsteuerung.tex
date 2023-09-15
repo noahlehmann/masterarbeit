@@ -44,7 +44,7 @@ evt = {lx: 0,ly: 1,rx: 0,ry: 0}
 \noindent Die möglichen Float-Werte der Koordinaten können also zwischen \num{-1} und \num{1} liegen.
 Die Dokumentation der Implementierung der JavaScript-Klasse \texttt{Float32Array} zeigt, dass das Array \texttt{floats}
 in Zeile \num{178} vier Floats mit der Länge \num{32} bit speichert.
-Die Funktion \texttt{floats.buffer} in Zeile \num{183} schreibt die vier Werte in binärer Representation in den Message
+Die Funktion \texttt{floats.buffer} in Zeile \num{183} schreibt die vier Werte in binärer Repräsentation in den Message
 Payload des MQTT Topics \texttt{controller/stick}.
 Um nun die Werte \texttt{lx=0}, \texttt{ly=1}, \texttt{rx=0} und \texttt{ry=0} manuell an den MQTT Broker des \gls{go1} zu
 senden, müssen die Werte in ihre binäre Form und die richtige Reihenfolge gebracht werden.
@@ -53,7 +53,7 @@ Die Zeilen \num{179} bis \num{182} zeigen, dass die korrekte Reihenfolge der bin
 
 Zum Test der Ergebnisse kann ein Befehl mit dem Paket \texttt{mosquitto\_pub} an den Broker gesendet werden.
 Hierfür ist die hexadezimale Darstellung der Werte hilfreich.
-Die hexadezimale Representation des binären Wertes eines \texttt{float32} mit dem Wert \num{1} ist Folgende.
+Die hexadezimale Repräsentation des binären Wertes eines \texttt{float32} mit dem Wert \num{1} ist folgende.
 
 \begin{lstlisting}
 Binaer  = 00111111100000000000000000000000
